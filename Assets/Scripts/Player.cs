@@ -32,6 +32,10 @@ public class Player : MonoBehaviour
         
     }
 
+    //input
+    public void onClick()
+
+    //get and set
     public Planet GetPlanet(int id)//return planet if player controlls planet with id else null
     {
         return playerPlanets.Where(x => x.PlanetID == id).ElementAtOrDefault(0);
