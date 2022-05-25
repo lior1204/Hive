@@ -20,18 +20,35 @@ public class Planet : MonoBehaviour
 
     //state variables
     private int strength = 0;
+    //private List<Planet> planetsUnderCapture = new List<Planet>();
+    private List<Capture> planetsInCaptureInteraction = new List<Capture>();
+    private float captureImunity = ReferenceManager.Instance.CaptureImunityTime;
+    public bool IsImune { get { return captureImunity <= 0; } }
+    private HiveController HiveRef //dynamic HiveControllerReference based on controllingHive
+    { 
+        get
+        {
+            if (controllingHive == HiveController.Controller.Player) return HiveController.Player;
+            else if (controllingHive == HiveController.Controller.Enemy) return HiveController.Enemy;
+            else return null;
+        }
+    }
 
     //references
     private TextMeshPro _strengthDisplay=null;
     private SpriteRenderer _spriteRenderer=null;
+    private Coroutine strenghtGrowthCoroutine;
+    private Coroutine captureCoroutine;
+
+
     void Start()
     {
         PlanetID = Planet.IDCount;//set id
         PlanetID++;//increase id count
         _strengthDisplay = Instantiate(ReferenceManager.Instance._StrengthDisplayPrefab);//create strength display
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        strenghtGrowthCoroutine=StartCoroutine(GenerateStrength());//start strength and save reference
         SetStartInHive();
-        StartCoroutine(GenerateStrength());
     }
     void Update()
     {
@@ -39,29 +56,18 @@ public class Planet : MonoBehaviour
     }
     private void SetStartInHive()//add to hive and set color
     {
-        if (controllingHive == HiveController.Controller.Player)//if is players first planet make player control.
+        if (HiveRef)//if is players first planet make player control.
         {
-            HiveController.Player.CapturePlanet(this);
-            _spriteRenderer.color = ReferenceManager.Instance.PlayerColor;
+            HiveRef.CapturePlanet(this);
+            _spriteRenderer.color = HiveRef.HiveColor;
             if(isQueen)
-                HiveController.Player.Queen=this;
-        }
-        else if (controllingHive == HiveController.Controller.Enemy)//if is players first planet make player control.
-        {
-            HiveController.Enemy.CapturePlanet(this);
-            _spriteRenderer.color = ReferenceManager.Instance.EnemyColor;
-            if (isQueen)
-                HiveController.Player.Queen = this;
+                HiveRef.Queen=this;
         }
         else
         {
+            StopCoroutine(strenghtGrowthCoroutine);//if neutral stop generating strength
             _spriteRenderer.color = ReferenceManager.Instance.NeutralColor;
         }
-    }
-
-    public void AttemptCapture(Planet planet)
-    {
-
     }
 
     private void UpdateStrengthDisplay()// update text and pin to planet
@@ -76,9 +82,78 @@ public class Planet : MonoBehaviour
         {
             if (GameManager.Instance.IsPaused)//pause game
                 yield return new WaitUntil(() =>!GameManager.Instance.IsPaused);
-            yield return new WaitForSeconds(strengthGrowthRate);
+            yield return new WaitForSeconds(CalculateStrengthGainRate());
             strength++;
         }
-        
+    }
+    public void AttemptCapture(Planet other)//start capture of other planet
+    {
+        //check if this planet in hive and if other planet is not in this hive
+        if (controllingHive != HiveController.Controller.Neutral && controllingHive != other.controllingHive)
+        {
+            planetsInCaptureInteraction.Add(new Capture(other));// add captured planet to list
+            if(captureCoroutine!=null)//start capturing if not started
+                StartCoroutine(CaptureInteraction());
+            other.UnderCapture(this);//set captured planet under capture
+        }
+    }
+    private void UnderCapture(Planet other)//become under capture by another planet
+    {
+        planetsInCaptureInteraction.Add(new Capture(other));
+        if (captureCoroutine != null)//start capturing if not started
+            StartCoroutine(CaptureInteraction());
+    }
+    IEnumerator CaptureInteraction()//lose strength until you reach zero
+    {
+        StopCoroutine(strenghtGrowthCoroutine);//stop generating strength while capturing
+        while (strength>0)//continue if both planets above zero strength
+        {
+            if (GameManager.Instance.IsPaused)//pause game
+                yield return new WaitUntil(() => !GameManager.Instance.IsPaused);
+            yield return new WaitForSeconds(CalculateStrengthLossRate());
+            strength--;
+            foreach(Capture c in planetsInCaptureInteraction)//for each captured planet count duration of capture
+            {
+                c.strengthCaptured++;
+            }
+        }
+        GetCaptured();
+    }
+
+    private void GetCaptured()//get captured by the hive that captured for the most time.
+    {
+        int playerCaptureDuration = 0;
+        int enemyCaptureDuration=0;
+        foreach(Capture c in planetsInCaptureInteraction)//determine hive that captured this planet for the longest
+        {
+            if (c.capturer.controllingHive == HiveController.Controller.Player)
+                playerCaptureDuration += c.strengthCaptured;
+            else if (c.capturer.controllingHive == HiveController.Controller.Enemy)
+                enemyCaptureDuration += c.strengthCaptured;
+        }
+        if (playerCaptureDuration > enemyCaptureDuration)
+            controllingHive = HiveController.Controller.Player;
+        else
+            controllingHive = HiveController.Controller.Enemy;
+        _spriteRenderer.color = HiveRef.HiveColor;
+    }
+    private float CalculateStrengthGainRate()
+    {
+        return strengthGrowthRate;
+    }
+    private float CalculateStrengthLossRate()
+    {
+        return ReferenceManager.Instance.CaptureLoseStrengthRate;
+    }
+
+
+    private class Capture
+    {
+        public Planet capturer;
+        public int strengthCaptured = 0;
+        public Capture(Planet captured)
+        {
+            this.capturer = captured;
+        }
     }
 }

@@ -7,19 +7,26 @@ public class HiveController : MonoBehaviour
 {
     public static HiveController Player;//coupleton
     public static HiveController Enemy;//coupleton
-    public enum Controller
+    public enum Controller //hive type enum
     {
         Neutral = 0,
         Player = 1,
         Enemy = 2
     }
-
-
     //references
-    private List<Planet> playerPlanets = new List<Planet>();
-    //public Planet PlayerPlanets { get { return playerPlanets; }  set { playerPlanets.Add(value); } }
+    private List<Planet> hivePlanets = new List<Planet>();
+    
     private Planet queen = null;
     public Planet Queen { get { return queen; } set { if (Queen == null) queen = value; } }
+
+    public Color HiveColor//public access dynamic color based on hive
+    { 
+        get
+        {
+            return (CompareTag(ReferenceManager.Instance.PLAYERTAG)) ? ReferenceManager.Instance.PlayerColor :
+                ReferenceManager.Instance.EnemyColor;
+        }
+    }
     private void Awake()
     {
         if (CompareTag(ReferenceManager.Instance.PLAYERTAG))
@@ -45,29 +52,19 @@ public class HiveController : MonoBehaviour
         else
             Destroy(this);
     }
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
-
 
 
     //get and set
     public Planet GetPlanet(int id)//return planet if player controlls planet with id else null
     {
-        return playerPlanets.Where(x => x.PlanetID == id).ElementAtOrDefault(0);
+        return hivePlanets.Where(x => x.PlanetID == id).ElementAtOrDefault(0);
     }
     public Planet GetPlanet(Planet planet)//return planet if player controlls planet else null
     {
-        return playerPlanets.Where(x => x == planet).ElementAtOrDefault(0);
+        return hivePlanets.Where(x => x == planet).ElementAtOrDefault(0);
     }
     public void CapturePlanet(Planet planet)//add new planet to player
     {
-        playerPlanets.Add(planet);
+        hivePlanets.Add(planet);
     }
 }
