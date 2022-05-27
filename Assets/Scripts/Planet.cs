@@ -93,22 +93,22 @@ public class Planet : MonoBehaviour
         //check if this planet in hive and if other planet is not in this hive
         if (controllingHive != HiveController.Controller.Neutral && controllingHive != other.controllingHive)
         {
-            if (planetsInCaptureInteraction.Where(p => p.planet == other).Count() == 0) //if not already in capture
+            if (planetsInCaptureInteraction.Where(p => p.planet == other).Count() == 0) //if not already in capture interaction with other
             {
                 planetsInCaptureInteraction.Add(new Capture(other));// add captured planet to list
                 if (captureCoroutine != null)//start capturing if not started
-                    StartCoroutine(CaptureInteraction());
+                    captureCoroutine = StartCoroutine(CaptureInteraction());
                 other.UnderCapture(this);//set captured planet under capture
             }
         }
     }
     private void UnderCapture(Planet other)//become under capture by another planet
     {
-        if (planetsInCaptureInteraction.Where(p => p.planet == other).Count() == 0) //if not already in capture
+        if (planetsInCaptureInteraction.Where(p => p.planet == other).Count() == 0) //if not already in capture interaction with other
         {
             planetsInCaptureInteraction.Add(new Capture(other));
             if (captureCoroutine != null)//start capturing if not started
-                StartCoroutine(CaptureInteraction());
+                captureCoroutine = StartCoroutine(CaptureInteraction());
         }
     }
     IEnumerator CaptureInteraction()//lose strength until you reach zero
@@ -130,21 +130,54 @@ public class Planet : MonoBehaviour
 
     private void GetCaptured()//get captured by the hive that captured for the most time.
     {
-        int playerCaptureDuration = 0;
-        int enemyCaptureDuration=0;
-        foreach(Capture c in planetsInCaptureInteraction)//determine hive that captured this planet for the longest
+        if (planetsInCaptureInteraction.Where(c => c.planet.controllingHive != HiveController.Controller.Neutral).Count() > 0)//if in capture with non neutral planet
         {
-            if (c.planet.controllingHive == HiveController.Controller.Player)
-                playerCaptureDuration += c.strengthCaptured;
-            else if (c.planet.controllingHive == HiveController.Controller.Enemy)
-                enemyCaptureDuration += c.strengthCaptured;
+            //determine hive that captured this planet for the longest
+            int playerCaptureDuration = 0;
+            int enemyCaptureDuration = 0;
+            foreach (Capture c in planetsInCaptureInteraction)
+            {
+                if (c.planet.controllingHive == HiveController.Controller.Player)//count strength taken by player
+                {
+                    playerCaptureDuration += c.strengthCaptured;
+                    c.planet.FinishCaptureInteraction(this);//tell othe to remove yourself
+                    FinishCaptureInteraction(c.planet);//remove from capture interactions
+                }
+                else if (c.planet.controllingHive == HiveController.Controller.Enemy)//count strength taken by enemy
+                {
+                    enemyCaptureDuration += c.strengthCaptured;
+                    c.planet.FinishCaptureInteraction(this);//tell othe to remove yourself
+                    FinishCaptureInteraction(c.planet);//remove from capture interactions
+                }
+
+            }
+            //set new hive and color
+            if (playerCaptureDuration > enemyCaptureDuration)
+                controllingHive = HiveController.Controller.Player;
+            else
+                controllingHive = HiveController.Controller.Enemy;
+            _spriteRenderer.color = HiveRef.HiveColor;
         }
-        if (playerCaptureDuration > enemyCaptureDuration)
-            controllingHive = HiveController.Controller.Player;
         else
-            controllingHive = HiveController.Controller.Enemy;
-        _spriteRenderer.color = HiveRef.HiveColor;
+        {
+            //TODO - if interacting with only neutral planets
+        }
+
     }
+
+    private void FinishCaptureInteraction(Planet other)
+    {
+        //remove other from interactions list
+        Capture c = planetsInCaptureInteraction.Where(capture => capture.planet == other).ElementAt(0);
+        planetsInCaptureInteraction.Remove(c);
+        //if not in interaction stop capturing and start generation strength
+        if (planetsInCaptureInteraction.Count() == 0)
+        {
+            StopCoroutine(captureCoroutine);
+            strenghtGrowthCoroutine = StartCoroutine(GenerateStrength());
+        }
+    }
+
     private float CalculateStrengthGainRate()
     {
         return strengthGrowthRate;
