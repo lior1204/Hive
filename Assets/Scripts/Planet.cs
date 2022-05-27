@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using System.Linq;
+
 
 public class Planet : MonoBehaviour
 {
@@ -91,17 +93,23 @@ public class Planet : MonoBehaviour
         //check if this planet in hive and if other planet is not in this hive
         if (controllingHive != HiveController.Controller.Neutral && controllingHive != other.controllingHive)
         {
-            planetsInCaptureInteraction.Add(new Capture(other));// add captured planet to list
-            if(captureCoroutine!=null)//start capturing if not started
-                StartCoroutine(CaptureInteraction());
-            other.UnderCapture(this);//set captured planet under capture
+            if (planetsInCaptureInteraction.Where(p => p.planet == other).Count() == 0) //if not already in capture
+            {
+                planetsInCaptureInteraction.Add(new Capture(other));// add captured planet to list
+                if (captureCoroutine != null)//start capturing if not started
+                    StartCoroutine(CaptureInteraction());
+                other.UnderCapture(this);//set captured planet under capture
+            }
         }
     }
     private void UnderCapture(Planet other)//become under capture by another planet
     {
-        planetsInCaptureInteraction.Add(new Capture(other));
-        if (captureCoroutine != null)//start capturing if not started
-            StartCoroutine(CaptureInteraction());
+        if (planetsInCaptureInteraction.Where(p => p.planet == other).Count() == 0) //if not already in capture
+        {
+            planetsInCaptureInteraction.Add(new Capture(other));
+            if (captureCoroutine != null)//start capturing if not started
+                StartCoroutine(CaptureInteraction());
+        }
     }
     IEnumerator CaptureInteraction()//lose strength until you reach zero
     {
@@ -126,9 +134,9 @@ public class Planet : MonoBehaviour
         int enemyCaptureDuration=0;
         foreach(Capture c in planetsInCaptureInteraction)//determine hive that captured this planet for the longest
         {
-            if (c.capturer.controllingHive == HiveController.Controller.Player)
+            if (c.planet.controllingHive == HiveController.Controller.Player)
                 playerCaptureDuration += c.strengthCaptured;
-            else if (c.capturer.controllingHive == HiveController.Controller.Enemy)
+            else if (c.planet.controllingHive == HiveController.Controller.Enemy)
                 enemyCaptureDuration += c.strengthCaptured;
         }
         if (playerCaptureDuration > enemyCaptureDuration)
@@ -149,11 +157,11 @@ public class Planet : MonoBehaviour
 
     private class Capture
     {
-        public Planet capturer;
+        public Planet planet;
         public int strengthCaptured = 0;
-        public Capture(Planet captured)
+        public Capture(Planet planet)
         {
-            this.capturer = captured;
+            this.planet = planet;
         }
     }
 }
