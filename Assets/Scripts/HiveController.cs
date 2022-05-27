@@ -23,13 +23,13 @@ public class HiveController : MonoBehaviour
     { 
         get
         {
-            return (CompareTag(ReferenceManager.Instance.PLAYERTAG)) ? ReferenceManager.Instance.PlayerColor :
-                ReferenceManager.Instance.EnemyColor;
+            return (CompareTag(ParamManager.Instance.PLAYERTAG)) ? ParamManager.Instance.PlayerColor :
+                ParamManager.Instance.EnemyColor;
         }
     }
-    private void Awake()
+    private void Start()
     {
-        if (CompareTag(ReferenceManager.Instance.PLAYERTAG))
+        if (CompareTag(ParamManager.Instance.PLAYERTAG))
             if (Player != null && Player != this)// implement coupleton player
             {
                 Destroy(this);
@@ -39,7 +39,7 @@ public class HiveController : MonoBehaviour
                 Player = this;
                 //DontDestroyOnLoad(this.gameObject);
             }
-        else if (CompareTag(ReferenceManager.Instance.ENEMYTAG))
+        else if (CompareTag(ParamManager.Instance.ENEMYTAG))
             if (Enemy != null && Enemy != this)// implement coupleton enemy
             {
                 Destroy(this);
@@ -52,7 +52,7 @@ public class HiveController : MonoBehaviour
         else
             Destroy(this);
     }
-
+    
 
     //get and set
     public Planet GetPlanet(int id)//return planet if player controlls planet with id else null
