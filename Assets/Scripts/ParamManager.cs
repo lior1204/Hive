@@ -13,6 +13,9 @@ public class ParamManager : MonoBehaviour
     [SerializeField] private string enemyTag = "Enemy";
     public string ENEMYTAG { get { return enemyTag; } }
 
+    [SerializeField] private string planetTag = "Planet";
+    public string PLANETTAG { get { return enemyTag; } }
+
     [Space(3)]
     [Header("Prefabs")]
     [SerializeField] private TextMeshPro _strengthDisplayPrefab;

@@ -11,9 +11,11 @@ GameObject:
   - component: {fileID: 2127881686000975985}
   - component: {fileID: 2127881686000975986}
   - component: {fileID: 2127881686000975987}
-  m_Layer: 0
+  - component: {fileID: -7536079802855077367}
+  - component: {fileID: -6242570625268823739}
+  m_Layer: 8
   m_Name: Planet
-  m_TagString: Untagged
+  m_TagString: Planet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -94,8 +96,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbc5e1536bb160245ac24975254a8613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controllingHive: 0
+  hiveType: 0
   isQueen: 0
-  strengthGrowthRate: 0.7
+  strengthIncome: 2
   captureRange: 30
   visibilityRange: 150
+--- !u!114 &-7536079802855077367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2127881686000975996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 371180235bf33cb458f8c4b5ae340821, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!58 &-6242570625268823739
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2127881686000975996}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
