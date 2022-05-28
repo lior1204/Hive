@@ -7,7 +7,7 @@ public class HiveController : MonoBehaviour
 {
     public static HiveController Player;//coupleton
     public static HiveController Enemy;//coupleton
-    public enum Controller //hive type enum
+    public enum Hive //hive type enum
     {
         Neutral = 0,
         Player = 1,
@@ -15,44 +15,55 @@ public class HiveController : MonoBehaviour
     }
     //references
     private List<Planet> hivePlanets = new List<Planet>();
-    
     private Planet queen = null;
     public Planet Queen { get { return queen; } set { if (Queen == null) queen = value; } }
-
     public Color HiveColor//public access dynamic color based on hive
-    { 
+    {
         get
         {
             return (CompareTag(ParamManager.Instance.PLAYERTAG)) ? ParamManager.Instance.PlayerColor :
                 ParamManager.Instance.EnemyColor;
         }
     }
-    private void Start()
+
+    [SerializeField] private Hive hiveType=Hive.Player;
+    private void Awake()
     {
-        if (CompareTag(ParamManager.Instance.PLAYERTAG))
-            if (Player != null && Player != this)// implement coupleton player
+        //Coupleton
+        if (hiveType==Hive.Player)
+            if (Player != null && Player != this)// implement singelton player
             {
                 Destroy(this);
             }
             else
             {
                 Player = this;
-                //DontDestroyOnLoad(this.gameObject);
             }
-        else if (CompareTag(ParamManager.Instance.ENEMYTAG))
-            if (Enemy != null && Enemy != this)// implement coupleton enemy
+        else if (hiveType == Hive.Enemy)
+            if (Enemy != null && Enemy != this)// implement singelton enemy
             {
                 Destroy(this);
             }
             else
             {
                 Enemy = this;
-                //DontDestroyOnLoad(this.gameObject);
             }
         else
             Destroy(this);
     }
     
+
+    //actions
+    public void CapturePlanet(Planet attacker, Planet captured)
+    {
+        if (hivePlanets.Contains(attacker) && captured.HiveType!=hiveType)//check if attacker is in hive and captured is not
+        {
+            if (attacker.IsInCaptureRange(captured))//check if captured is within range
+            {
+                attacker.AttemptCapture(captured);
+            }
+        }
+    }
 
     //get and set
     public Planet GetPlanet(int id)//return planet if player controlls planet with id else null
@@ -66,5 +77,9 @@ public class HiveController : MonoBehaviour
     public void CapturePlanet(Planet planet)//add new planet to player
     {
         hivePlanets.Add(planet);
+    }
+    public void RemovePlanet(Planet planet)//add new planet to player
+    {
+        hivePlanets.Remove(planet);
     }
 }

@@ -11,7 +11,8 @@ public class Planet : MonoBehaviour
     private static int IDCount = 0;
 
     //parameters
-    [SerializeField] private HiveController.Controller controllingHive = HiveController.Controller.Neutral;
+    [SerializeField] private HiveController.Hive hiveType  = HiveController.Hive.Neutral;
+    public HiveController.Hive HiveType { get { return hiveType; } }
     [SerializeField] private bool isQueen = false;
     [SerializeField] private int strengthIncome = 2;
     [SerializeField] [Range(20f,50f)] private float captureRange = 30;
@@ -30,8 +31,8 @@ public class Planet : MonoBehaviour
     { 
         get
         {
-            if (controllingHive == HiveController.Controller.Player) return HiveController.Player;
-            else if (controllingHive == HiveController.Controller.Enemy) return HiveController.Enemy;
+            if (hiveType == HiveController.Hive.Player) return HiveController.Player;
+            else if (hiveType == HiveController.Hive.Enemy) return HiveController.Enemy;
             else return null;
         }
     }
@@ -53,6 +54,7 @@ public class Planet : MonoBehaviour
         SetStartInHive();
         captureImunity = ParamManager.Instance.CaptureImunityTime;
     }
+
     void Update()
     {
         UpdateStrengthDisplay();
@@ -83,7 +85,7 @@ public class Planet : MonoBehaviour
     public void AttemptCapture(Planet other)//start capture of other planet
     {
         //check if this planet in hive and if other planet is not in this hive
-        if (controllingHive != HiveController.Controller.Neutral && controllingHive != other.controllingHive)
+        if (hiveType != HiveController.Hive.Neutral && hiveType != other.hiveType)
         {
             if (planetsInCaptureInteraction.Where(p => p.planet == other).Count() == 0) //if not already in capture interaction with other
             {
@@ -142,42 +144,22 @@ public class Planet : MonoBehaviour
         outcome+= ParamManager.Instance.CaptureStrengthOutcome* (planetsInCaptureInteraction.Count()-zeroPlanets);//planets with strength contribute to outcopme
         return outcome;
     }
-    //IEnumerator CaptureInteraction()//lose strength until you reach zero
-    //{
-    //    StopCoroutine(strenghtGrowthCoroutine);//stop generating strength while capturing
-    //    while (strength>0)//continue if both planets above zero strength
-    //    {
-    //        if (GameManager.Instance.IsPaused)//pause game
-    //            yield return new WaitUntil(() => !GameManager.Instance.IsPaused);
-    //        yield return new WaitForSeconds(CalculateStrengthLossRate());
-    //        strength--;
-    //        foreach(Capture c in planetsInCaptureInteraction)//for each captured planet count duration of capture
-    //        {
-    //            c.strengthCaptured++;
-    //        }
-    //    }
-    //    GetCaptured();
-    //}
-    //private float CalculateStrengthLossRate()
-    //{
-    //    return ParamManager.Instance.CaptureLoseStrengthRate;
-    //}
     private void GetCaptured()//get captured by the hive that captured for the most time.
     {
-        if (planetsInCaptureInteraction.Where(c => c.planet.controllingHive != HiveController.Controller.Neutral).Count() > 0)//if in capture with non neutral planet
+        if (planetsInCaptureInteraction.Where(c => c.planet.hiveType != HiveController.Hive.Neutral).Count() > 0)//if in capture with non neutral planet
         {
             //determine hive that captured this planet for the longest
             int playerCaptureDuration = 0;
             int enemyCaptureDuration = 0;
             foreach (Capture c in planetsInCaptureInteraction)
             {
-                if (c.planet.controllingHive == HiveController.Controller.Player)//count strength taken by player
+                if (c.planet.hiveType == HiveController.Hive.Player)//count strength taken by player
                 {
                     playerCaptureDuration += c.strengthCaptured;
                     c.planet.FinishCaptureInteraction(this);//tell othe to remove yourself
                     FinishCaptureInteraction(c.planet);//remove from capture interactions
                 }
-                else if (c.planet.controllingHive == HiveController.Controller.Enemy)//count strength taken by enemy
+                else if (c.planet.hiveType == HiveController.Hive.Enemy)//count strength taken by enemy
                 {
                     enemyCaptureDuration += c.strengthCaptured;
                     c.planet.FinishCaptureInteraction(this);//tell othe to remove yourself
@@ -185,12 +167,16 @@ public class Planet : MonoBehaviour
                 }
 
             }
-            //set new hive and color
-            if (playerCaptureDuration > enemyCaptureDuration)
-                controllingHive = HiveController.Controller.Player;
-            else
-                controllingHive = HiveController.Controller.Enemy;
-            _spriteRenderer.color = HiveRef.HiveColor;
+            if (playerCaptureDuration > 0 || enemyCaptureDuration > 0)// change hive if at least one capture is with hive
+            {
+                HiveRef.RemovePlanet(this);
+                if (playerCaptureDuration > enemyCaptureDuration)
+                    hiveType = HiveController.Hive.Player;
+                else
+                    hiveType = HiveController.Hive.Enemy;
+                HiveRef.CapturePlanet(this);
+                _spriteRenderer.color = HiveRef.HiveColor;
+            }
         }
     }
 
@@ -198,15 +184,12 @@ public class Planet : MonoBehaviour
     {
         Capture c = planetsInCaptureInteraction.Where(capture => capture.planet == other).ElementAt(0);//find Capture
         planetsInCaptureInteraction.Remove(c);//remove from interaction list
-        ////if not in interaction stop capturing and start generation strength
-        //if (planetsInCaptureInteraction.Count() == 0)
-        //{
-        //    StopCoroutine(captureCoroutine);
-        //    strenghtGrowthCoroutine = StartCoroutine(GenerateStrength());
-        //}
+    }
+    public bool IsInCaptureRange(Planet captured)
+    {
+        return (Vector2.Distance(transform.position, captured.transform.position) <= captureRange);
     }
 
-  
 
 
     private class Capture
