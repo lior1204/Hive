@@ -11,24 +11,29 @@ public class Planet : MonoBehaviour
     private static int IDCount = 0;
 
     //parameters
-    [SerializeField] private HiveController.Hive hiveType  = HiveController.Hive.Neutral;
+    [SerializeField] private HiveController.Hive hiveType = HiveController.Hive.Neutral;
     public HiveController.Hive HiveType { get { return hiveType; } }
     [SerializeField] private bool isQueen = false;
     [SerializeField] private int strengthIncome = 2;
-    [SerializeField] [Range(20f,50f)] private float captureRange = 30;
-    [SerializeField] [Range(100f,300f)] private float visibilityRange = 150;
+    [SerializeField] [Range(20f, 50f)] private float captureRange = 30;
+    [SerializeField] [Range(100f, 300f)] private float visibilityRange = 150;
     //[SerializeField] private float planetSize = 5f;
 
     public int PlanetID { get; private set; } = 0;
 
     //state variables
     private int strength = 0;
-    //private List<Planet> planetsUnderCapture = new List<Planet>();
     private List<Capture> planetsInCaptureInteraction = new List<Capture>();
     private float captureImunity;
     public bool IsImune { get { return captureImunity <= 0; } }
+    
+
+    //references
+    private TextMeshPro _strengthDisplay = null;
+    private SpriteRenderer _spriteRenderer = null;
+    private Coroutine strenghtGrowthCoroutine;
     private HiveController HiveRef //dynamic HiveControllerReference based on controllingHive
-    { 
+    {
         get
         {
             if (hiveType == HiveController.Hive.Player) return HiveController.Player;
@@ -37,24 +42,16 @@ public class Planet : MonoBehaviour
         }
     }
 
-    //references
-    private TextMeshPro _strengthDisplay=null;
-    private SpriteRenderer _spriteRenderer=null;
-    private Coroutine strenghtGrowthCoroutine;
-    //private Coroutine captureCoroutine;
-
-
     void Start()
     {
         PlanetID = Planet.IDCount;//set id
         PlanetID++;//increase id count
         _strengthDisplay = Instantiate(ParamManager.Instance._StrengthDisplayPrefab);//create strength display
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        strenghtGrowthCoroutine=StartCoroutine(GenerateStrength());//start strength and save reference
+        strenghtGrowthCoroutine = StartCoroutine(GenerateStrength());//start strength and save reference
         SetStartInHive();
         captureImunity = ParamManager.Instance.CaptureImunityTime;
     }
-
     void Update()
     {
         UpdateStrengthDisplay();
@@ -65,8 +62,8 @@ public class Planet : MonoBehaviour
         {
             HiveRef.CapturePlanet(this);
             _spriteRenderer.color = HiveRef.HiveColor;
-            if(isQueen)
-                HiveRef.Queen=this;
+            if (isQueen)
+                HiveRef.Queen = this;
         }
         else
         {
@@ -77,11 +74,47 @@ public class Planet : MonoBehaviour
 
     private void UpdateStrengthDisplay()// update text and pin to planet
     {
-        _strengthDisplay.text = strength+"";
-        _strengthDisplay.transform.position = new Vector3( transform.position.x, transform.position.y,-1);
+        _strengthDisplay.text = strength + "";
+        _strengthDisplay.transform.position = new Vector3(transform.position.x, transform.position.y, -5);
     }
-
-
+    IEnumerator GenerateStrength()//increase strength
+    {
+        while (true)
+        {
+            if (GameManager.Instance.IsPaused)//pause game
+                yield return new WaitUntil(() => !GameManager.Instance.IsPaused);
+            yield return new WaitForSeconds(ParamManager.Instance.StrengthUpdateRate);//delay between strength ticks
+            strength += CalculateDeltaStrength();
+            foreach (Capture c in planetsInCaptureInteraction)//for each capture interaction planet count contribution of capture
+            {
+                c.strengthCaptured += c.planet.strength > 0 ? ParamManager.Instance.CaptureStrengthOutcome
+                    : ParamManager.Instance.ZeroStrengthReducedOutcome;//count less contribution if other has 0 strength
+            }
+            if (strength <= 0)//if reach zero or below get captured
+            {
+                strength = 0;
+                GetCaptured();
+            }
+        }
+    }
+    private int CalculateDeltaStrength()// determines strengrh change per strengt tick
+    {
+        int deltaStrengt = CalculateStrengthIncome() - CalculateStrengthOutcome();
+        return deltaStrengt;
+    }
+    private int CalculateStrengthIncome()//planet's passive income
+    {
+        return strengthIncome;
+    }
+    private int CalculateStrengthOutcome()//capture cost for each capture interaction
+    {
+        int outcome = 0;
+        int zeroPlanets = planetsInCaptureInteraction.Where(capture => capture.planet.strength < 0).Count();//count planets with 0 strength
+        outcome += zeroPlanets * ParamManager.Instance.ZeroStrengthReducedOutcome;//planets with 0 strength contribute less to outcome
+        outcome += ParamManager.Instance.CaptureStrengthOutcome * (planetsInCaptureInteraction.Count() - zeroPlanets);//planets with strength contribute to outcopme
+        return outcome;
+    }
+   
     public void AttemptCapture(Planet other)//start capture of other planet
     {
         //check if this planet in hive and if other planet is not in this hive
@@ -104,45 +137,6 @@ public class Planet : MonoBehaviour
             //if (captureCoroutine != null)//start capturing if not started
             //    captureCoroutine = StartCoroutine(CaptureInteraction());
         }
-    }
-
-    IEnumerator GenerateStrength()//increase strength
-    {
-        while (true)
-        {
-            if (GameManager.Instance.IsPaused)//pause game
-                yield return new WaitUntil(() => !GameManager.Instance.IsPaused);
-            yield return new WaitForSeconds(ParamManager.Instance.StrengthUpdateRate);//delay between strength ticks
-            strength+= CalculateDeltaStrength();
-            foreach (Capture c in planetsInCaptureInteraction)//for each capture interaction planet count contribution of capture
-            {
-                c.strengthCaptured += c.planet.strength > 0 ? ParamManager.Instance.CaptureStrengthOutcome
-                    : ParamManager.Instance.ZeroStrengthReducedOutcome;//count less contribution if other has 0 strength
-            }
-            if (strength <= 0)//if reach zero or below get captured
-            {
-                strength = 0;
-                GetCaptured();
-            }
-        }
-    }
-    private int CalculateDeltaStrength()// determines strengrh change per strengt tick
-    {
-        int deltaStrengt = CalculateStrengthIncome()- CalculateStrengthOutcome();
-        return deltaStrengt;
-    }
-
-    private int CalculateStrengthIncome()//planet's passive income
-    {
-        return strengthIncome;
-    }  
-    private int CalculateStrengthOutcome()//capture cost for each capture interaction
-    {
-        int outcome = 0;
-        int zeroPlanets = planetsInCaptureInteraction.Where(capture => capture.planet.strength < 0).Count();//count planets with 0 strength
-        outcome += zeroPlanets* ParamManager.Instance.ZeroStrengthReducedOutcome;//planets with 0 strength contribute less to outcome
-        outcome+= ParamManager.Instance.CaptureStrengthOutcome* (planetsInCaptureInteraction.Count()-zeroPlanets);//planets with strength contribute to outcopme
-        return outcome;
     }
     private void GetCaptured()//get captured by the hive that captured for the most time.
     {
@@ -179,7 +173,6 @@ public class Planet : MonoBehaviour
             }
         }
     }
-
     private void FinishCaptureInteraction(Planet other)//remove other from interactions list
     {
         Capture c = planetsInCaptureInteraction.Where(capture => capture.planet == other).ElementAt(0);//find Capture
@@ -190,7 +183,10 @@ public class Planet : MonoBehaviour
         return (Vector2.Distance(transform.position, captured.transform.position) <= captureRange);
     }
 
+    public void HighlightPlanet()
+    {
 
+    }
 
     private class Capture
     {

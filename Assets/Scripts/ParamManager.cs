@@ -14,7 +14,10 @@ public class ParamManager : MonoBehaviour
     public string ENEMYTAG { get { return enemyTag; } }
 
     [SerializeField] private string planetTag = "Planet";
-    public string PLANETTAG { get { return enemyTag; } }
+    public string PLANETTAG { get { return planetTag; } }
+    
+    [SerializeField] private string fogMaskTag = "FogMask";
+    public string FOGMASKTAG { get { return fogMaskTag; } }
 
     [Space(3)]
     [Header("Prefabs")]

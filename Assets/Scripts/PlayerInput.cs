@@ -7,21 +7,31 @@ using System.Linq;
 
 public class PlayerInput : MonoBehaviour
 {
+    private Planet currentHoverPlanet;
+    private Planet currentClickedPlanet;
 
-    private void OnMouseHover()
+    private void CheckforMouseHover()
     {
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());//get mouse position
         mousePosition.z = -5;
         Ray ray = new Ray(mousePosition, Vector3.forward);
-        List<RaycastHit2D> hits = new List<RaycastHit2D>(Physics2D.GetRayIntersectionAll(ray));
-        if(hits.Any(hit => hit.collider.CompareTag("FogMask"))){
-            if(hits.FirstOrDefault(hit => hit.collider.CompareTag("Planet")))
+        List<RaycastHit2D> hits = new List<RaycastHit2D>(Physics2D.GetRayIntersectionAll(ray));//raycast to hit planets
+        if (hits.Any(hit => hit.collider.CompareTag(ParamManager.Instance.PLANETTAG)))//check if planet is inside visability fog mask
+        {
+            RaycastHit2D h;
+            if ( h= (hits.FirstOrDefault(hit => hit.collider.CompareTag(ParamManager.Instance.FOGMASKTAG))))//check if hit planet
             {
-                Debug.Log("Planet");
+                OnHoverPlanet(h.collider.GetComponent<Planet>());
             }
         }
     }
+    private void OnHoverPlanet(Planet planet)
+    {
+        if (planet != currentHoverPlanet)
+        {
 
+        }
+    }
     public void OnMouseClicked()
     {
 
@@ -30,6 +40,6 @@ public class PlayerInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        OnMouseHover();
+        CheckforMouseHover();
     }
 }
