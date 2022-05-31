@@ -14,6 +14,7 @@ public class Planet : MonoBehaviour
     [SerializeField] private HiveController.Hive hiveType = HiveController.Hive.Neutral;
     public HiveController.Hive HiveType { get { return hiveType; } }
     [SerializeField] private bool isQueen = false;
+    [SerializeField] private int startingStrength = 6;
     [SerializeField] private int strengthIncome = 2;
     [SerializeField] [Range(20f, 50f)] private float captureRange = 30;
     [SerializeField] [Range(100f, 300f)] private float visibilityRange = 150;
@@ -47,7 +48,8 @@ public class Planet : MonoBehaviour
         PlanetID = Planet.IDCount;//set id
         PlanetID++;//increase id count
         _strengthDisplay = Instantiate(ParamManager.Instance._StrengthDisplayPrefab);//create strength display
-        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();//sprite renderer reference
+        strength = startingStrength;//st starting strength
         strenghtGrowthCoroutine = StartCoroutine(GenerateStrength());//start strength and save reference
         SetStartInHive();
         captureImunity = ParamManager.Instance.CaptureImunityTime;
@@ -60,14 +62,13 @@ public class Planet : MonoBehaviour
     {
         if (HiveRef)//if is players first planet make player control.
         {
-            HiveRef.CapturePlanet(this);
+            HiveRef.AddPlanet(this);
             _spriteRenderer.color = HiveRef.HiveColor;
             if (isQueen)
                 HiveRef.Queen = this;
         }
         else
         {
-            StopCoroutine(strenghtGrowthCoroutine);//if neutral stop generating strength
             _spriteRenderer.color = ParamManager.Instance.NeutralColor;
         }
     }
@@ -104,12 +105,14 @@ public class Planet : MonoBehaviour
     }
     private int CalculateStrengthIncome()//planet's passive income
     {
-        return strengthIncome;
+        if(HiveRef)
+            return strengthIncome;
+        return 0;
     }
     private int CalculateStrengthOutcome()//capture cost for each capture interaction
     {
         int outcome = 0;
-        int zeroPlanets = planetsInCaptureInteraction.Where(capture => capture.planet.strength < 0).Count();//count planets with 0 strength
+        int zeroPlanets = planetsInCaptureInteraction.Where(capture => capture.planet.strength <= 0).Count();//count planets with 0 strength
         outcome += zeroPlanets * ParamManager.Instance.ZeroStrengthReducedOutcome;//planets with 0 strength contribute less to outcome
         outcome += ParamManager.Instance.CaptureStrengthOutcome * (planetsInCaptureInteraction.Count() - zeroPlanets);//planets with strength contribute to outcopme
         return outcome;
@@ -150,25 +153,26 @@ public class Planet : MonoBehaviour
                 if (c.planet.hiveType == HiveController.Hive.Player)//count strength taken by player
                 {
                     playerCaptureDuration += c.strengthCaptured;
-                    c.planet.FinishCaptureInteraction(this);//tell othe to remove yourself
-                    FinishCaptureInteraction(c.planet);//remove from capture interactions
                 }
                 else if (c.planet.hiveType == HiveController.Hive.Enemy)//count strength taken by enemy
                 {
                     enemyCaptureDuration += c.strengthCaptured;
-                    c.planet.FinishCaptureInteraction(this);//tell othe to remove yourself
-                    FinishCaptureInteraction(c.planet);//remove from capture interactions
                 }
-
             }
+            foreach (Capture c in planetsInCaptureInteraction)
+            {
+                c.planet.FinishCaptureInteraction(this);//tell other to remove yourself
+            }
+            planetsInCaptureInteraction.Clear();//remove all interections
             if (playerCaptureDuration > 0 || enemyCaptureDuration > 0)// change hive if at least one capture is with hive
             {
-                HiveRef.RemovePlanet(this);
+                    if (HiveRef)
+                    HiveRef.RemovePlanet(this);
                 if (playerCaptureDuration > enemyCaptureDuration)
                     hiveType = HiveController.Hive.Player;
                 else
                     hiveType = HiveController.Hive.Enemy;
-                HiveRef.CapturePlanet(this);
+                HiveRef.AddPlanet(this);
                 _spriteRenderer.color = HiveRef.HiveColor;
             }
         }
@@ -185,7 +189,17 @@ public class Planet : MonoBehaviour
 
     public void HighlightPlanet()
     {
-
+        if (HiveRef)
+            _spriteRenderer.color = HiveRef.HiveHighlightColor;
+        else
+            _spriteRenderer.color = ParamManager.Instance.NeutralHighlightColor;
+    }
+    public void RemoveHighlightPlanet()
+    {
+        if (HiveRef)
+            _spriteRenderer.color = HiveRef.HiveColor;
+        else
+            _spriteRenderer.color = ParamManager.Instance.NeutralColor;
     }
 
     private class Capture

@@ -36,6 +36,15 @@ public class ParamManager : MonoBehaviour
     [SerializeField] private Color neutralColor = new Color(0x44, 0x37, 0x38);
     public Color NeutralColor { get { return neutralColor; } }
 
+    [SerializeField] private Color playerHighlightColor = new Color(0x76, 0xAD, 0x75);
+    public Color PlayerHighlightColor { get { return playerHighlightColor; } }
+
+    [SerializeField] private Color enemyHighlightColor = new Color(0xB7, 0x52, 0x5C);
+    public Color EnemyHighlightColor { get { return enemyHighlightColor; } }
+
+    [SerializeField] private Color neutralHighlightColor = new Color(0x44, 0x37, 0x38);
+    public Color NeutralHighlightColor { get { return neutralHighlightColor; } }
+
     [Header ("Capture Parameters")]
     [SerializeField] private float strengthUpdateRate = 0.8f;
     public float StrengthUpdateRate { get { return strengthUpdateRate; } }

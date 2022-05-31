@@ -25,6 +25,14 @@ public class HiveController : MonoBehaviour
                 ParamManager.Instance.EnemyColor;
         }
     }
+   public Color HiveHighlightColor//public access dynamic color based on hive
+    {
+        get
+        {
+            return (CompareTag(ParamManager.Instance.PLAYERTAG)) ? ParamManager.Instance.PlayerHighlightColor :
+                ParamManager.Instance.EnemyHighlightColor;
+        }
+    }
 
     [SerializeField] private Hive hiveType=Hive.Player;
     private void Awake()
@@ -74,7 +82,7 @@ public class HiveController : MonoBehaviour
     {
         return hivePlanets.Where(x => x == planet).ElementAtOrDefault(0);
     }
-    public void CapturePlanet(Planet planet)//add new planet to player
+    public void AddPlanet(Planet planet)//add new planet to player
     {
         hivePlanets.Add(planet);
     }
