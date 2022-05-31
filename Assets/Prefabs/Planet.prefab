@@ -277,7 +277,7 @@ MonoBehaviour:
   isQueen: 0
   startingStrength: 3
   strengthIncome: 1
-  captureRange: 30
+  captureRange: 10
   visibilityRange: 150
 --- !u!58 &-6242570625268823739
 CircleCollider2D:

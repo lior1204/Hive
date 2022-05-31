@@ -16,7 +16,7 @@ public class Planet : MonoBehaviour
     [SerializeField] private bool isQueen = false;
     [SerializeField] private int startingStrength = 6;
     [SerializeField] private int strengthIncome = 2;
-    [SerializeField] [Range(20f, 50f)] private float captureRange = 30;
+    [SerializeField] [Range(5f, 20f)] private float captureRange = 30;
     [SerializeField] [Range(100f, 300f)] private float visibilityRange = 150;
     //[SerializeField] private float planetSize = 5f;
 
@@ -98,6 +98,8 @@ public class Planet : MonoBehaviour
             }
         }
     }
+
+
     private int CalculateDeltaStrength()// determines strengrh change per strengt tick
     {
         int deltaStrengt = CalculateStrengthIncome() - CalculateStrengthOutcome();
@@ -126,8 +128,17 @@ public class Planet : MonoBehaviour
             if (planetsInCaptureInteraction.Where(p => p.planet == other).Count() == 0) //if not already in capture interaction with other
             {
                 planetsInCaptureInteraction.Add(new Capture(other));// add captured planet to list
-                //if (captureCoroutine != null)//start capturing if not started
-                //    captureCoroutine = StartCoroutine(CaptureInteraction());
+                
+                GameObject captureLineObj = new GameObject();
+                captureLineObj.AddComponent(typeof(LineRenderer));
+                Instantiate(captureLineObj);
+                LineRenderer line = captureLineObj.GetComponent<LineRenderer>();
+                line.positionCount = 2;
+                line.SetPosition(0, transform.position);
+                line.SetPosition(1, other.transform.position);
+                line.SetWidth(0.25f,0.1f);
+                //line.material = Material.;
+                line.SetColors(_spriteRenderer.color, other.GetComponent<SpriteRenderer>().color);
                 other.UnderCapture(this);//tell other planet they are under capture
             }
         }
@@ -182,7 +193,7 @@ public class Planet : MonoBehaviour
         Capture c = planetsInCaptureInteraction.Where(capture => capture.planet == other).ElementAt(0);//find Capture
         planetsInCaptureInteraction.Remove(c);//remove from interaction list
     }
-    public bool IsInCaptureRange(Planet captured)
+    public bool IsWithinCaptureRange(Planet captured)
     {
         return (Vector2.Distance(transform.position, captured.transform.position) <= captureRange);
     }

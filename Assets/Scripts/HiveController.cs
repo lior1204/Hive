@@ -66,7 +66,7 @@ public class HiveController : MonoBehaviour
     {
         if (hivePlanets.Contains(attacker) && captured.HiveType!=hiveType)//check if attacker is in hive and captured is not
         {
-            if (attacker.IsInCaptureRange(captured))//check if captured is within range
+            if (attacker.IsWithinCaptureRange(captured))//check if captured is within range
             {
                 attacker.AttemptCapture(captured);
             }

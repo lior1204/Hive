@@ -81,17 +81,19 @@ public class PlayerInput : MonoBehaviour
 
     private bool IsValidHover(Planet planet)//check if hovering over something that is a valid hover based on current clicked
     {
-        if (planet != currentHoverPlanet)
+        if (planet != currentHoverPlanet)//if different from current hover
         {
-            //if (currentClickedPlanet)
-            //{
-            //    if (planet.HiveType)
-            //}
-            //else if (planet.HiveType == HiveController.Hive.Player)
-            //{
-            //    return true;
-            //}
-            return true;
+            if (currentClickedPlanet)//if there is clicked planet
+            {
+                if (currentClickedPlanet.IsWithinCaptureRange(planet))//allow hover planets inside range
+                {
+                    return true;
+                }
+            }
+            else if (planet.HiveType == HiveController.Hive.Player)//if there is no clicked then allow hover on player planets
+            {
+                return true;
+            }
         }
         return false;
     }
