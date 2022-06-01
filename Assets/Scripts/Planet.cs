@@ -18,6 +18,7 @@ public class Planet : MonoBehaviour
     [SerializeField] private int strengthIncome = 2;
     [SerializeField] [Range(5f, 20f)] private float captureRange = 30;
     [SerializeField] [Range(100f, 300f)] private float visibilityRange = 150;
+    [SerializeField] [Range(1, 5)] private int maximumActiveCaptures = 2;
     //[SerializeField] private float planetSize = 5f;
 
     public int PlanetID { get; private set; } = 0;
@@ -25,6 +26,12 @@ public class Planet : MonoBehaviour
     //state variables
     private int strength = 0;
     private List<Capture> planetsInCaptureInteraction = new List<Capture>();
+    private List<Capture> capturedPlanets = new List<Capture>();
+    private List<Capture> attackingPlanets = new List<Capture>();
+    private List<Capture> activeCaptures = new List<Capture>();
+    private List<Planet> reinforcingPlanets = new List<Planet>();
+    private List<Planet> linkedPlanets = new List<Planet>();
+
     private float captureImunity;
     public bool IsImune { get { return captureImunity <= 0; } }
     
