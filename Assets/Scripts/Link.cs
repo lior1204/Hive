@@ -17,9 +17,15 @@ public abstract class Link
         isActive = false;
         TimeStemp = Time.time;
     }
-    public bool CompareTo(Link link)//is the same as another link
+    public bool CompareExactTo(Link link)//is the same as another link
     {
-        bool members= Origin == link.Origin && Target == link.Target;//check origin and target
+        bool members= Origin == link.Origin && Target == link.Target;//check origin and target exactly the same
+        bool type = this.GetType() == link.GetType();//check type
+        return members && type;
+    } 
+    public bool CompareConnectionTo(Link link)//is the same as another link
+    {
+        bool members= (Origin == link.Origin && Target == link.Target)||(Origin == link.Target && Target == link.Origin);//check if links have the same member but could be reversed roles
         bool type = this.GetType() == link.GetType();//check type
         return members && type;
     }
