@@ -184,7 +184,8 @@ public class Planet : MonoBehaviour
 
     private void FinishCaptureInteraction()//remove other from interactions list
     {
-        List<Capture> remove = captureLinks.Where(c => c.origin == this || (c.origin != this &&c.origin.hiveType!=this.hiveType)).ToList();//make a list of links to remove
+        List<Capture> remove = captureLinks.Where(c => c.origin == this || (c.target == this && c.origin.HiveType!=this.HiveType)).ToList();//make a list of links to remove
+        List<Capture> convert = captureLinks.Where(c => c.target == this && c.origin.HiveType == this.HiveType).ToList();//make list of links to convert to reinforcement
         captureLinks.RemoveAll(c => c.origin == this || (c.origin != this && c.origin.hiveType != this.hiveType));
         Capture c = planetsInCaptureInteraction.Where(capture => capture.planet == other).ElementAt(0);//find Capture
         planetsInCaptureInteraction.Remove(c);//remove from interaction list
