@@ -1,24 +1,26 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Link 
 {
     public bool isActive;
-    public Planet origin;
-    public Planet target;
+    public Planet Origin { get; private set; }
+    public Planet Target { get; private set; }
+    public float TimeStemp { get; private set; }
 
     public Link(Planet origin, Planet target)
     {
-        this.origin = origin;
-        this.target = target;
+        this.Origin = origin;
+        this.Target = target;
         isActive = false;
-
+        TimeStemp = Time.time;
     }
-    public bool CompareTo(Link link)
+    public bool CompareTo(Link link)//is the same as another link
     {
-        bool members= origin == link.origin && target == link.target;
-        bool type = this.GetType() == link.GetType();
+        bool members= Origin == link.Origin && Target == link.Target;//check origin and target
+        bool type = this.GetType() == link.GetType();//check type
         return members && type;
     }
     private void DrawConnection(Planet captured)
@@ -28,10 +30,24 @@ public abstract class Link
         GameObject.Instantiate(captureLineObj);
         LineRenderer line = captureLineObj.GetComponent<LineRenderer>();
         line.positionCount = 2;
-        line.SetPosition(0, origin.transform.position);
+        line.SetPosition(0, Origin.transform.position);
         line.SetPosition(1, captured.transform.position);
         line.SetWidth(0.25f, 0.1f);
         //line.material = Material.;
         //line.SetColors(_spriteRenderer.color, captured.GetComponent<SpriteRenderer>().color);
+    }
+
+    public void DestroyLink()//remove this link from both members
+    {
+        Origin.RemoveLink(this);
+        Target.RemoveLink(this);
+    }
+    public Planet GetOther(Planet planet)//return the other planet in the link
+    {
+        if (planet == Origin)
+            return Target;
+        if (planet == Target)
+            return Origin;
+        return null;
     }
 }

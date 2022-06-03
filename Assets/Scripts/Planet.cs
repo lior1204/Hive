@@ -18,7 +18,7 @@ public class Planet : MonoBehaviour
     [SerializeField] private PlanetSize planetSize = PlanetSize.Small;
 
     [SerializeField] private float strengthIncome = 2;
-    [SerializeField] private int maxConnections = 2;
+    [SerializeField] private int maxActiveLinks = 2;
     [SerializeField] private float speed = 5f;
     [SerializeField] [Range(5f, 20f)] private float captureRange = 30;
     [SerializeField] [Range(100f, 300f)] private float visibilityRange = 150;
@@ -53,8 +53,8 @@ public class Planet : MonoBehaviour
 
     void Start()
     {
-        PlanetID = Planet.IDCount;//set id
-        PlanetID++;//increase id count
+        PlanetID = IDCount;//set id
+        IDCount++;//increase id count
         _strengthDisplay = Instantiate(ParamManager.Instance._StrengthDisplayPrefab);//create strength display
         _spriteRenderer = GetComponent<SpriteRenderer>();//sprite renderer reference
         strength = startingStrength;//st starting strength
@@ -64,6 +64,7 @@ public class Planet : MonoBehaviour
     }
     void Update()
     {
+        UpdateActiveLinks();
         UpdateStrengthDisplay();
     }
     private void SetStartInHive()//add to hive and set color
@@ -86,9 +87,9 @@ public class Planet : MonoBehaviour
                 yield return new WaitUntil(() => !GameManager.Instance.IsPaused);
             yield return new WaitForSeconds(ParamManager.Instance.StrengthUpdateRate);//delay between strength ticks
             strength += CalculateDeltaStrength();
-            foreach (Capture c in planetsInCaptureInteraction)//for each capture interaction planet count contribution of capture
+            foreach (Capture capture in activeLinks.Where(l=>l.GetType()==typeof(Capture)))//for each capture interaction planet count contribution of capture
             {
-                c.strengthCaptured += c.planet.strength > 0 ? ParamManager.Instance.CaptureStrengthOutcome
+                capture.strengthCaptured += strength > 0 ? ParamManager.Instance.CaptureStrengthOutcome
                     : ParamManager.Instance.ZeroStrengthReducedOutcome;//count less contribution if other has 0 strength
             }
             if (strength <= 0)//if reach zero or below get captured
@@ -99,7 +100,6 @@ public class Planet : MonoBehaviour
         }
     }
 
-
     private float CalculateDeltaStrength()// determines strengrh change per strengt tick
     {
         float deltaStrengt = CalculateStrengthIncome() - CalculateStrengthOutcome();
@@ -107,6 +107,7 @@ public class Planet : MonoBehaviour
     }
     private float CalculateStrengthIncome()//planet's passive income
     {
+        //TODO reinforcements
         if(HiveRef)
             return strengthIncome;
         return 0;
@@ -114,9 +115,10 @@ public class Planet : MonoBehaviour
     private float CalculateStrengthOutcome()//capture cost for each capture interaction
     {
         int outcome = 0;
-        int zeroPlanets = planetsInCaptureInteraction.Where(capture => capture.planet.strength <= 0).Count();//count planets with 0 strength
+        int zeroPlanets = captureLinks.Where(capture => capture.Target==this&&capture.Origin.strength <= 0).Count();//count attacking planets with 0 strength
         outcome += zeroPlanets * ParamManager.Instance.ZeroStrengthReducedOutcome;//planets with 0 strength contribute less to outcome
-        outcome += ParamManager.Instance.CaptureStrengthOutcome * (planetsInCaptureInteraction.Count() - zeroPlanets);//planets with strength contribute to outcopme
+        outcome += ParamManager.Instance.CaptureStrengthOutcome * (captureLinks.Count() - zeroPlanets);//planets with strength contribute to outcopme
+        //Debug.Log(GetInstanceID() + ", captures: " + captureLinks.Count() + " outcome: " + outcome);
         return outcome;
     }
    
@@ -135,43 +137,44 @@ public class Planet : MonoBehaviour
     }
     private void UnderCapture(Capture newLink)//become under capture by another planet
     {
-        if (captureLinks.Any(c => c.CompareTo(newLink))) //if not already in capture interaction with other
+        if (!captureLinks.Any(c => c.CompareTo(newLink))) //if not already in capture interaction with other
         {
             captureLinks.Add(newLink);// add capture link to list
         }
     }
     private void GetCaptured()//get captured by the hive that captured for the most time.
     {
-        if (captureLinks.Where(c => c.target == this).Any(c => c.origin.hiveType != HiveController.Hive.Neutral))//if any non neutral capturer in link that this is the target
+        if (captureLinks.Any(c => c.GetOther(this).hiveType != HiveController.Hive.Neutral))//if any non neutral capturer in link that this is the target
         {
             //determine hive that captured this planet for the longest among active links
             int playerCaptureDuration = 0;
             int enemyCaptureDuration = 0;
-            foreach (Capture link in captureLinks.Where(c => c.target == this).Where(c => c.isActive))//count links where this is the target and are active links
+            foreach (Capture link in captureLinks.Where(c => c.isActive))//count active links
             {
-                if (link.origin.hiveType == HiveController.Hive.Player)//count strength taken by player
+                if (link.GetOther(this).hiveType == HiveController.Hive.Player)//count strength taken by player
                 {
                     playerCaptureDuration += link.strengthCaptured;
                 }
-                else if (link.origin.hiveType == HiveController.Hive.Enemy)//count strength taken by enemy
+                else if (link.GetOther(this).hiveType == HiveController.Hive.Enemy)//count strength taken by enemy
                 {
                     enemyCaptureDuration += link.strengthCaptured;
                 }
             }
             if ((playerCaptureDuration <= 0 && enemyCaptureDuration <= 0) || playerCaptureDuration == enemyCaptureDuration)// if no duration or equal duration count all links including non active
             {
-                foreach (Capture link in captureLinks.Where(c => c.target == this).Where(c => !c.isActive))//count links where this is the target and are not active links
+                foreach (Capture link in captureLinks.Where(c => !c.isActive))//add to count all not active links
                 {
-                    if (link.origin.hiveType == HiveController.Hive.Player)//count strength taken by player
+                    if (link.GetOther(this).hiveType == HiveController.Hive.Player)//count strength taken by player
                     {
                         playerCaptureDuration += link.strengthCaptured;
                     }
-                    else if (link.origin.hiveType == HiveController.Hive.Enemy)//count strength taken by enemy
+                    else if (link.GetOther(this).hiveType == HiveController.Hive.Enemy)//count strength taken by enemy
                     {
                         enemyCaptureDuration += link.strengthCaptured;
                     }
                 }
             }
+            Debug.Log("Player: " + playerCaptureDuration + " Enemy: " + enemyCaptureDuration);
             //check for winner if no duration or equal player wins
             
             if (playerCaptureDuration >= enemyCaptureDuration)//player win if equal
@@ -181,20 +184,37 @@ public class Planet : MonoBehaviour
             FinishCaptureInteraction();
         }
     }
-
     private void FinishCaptureInteraction()//remove other from interactions list
     {
-        List<Capture> remove = captureLinks.Where(c => c.origin == this || (c.target == this && c.origin.HiveType!=this.HiveType)).ToList();//make a list of links to remove
-        List<Capture> convert = captureLinks.Where(c => c.target == this && c.origin.HiveType == this.HiveType).ToList();//make list of links to convert to reinforcement
-        captureLinks.RemoveAll(c => c.origin == this || (c.origin != this && c.origin.hiveType != this.hiveType));
-        Capture c = planetsInCaptureInteraction.Where(capture => capture.planet == other).ElementAt(0);//find Capture
-        planetsInCaptureInteraction.Remove(c);//remove from interaction list
+        List<Capture> removeCapture = captureLinks.Where(c => c.Origin == this ).ToList();//make a list of links to remove things this is attacking
+        List<Reinforcement> removeReinforcement = reinforceLinks;//keep list of reinforcement to remove
+        List<Capture> convert = captureLinks.Where(c => c.Target == this && c.Origin.HiveType == this.HiveType).ToList();//make list of links to convert to reinforcement
+        //captureLinks.RemoveAll(c => c.origin == this|| (c.target == this && c.origin.HiveType == this.HiveType));//remove captures were this is attacking or attacked by controlling hive
+        //reinforceLinks.Clear();//remove all reinforcements
+        foreach (Link link in removeCapture) link.DestroyLink();//destroy links
+        foreach (Link link in removeReinforcement) link.DestroyLink();//destroy links
+        foreach (Capture capture in convert) capture.ConvertToReinforcement();//convert captures by controlling hive to reinforcements
+
     }
+  
+    public void AttemptReinforccing(Planet reinforced)//start reinforcing another planet
+    {
+        //TODO
+    }
+
+    private void UpdateActiveLinks()
+    {
+        if (activeLinks.Count() < maxActiveLinks)
+        {
+            Link newActive;
+
+        }
+    }
+
     public bool IsWithinCaptureRange(Planet captured)
     {
         return (Vector2.Distance(transform.position, captured.transform.position) <= captureRange);
     }
-
     private void ChangeHive(HiveController.Hive hive)
     {
         if (HiveRef)//remove from current hive
@@ -225,7 +245,13 @@ public class Planet : MonoBehaviour
         else
             _spriteRenderer.color = ParamManager.Instance.NeutralColor;
     }
-    
+    public void RemoveLink(Link link)
+    {
+        if (link.GetType() == typeof(Capture))
+            captureLinks.Remove((Capture)link);
+        else if (link.GetType() == typeof(Reinforcement))
+            reinforceLinks.Remove((Reinforcement)link);
+    }
 
     public enum PlanetSize
     {
