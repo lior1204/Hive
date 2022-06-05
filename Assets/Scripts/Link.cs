@@ -23,9 +23,9 @@ public abstract class Link
         bool type = this.GetType() == link.GetType();//check type
         return members && type;
     } 
-    public bool CompareConnectionTo(Link link)//is the same as another link
+    public bool IsReverse(Link link)//is the same as another link
     {
-        bool members= (Origin == link.Origin && Target == link.Target)||(Origin == link.Target && Target == link.Origin);//check if links have the same member but could be reversed roles
+        bool members= (Origin == link.Target && Target == link.Origin);//check if links have the same member in reversed roles
         bool type = this.GetType() == link.GetType();//check type
         return members && type;
     }

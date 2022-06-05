@@ -85,7 +85,7 @@ public class PlayerInput : MonoBehaviour
         {
             if (currentClickedPlanet)//if there is clicked planet
             {
-                if (currentClickedPlanet.IsWithinCaptureRange(planet))//allow hover planets inside range
+                if (currentClickedPlanet.IsCapturable(planet))//allow hover planets inside range
                 {
                     return true;
                 }

@@ -116,9 +116,18 @@ public class Planet : MonoBehaviour
     private float CalculateStrengthOutcome()//capture cost for each capture interaction
     {
         int outcome = 0;
-        int zeroPlanets = captureLinks.Where(capture => capture.isActive&& capture.Target==this&&capture.Origin.strength <= 0).Count();//count attacking planets with 0 strength
+        List<Capture> activeConnections = captureLinks.Where(capture => capture.isActive).ToList();//get active captures this planet is part of
+        int zeroPlanets = activeConnections.Where(capture => capture.Target==this&&capture.Origin.strength <= 0).Count();//count attacking planets with 0 strength
         outcome += zeroPlanets * ParamManager.Instance.ZeroStrengthReducedOutcome;//planets with 0 strength contribute less to outcome
-        outcome += ParamManager.Instance.CaptureStrengthOutcome * (captureLinks.Where(capture => capture.isActive).Count() - zeroPlanets);//planets with strength contribute to outcopme
+        int captureLinkCount = 0;//count 2 sided connections wher this is both attacking and attacked by the same planet and both links are active
+        foreach(Capture capture in activeConnections)
+        {
+            foreach (Capture other in activeConnections)
+                if (capture.IsReverse(other))
+                    captureLinkCount++;
+        }
+        //outcome is active links - half the 2way connections(they will count twice and we need to count once) - zero planets (they already counted)
+        outcome += ParamManager.Instance.CaptureStrengthOutcome * (activeConnections.Count()- captureLinkCount/2 - zeroPlanets);//planets with strength contribute to outcopme
         return outcome;
     }
    
@@ -208,14 +217,17 @@ public class Planet : MonoBehaviour
         foreach (Link l in reinforceLinks.Where(c => c.Origin == this)) myLinks.Add(l);//reinforcements
         myLinks.OrderBy(c => c.TimeStemp);//order by timestemp
         activeLinks.Clear();//clear old active links
-        activeLinks.AddRange(myLinks.Where(l => IsWithinCaptureRange(l.Target)).Take(maxActiveLinks));//set new actives equal to max 
+        activeLinks.AddRange(myLinks.Where(l => IsCapturable(l.Target)).Take(maxActiveLinks));//set new actives equal to max 
         foreach(Link link in myLinks) link.isActive = false;//deactivate old links
         foreach (Link link in activeLinks) link.isActive = true;//activate new links
     }
 
-    public bool IsWithinCaptureRange(Planet captured)//check if target within capture range
+    public bool IsCapturable(Planet captured)//check if target within capture range, not immune and of another hive
     {
-        return (Vector2.Distance(transform.position, captured.transform.position) <= captureRange);
+        bool controller = HiveType != captured.HiveType;//check hive
+        bool range=(Vector2.Distance(transform.position, captured.transform.position) <= captureRange);//check range
+        bool immunity = captured.IsImune;//check immunity
+        return controller && range && immunity;
     }
     private void ChangeHive(HiveController.Hive hive)//swap hive to new hive, change color
     {
