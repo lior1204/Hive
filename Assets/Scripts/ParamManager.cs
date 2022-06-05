@@ -19,6 +19,9 @@ public class ParamManager : MonoBehaviour
     [SerializeField] private string fogMaskTag = "FogMask";
     public string FOGMASKTAG { get { return fogMaskTag; } }
 
+    [SerializeField] private string linkPoolerTag = "Link";
+    public string LinkPoolTag { get { return linkPoolerTag; } }
+
     [Space(3)]
     [Header("Prefabs")]
     [SerializeField] private TextMeshPro _strengthDisplayPrefab;
@@ -49,15 +52,20 @@ public class ParamManager : MonoBehaviour
     [SerializeField] private float strengthUpdateRate = 0.8f;
     public float StrengthUpdateRate { get { return strengthUpdateRate; } }
 
-    [SerializeField] private int captureStrengthOutcome = 3;
-    public int CaptureStrengthOutcome { get { return captureStrengthOutcome; } }
+    [SerializeField] private float captureStrengthOutcome = 3;
+    public float CaptureStrengthOutcome { get { return captureStrengthOutcome; } }
            
-    [SerializeField] private int zeroStrengthReducedOutcome = 1;
-    public int ZeroStrengthReducedOutcome { get { return zeroStrengthReducedOutcome; } }
+    [SerializeField] private float zeroStrengthReducedOutcome = 1;
+    public float ZeroStrengthReducedOutcome { get { return zeroStrengthReducedOutcome; } }
 
     [SerializeField] private float captureImunityTime = 3f;
     public float CaptureImunityTime { get { return captureImunityTime; } }
 
+    [SerializeField] private float reinforceBonus = 1f;
+    public float ReinforceBonus { get { return reinforceBonus; } }
+    
+    [SerializeField] private float reinforceCost = 0.5f;
+    public float ReinforceCost { get { return reinforceCost; } }
 
 
     private void Awake()

@@ -9,6 +9,7 @@ public abstract class Link
     public Planet Origin { get; private set; }
     public Planet Target { get; private set; }
     public float TimeStemp { get; private set; }
+    private LinkVisual visualLink;
 
     public Link(Planet origin, Planet target)
     {
@@ -16,6 +17,9 @@ public abstract class Link
         this.Target = target;
         isActive = false;
         TimeStemp = Time.time;
+        //visualLink = ObjectPooler.Instance.SpawnFromPool(ParamManager.Instance.LinkPoolTag).GetComponent<LinkVisual>();
+        //visualLink.transform.parent = origin.transform;
+        //visualLink.transform.position = origin.transform.position;
     }
     public bool CompareExactTo(Link link)//is the same as another link
     {

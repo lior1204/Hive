@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Capture : Link
 {
-    public int strengthCaptured;
+    public float strengthCaptured;
 
     public Capture(Planet attacker, Planet captured) : base(attacker, captured)
     {
