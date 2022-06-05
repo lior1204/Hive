@@ -23,6 +23,10 @@ public class PlayerInput : MonoBehaviour
             {
                 OnHoverPlanet(h.collider.GetComponent<Planet>());
             }
+            else if(h = (hits.FirstOrDefault(hit => hit.collider.CompareTag(ParamManager.Instance.LINKTAG))))//check if hit link
+            {
+                //add link interaction
+            }
             else
             {
                 OnHoverPlanet(null);//if not hover planet remove last hovered
