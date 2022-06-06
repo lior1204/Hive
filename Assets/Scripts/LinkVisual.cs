@@ -23,14 +23,14 @@ public class LinkVisual : MouseInteractable
         SetEdgeCollider(myLine);
     }
 
-    public void HoverObject()
+    public override void HoverObject()
     {
         //if (HiveRef)
         //    _spriteRenderer.color = HiveRef.HiveHighlightColor;
         //else
         //    _spriteRenderer.color = ParamManager.Instance.NeutralHighlightColor;
     }
-    public void UnHoverObject()
+    public override void UnHoverObject()
     {
         //if (HiveRef)
         //    _spriteRenderer.color = HiveRef.HiveColor;
