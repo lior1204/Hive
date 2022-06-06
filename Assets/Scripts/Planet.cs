@@ -270,14 +270,14 @@ public class Planet : MouseInteractable
 
     }
 
-    public void HighlightPlanet()
+    public void HoverObject()
     {
         if (HiveRef)
             _spriteRenderer.color = HiveRef.HiveHighlightColor;
         else
             _spriteRenderer.color = ParamManager.Instance.NeutralHighlightColor;
     }
-    public void RemoveHighlightPlanet()
+    public void UnHoverObject()
     {
         if (HiveRef)
             _spriteRenderer.color = HiveRef.HiveColor;

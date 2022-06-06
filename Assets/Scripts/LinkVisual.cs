@@ -7,6 +7,8 @@ public class LinkVisual : MouseInteractable
 {
     private EdgeCollider2D edgeCollider;
     private LineRenderer myLine;
+    Planet origin;
+    public HiveController.Hive HiveType { get { return origin?origin.HiveType: HiveController.Hive.Neutral; } }
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +23,20 @@ public class LinkVisual : MouseInteractable
         SetEdgeCollider(myLine);
     }
 
+    public void HoverObject()
+    {
+        //if (HiveRef)
+        //    _spriteRenderer.color = HiveRef.HiveHighlightColor;
+        //else
+        //    _spriteRenderer.color = ParamManager.Instance.NeutralHighlightColor;
+    }
+    public void UnHoverObject()
+    {
+        //if (HiveRef)
+        //    _spriteRenderer.color = HiveRef.HiveColor;
+        //else
+        //    _spriteRenderer.color = ParamManager.Instance.NeutralColor;
+    }
     void SetEdgeCollider(LineRenderer lineRenderer)
     {
         List<Vector2> edges = new List<Vector2>();

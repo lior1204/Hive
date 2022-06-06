@@ -31,9 +31,9 @@ public class PlayerInput : MonoBehaviour
     {
         if (hover != currentHover)//if hover something other then current or hover null
         {
-            if (currentHover&&currentHover!=currentClickedPlanet)//if previously hover something unhover
+            if (currentHover)//if previously hover something unhover
                 currentHover.UnHoverObject();
-            if (hover && IsValidHover(hover)) //if planet isnt null and is valid
+            if (hover) //if planet isnt null and is valid
             {
                 currentHover = hover;//set current to new hover or null
                 currentHover.HoverObject();
@@ -47,50 +47,33 @@ public class PlayerInput : MonoBehaviour
     {
         if (currentClickedPlanet)//if already have clicked planet
         {
-            if (!currentHover)//if not hovering something unClick planet
+            if (currentHover && currentHover.GetType() == typeof(Planet))//if click target planet
             {
-                currentClickedPlanet.RemoveHighlightPlanet();
-                currentClickedPlanet = null;
-            }
-            else//if hovering something do function
-            {
-                if (currentHover == currentClickedPlanet)
+                if (currentHover == currentClickedPlanet)//if clicked current clicked
                 {
-                    currentClickedPlanet.RemoveHighlightPlanet();
+                    currentClickedPlanet.UnHoverObject();
                     currentClickedPlanet = null;
                 }
-                else if (currentHover.HiveType != HiveController.Hive.Player)// if hovering non-player planet start capture
-                    HiveController.Player.CapturePlanet(currentClickedPlanet, currentHover);
-                else
-                { //TODO link - in future
-                }
+                else if (((Planet)currentHover).HiveType != HiveController.Hive.Player)// if hovering non-player planet start capture
+                    HiveController.Player.CapturePlanet(currentClickedPlanet, ((Planet)currentHover));
+                else// if hovering player planet start capture
+                    HiveController.Player.ReinforcePlanet(currentClickedPlanet, ((Planet)currentHover));
+            }
+            else //if not hovering something or hovering link unClick planet
+            {
+                currentClickedPlanet.UnHoverObject();
+                currentClickedPlanet = null;
             }
         }
         else //if not already clicked make hovered clicked
         {
-            currentClickedPlanet = currentHover;
-            currentHover = null;
+            if (currentHover && currentHover.GetType() == typeof(Planet))//if click planet set current hovered to clicked
+                currentClickedPlanet = (Planet)currentHover;
+            else
+                currentClickedPlanet = null;
         }
     }
 
-    private bool IsValidHover(MouseInteractable hover)//check if hovering over something that is a valid hover based on current clicked
-    {
-        if (hover != currentHover)//if different from current hover
-        {
-            if (currentClickedPlanet)//if there is clicked planet
-            {
-                if (currentClickedPlanet.IsCapturable(hover))//allow hover planets inside range
-                {
-                    return true;
-                }
-            }
-            else if (hover.HiveType == HiveController.Hive.Player)//if there is no clicked then allow hover on player planets
-            {
-                return true;
-            }
-        }
-        return false;
-    }
     // Update is called once per frame
     void Update()
     {

@@ -9,13 +9,8 @@ public abstract class MouseInteractable:MonoBehaviour
 {
     protected bool isHovered=false;
     protected bool isClicked=false;
-    public void HoverObject()
-    {
-
-    }
-    public void UnHoverObject()
-    {
-
-    }
+    public abstract void HoverObject();
+    public abstract void UnHoverObject();
+    
 }
 
