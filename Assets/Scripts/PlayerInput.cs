@@ -27,7 +27,7 @@ public class PlayerInput : MonoBehaviour
         }
         OnMouseHover(null);//if not inside mask or not on IMouseHover remove last hover
     }
-    private void OnMouseHover(MouseInteractable hover)
+    private void OnMouseHover(MouseInteractable hover)//when hover over planet or link
     {
         if (hover != currentHover)//if hover something other then current or hover null
         {
@@ -42,8 +42,7 @@ public class PlayerInput : MonoBehaviour
                 currentHover = null;
         }
     }
-
-    public void OnMouseClicked()//
+    public void OnPickObject()//when left click on planet
     {
         if (currentClickedPlanet)//if already have clicked planet
         {
@@ -51,7 +50,7 @@ public class PlayerInput : MonoBehaviour
             {
                 if (currentHover == currentClickedPlanet)//if clicked current clicked
                 {
-                    currentClickedPlanet.UnHoverObject();
+                    currentClickedPlanet.UnClickObject();
                     currentClickedPlanet = null;
                 }
                 else if (((Planet)currentHover).HiveType != HiveController.Hive.Player)// if hovering non-player planet start capture
@@ -61,19 +60,37 @@ public class PlayerInput : MonoBehaviour
             }
             else //if not hovering something or hovering link unClick planet
             {
-                currentClickedPlanet.UnHoverObject();
+                currentClickedPlanet.UnClickObject();
                 currentClickedPlanet = null;
             }
         }
         else //if not already clicked make hovered clicked
         {
             if (currentHover && currentHover.GetType() == typeof(Planet))//if click planet set current hovered to clicked
+            {
                 currentClickedPlanet = (Planet)currentHover;
+                currentClickedPlanet.ClickObject();
+            }
             else
                 currentClickedPlanet = null;
         }
     }
-
+    public void OnCancelLink()//when right click on planet or link
+    {
+        if(currentHover)//if currently hovering something
+        {
+            if (currentHover.GetType() == typeof(LinkVisual))//if click on link remove this link
+                HiveController.Player.RemoveLink(((LinkVisual)currentHover).ParetntLink);
+            else if(currentHover.GetType() == typeof(Planet))//if click on planet
+            {
+                Planet planet = (Planet)currentHover;
+                if (planet.HiveType == HiveController.Hive.Player)//if click on player planet remove all links from origin
+                    HiveController.Player.RemoveAllLinksOfPlanet(planet);
+                else//if click on non player remove all links towards target
+                    HiveController.Player.RemoveAllLinksToEnemy(planet);
+            }
+        }
+    }
     // Update is called once per frame
     void Update()
     {

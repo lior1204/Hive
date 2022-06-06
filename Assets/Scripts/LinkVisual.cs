@@ -7,17 +7,13 @@ public class LinkVisual : MouseInteractable
 {
     private EdgeCollider2D edgeCollider;
     private LineRenderer myLine;
-    Planet origin;
-    public HiveController.Hive HiveType { get { return origin?origin.HiveType: HiveController.Hive.Neutral; } }
-
-    // Start is called before the first frame update
+    public Link ParetntLink { get; private set; }
+    public HiveController.Hive HiveType { get { return ParetntLink.Origin? ParetntLink.Origin.HiveType: HiveController.Hive.Neutral; } }
     void Start()
     {
         edgeCollider = this.GetComponent<EdgeCollider2D>();
         myLine = this.GetComponent<LineRenderer>();
     }
-
-    // Update is called once per frame
     void Update()
     {
         SetEdgeCollider(myLine);

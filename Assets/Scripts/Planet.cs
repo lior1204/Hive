@@ -32,11 +32,11 @@ public class Planet : MouseInteractable
     private List<Reinforcement> reinforceLinks = new List<Reinforcement>();
     private List<Link> activeLinks = new List<Link>();
     //private List<Link> myLinks = new List<Link>();
-    
+
 
     private float captureImunity;
     public bool IsImune { get { return captureImunity <= 0; } }
-    
+
 
     //references
     private TextMeshPro _strengthDisplay = null;
@@ -67,11 +67,12 @@ public class Planet : MouseInteractable
     {
         UpdateActiveLinks();
         UpdateStrengthDisplay();
+        UpdateColorAndHighlight();
     }
     private void SetStartInHive()//add to hive and set color
     {
-        if (isQueen&&HiveRef)
-                HiveRef.Queen = this;
+        if (isQueen && HiveRef)
+            HiveRef.Queen = this;
         ChangeHive(hiveType);
     }
 
@@ -88,7 +89,7 @@ public class Planet : MouseInteractable
                 yield return new WaitUntil(() => !GameManager.Instance.IsPaused);
             yield return new WaitForSeconds(ParamManager.Instance.StrengthUpdateRate);//delay between strength ticks
             strength += CalculateDeltaStrength();
-            foreach (Capture capture in activeLinks.Where(l=>l.GetType()==typeof(Capture)))//for each capture interaction planet count contribution of capture
+            foreach (Capture capture in activeLinks.Where(l => l.GetType() == typeof(Capture)))//for each capture interaction planet count contribution of capture
             {
                 capture.strengthCaptured += strength > 0 ? ParamManager.Instance.CaptureStrengthOutcome
                     : ParamManager.Instance.ZeroStrengthReducedOutcome;//count less contribution if other has 0 strength
@@ -111,9 +112,9 @@ public class Planet : MouseInteractable
         if (HiveRef)//if this is in hive it has income if neutral no income
         {
             float income = strengthIncome;//add this planet base income
-            income += reinforceLinks.Count(r => r.isActive&&r.Target == this)*ParamManager.Instance.ReinforceBonus;//add bonus from active reinforcements to this planet
-            income -= reinforceLinks.Count(r => r.isActive&&r.Origin == this)*ParamManager.Instance.ReinforceCost;//dedact cost of this planet active reinfrociements
-            return income; 
+            income += reinforceLinks.Count(r => r.isActive && r.Target == this) * ParamManager.Instance.ReinforceBonus;//add bonus from active reinforcements to this planet
+            income -= reinforceLinks.Count(r => r.isActive && r.Origin == this) * ParamManager.Instance.ReinforceCost;//dedact cost of this planet active reinfrociements
+            return income;
             // Mathf.Max(income,0); if we want to make impossible to be negative
         }
         return 0;
@@ -122,20 +123,20 @@ public class Planet : MouseInteractable
     {
         float outcome = 0;
         List<Capture> activeConnections = captureLinks.Where(capture => capture.isActive).ToList();//get active captures this planet is part of
-        int zeroPlanets = activeConnections.Where(capture => capture.Target==this&&capture.Origin.strength <= 0).Count();//count attacking planets with 0 strength
+        int zeroPlanets = activeConnections.Where(capture => capture.Target == this && capture.Origin.strength <= 0).Count();//count attacking planets with 0 strength
         outcome += zeroPlanets * ParamManager.Instance.ZeroStrengthReducedOutcome;//planets with 0 strength contribute less to outcome
         int captureLinkCount = 0;//count 2 sided connections wher this is both attacking and attacked by the same planet and both links are active
-        foreach(Capture capture in activeConnections)
+        foreach (Capture capture in activeConnections)
         {
             foreach (Capture other in activeConnections)
                 if (capture.IsReverse(other))
                     captureLinkCount++;
         }
         //outcome is active links - half the 2way connections(they will count twice and we need to count once) - zero planets (they already counted)
-        outcome += ParamManager.Instance.CaptureStrengthOutcome * (activeConnections.Count()- captureLinkCount/2 - zeroPlanets);//planets with strength contribute to outcopme
+        outcome += ParamManager.Instance.CaptureStrengthOutcome * (activeConnections.Count() - captureLinkCount / 2 - zeroPlanets);//planets with strength contribute to outcopme
         return outcome;
     }
-   
+
     public void AttemptCapture(Planet captured)//start capture of other planet
     {
         //check if this planet in hive and if other planet is not in this hive
@@ -201,7 +202,7 @@ public class Planet : MouseInteractable
             }
             //check for winner if no duration or equal player wins
             if (playerCaptureDuration >= enemyCaptureDuration)//player win if equal
-                ChangeHive( HiveController.Hive.Player);
+                ChangeHive(HiveController.Hive.Player);
             else
                 ChangeHive(HiveController.Hive.Enemy);
             FinishCaptureInteraction();
@@ -209,7 +210,7 @@ public class Planet : MouseInteractable
     }
     private void FinishCaptureInteraction()//remove other from interactions list
     {
-        List<Capture> removeCapture = captureLinks.Where(c => c.Origin == this ).ToList();//make a list of links to remove things this is attacking
+        List<Capture> removeCapture = captureLinks.Where(c => c.Origin == this).ToList();//make a list of links to remove things this is attacking
         List<Reinforcement> removeReinforcement = reinforceLinks;//keep list of reinforcement to remove
         List<Capture> convert = captureLinks.Where(c => c.Target == this && c.Origin.HiveType == this.HiveType).ToList();//make list of links to convert to reinforcement
         //captureLinks.RemoveAll(c => c.origin == this|| (c.target == this && c.origin.HiveType == this.HiveType));//remove captures were this is attacking or attacked by controlling hive
@@ -219,7 +220,7 @@ public class Planet : MouseInteractable
         foreach (Capture capture in convert) capture.ConvertToReinforcement();//convert captures by controlling hive to reinforcements
 
     }
-  
+
     public void AttemptReinforccing(Planet reinforced)//start reinforcing another planet
     {
         //check if this planet in hive and if other planet is in same hive
@@ -261,28 +262,34 @@ public class Planet : MouseInteractable
         if (HiveRef)//check if in hive
         {
             HiveRef.AddPlanet(this);
-            _spriteRenderer.color = HiveRef.HiveColor;
         }
-        else
-        {
-            _spriteRenderer.color = ParamManager.Instance.NeutralColor;
-        }
-
     }
 
     public override void HoverObject()
     {
-        if (HiveRef)
-            _spriteRenderer.color = HiveRef.HiveHighlightColor;
-        else
-            _spriteRenderer.color = ParamManager.Instance.NeutralHighlightColor;
+        base.HoverObject();
+        
     }
     public override void UnHoverObject()
     {
-        if (HiveRef)
-            _spriteRenderer.color = HiveRef.HiveColor;
+        base.UnHoverObject();
+    }
+    private void UpdateColorAndHighlight()//update planet collor based on hive and hishlight
+    {
+        if (isHovered || isClicked)
+        {
+            if (HiveRef)
+                _spriteRenderer.color = HiveRef.HiveHighlightColor;
+            else
+                _spriteRenderer.color = ParamManager.Instance.NeutralHighlightColor;
+        }
         else
-            _spriteRenderer.color = ParamManager.Instance.NeutralColor;
+        {
+            if (HiveRef)
+                _spriteRenderer.color = HiveRef.HiveColor;
+            else
+                _spriteRenderer.color = ParamManager.Instance.NeutralColor;
+        }
     }
     public void RemoveLink(Link link)//remove link from coresponding list
     {
