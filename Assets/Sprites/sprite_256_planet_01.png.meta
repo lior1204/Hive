@@ -1,367 +1,187 @@
 fileFormatVersion: 2
-guid: d41cea65c51dc5540b507e8e94b4ca7c
+guid: c9dc4aa6a1a2890409be37cf1d32df34
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6224295429473845976
-    second: animtion_128_planet_01_0
+      213: 7759702060910554868
+    second: sprite_256_planet_01_0
   - first:
-      213: -7359791935111475780
-    second: animtion_128_planet_01_1
+      213: -6537065333235787066
+    second: sprite_256_planet_01_1
   - first:
-      213: -6991268632599265801
-    second: animtion_128_planet_01_2
+      213: 1588444889627892199
+    second: sprite_256_planet_01_2
   - first:
-      213: -5452754850367649597
-    second: animtion_128_planet_01_3
+      213: 3288347974725287182
+    second: sprite_256_planet_01_3
   - first:
-      213: 3439895825767946022
-    second: animtion_128_planet_01_4
+      213: -8437422388407275121
+    second: sprite_256_planet_01_4
   - first:
-      213: -8580317787626585458
-    second: animtion_128_planet_01_5
+      213: -3010313242893836630
+    second: sprite_256_planet_01_5
   - first:
-      213: 6227012301854582592
-    second: animtion_128_planet_01_6
+      213: -4505945023100460907
+    second: sprite_256_planet_01_6
   - first:
-      213: 6739641556173148281
-    second: animtion_128_planet_01_7
+      213: 3860846088433412692
+    second: sprite_256_planet_01_7
   - first:
-      213: -7277379811197810521
-    second: animtion_128_planet_01_8
+      213: 3009618285559962558
+    second: sprite_256_planet_01_8
   - first:
-      213: 4372870340899183720
-    second: animtion_128_planet_01_9
+      213: -5931167970764646880
+    second: sprite_256_planet_01_9
   - first:
-      213: -3740927163896477362
-    second: animtion_128_planet_01_10
+      213: -7103032394125905286
+    second: sprite_256_planet_01_10
   - first:
-      213: 7071184663468050116
-    second: animtion_128_planet_01_11
+      213: 7387768815925672334
+    second: sprite_256_planet_01_11
   - first:
-      213: -3268223474980527421
-    second: animtion_128_planet_01_12
+      213: -8874320672200060804
+    second: sprite_256_planet_01_12
   - first:
-      213: 1264882587146963137
-    second: animtion_128_planet_01_13
+      213: 3162235725670127148
+    second: sprite_256_planet_01_13
   - first:
-      213: 3217113454202367204
-    second: animtion_128_planet_01_14
+      213: -9050208593135338143
+    second: sprite_256_planet_01_14
   - first:
-      213: -1519352103809825381
-    second: animtion_128_planet_01_15
+      213: 7197373241826722957
+    second: sprite_256_planet_01_15
   - first:
-      213: -4448072939971400799
-    second: animtion_128_planet_01_16
+      213: 1514050740691867456
+    second: sprite_256_planet_01_16
   - first:
-      213: -7317905445575669871
-    second: animtion_128_planet_01_17
+      213: 1310474852192307667
+    second: sprite_256_planet_01_17
   - first:
-      213: 1550730615833647143
-    second: animtion_128_planet_01_18
+      213: 4747814082278729109
+    second: sprite_256_planet_01_18
   - first:
-      213: 846721977873183851
-    second: animtion_128_planet_01_19
+      213: 3683158473660192449
+    second: sprite_256_planet_01_19
   - first:
-      213: 6506129281053336582
-    second: animtion_128_planet_01_20
+      213: 3700127057332775107
+    second: sprite_256_planet_01_20
   - first:
-      213: 5826456832315012330
-    second: animtion_128_planet_01_21
+      213: -4421391236246855486
+    second: sprite_256_planet_01_21
   - first:
-      213: 3415396355379479352
-    second: animtion_128_planet_01_22
+      213: -1777868024389432869
+    second: sprite_256_planet_01_22
   - first:
-      213: -6447170247781962352
-    second: animtion_128_planet_01_23
+      213: -2792478320335911802
+    second: sprite_256_planet_01_23
   - first:
-      213: -4213451852902876224
-    second: animtion_128_planet_01_24
+      213: -9184162236393004445
+    second: sprite_256_planet_01_24
   - first:
-      213: -5635653371835038192
-    second: animtion_128_planet_01_25
+      213: -1671113032477377099
+    second: sprite_256_planet_01_25
   - first:
-      213: -5247285104713975859
-    second: animtion_128_planet_01_26
+      213: 3712560739338861525
+    second: sprite_256_planet_01_26
   - first:
-      213: -7895900685236065546
-    second: animtion_128_planet_01_27
+      213: 6231055798483103177
+    second: sprite_256_planet_01_27
   - first:
-      213: 7611197053194049748
-    second: animtion_128_planet_01_28
+      213: 3003922317100995947
+    second: sprite_256_planet_01_28
   - first:
-      213: 7716992006910208614
-    second: animtion_128_planet_01_29
+      213: 1704507975309038360
+    second: sprite_256_planet_01_29
   - first:
-      213: 9201689734780933773
-    second: animtion_128_planet_01_30
+      213: 8266630105092013081
+    second: sprite_256_planet_01_30
   - first:
-      213: 3441782594979010335
-    second: animtion_128_planet_01_31
+      213: -2068999541841284499
+    second: sprite_256_planet_01_31
   - first:
-      213: 112281326473755433
-    second: animtion_128_planet_01_32
+      213: -668691941346947792
+    second: sprite_256_planet_01_32
   - first:
-      213: 4194942010496662023
-    second: animtion_128_planet_01_33
+      213: -7696695771039962936
+    second: sprite_256_planet_01_33
   - first:
-      213: 2635933915274244868
-    second: animtion_128_planet_01_34
+      213: -8930294358405739690
+    second: sprite_256_planet_01_34
   - first:
-      213: 3972351457695831458
-    second: animtion_128_planet_01_35
+      213: -447173771181071773
+    second: sprite_256_planet_01_35
   - first:
-      213: -4951710029199909916
-    second: animtion_128_planet_01_36
+      213: 7460671010859466013
+    second: sprite_256_planet_01_36
   - first:
-      213: 2535872621377779197
-    second: animtion_128_planet_01_37
+      213: 3002539105165447319
+    second: sprite_256_planet_01_37
   - first:
-      213: -7852409770034479968
-    second: animtion_128_planet_01_38
+      213: 1207684296949856147
+    second: sprite_256_planet_01_38
   - first:
-      213: 3050681343173008428
-    second: animtion_128_planet_01_39
+      213: -3181804297539296041
+    second: sprite_256_planet_01_39
   - first:
-      213: 5843612247858951649
-    second: animtion_128_planet_01_40
+      213: 1791674225003126848
+    second: sprite_256_planet_01_40
   - first:
-      213: 1845050603641002540
-    second: animtion_128_planet_01_41
+      213: -6563494214135288113
+    second: sprite_256_planet_01_41
   - first:
-      213: -6221131419184089287
-    second: animtion_128_planet_01_42
+      213: 8025993486534360600
+    second: sprite_256_planet_01_42
   - first:
-      213: -6202218763346522218
-    second: animtion_128_planet_01_43
+      213: 7531339611470602141
+    second: sprite_256_planet_01_43
   - first:
-      213: -4269953166780595221
-    second: animtion_128_planet_01_44
+      213: -5106158522670250233
+    second: sprite_256_planet_01_44
   - first:
-      213: 8729858565249456359
-    second: animtion_128_planet_01_45
+      213: 2061068960762063922
+    second: sprite_256_planet_01_45
   - first:
-      213: 2310823437041030895
-    second: animtion_128_planet_01_46
+      213: -9000103841326173096
+    second: sprite_256_planet_01_46
   - first:
-      213: 7053676447233306686
-    second: animtion_128_planet_01_47
+      213: -1573469936078134754
+    second: sprite_256_planet_01_47
   - first:
-      213: -2049289190177140743
-    second: animtion_128_planet_01_48
+      213: -4320500731085851669
+    second: sprite_256_planet_01_48
   - first:
-      213: 7784971777378223717
-    second: animtion_128_planet_01_49
+      213: 170202669781777775
+    second: sprite_256_planet_01_49
   - first:
-      213: -558510972363154798
-    second: animtion_128_planet_01_50
+      213: 8998379144318583240
+    second: sprite_256_planet_01_50
   - first:
-      213: -5346613678434062169
-    second: animtion_128_planet_01_51
+      213: 7114826652071003462
+    second: sprite_256_planet_01_51
   - first:
-      213: -6430687830525150480
-    second: animtion_128_planet_01_52
+      213: 9201079162626303672
+    second: sprite_256_planet_01_52
   - first:
-      213: 8650706730443970753
-    second: animtion_128_planet_01_53
+      213: -3458123764568120771
+    second: sprite_256_planet_01_53
   - first:
-      213: -5704608169192027257
-    second: animtion_128_planet_01_54
+      213: -7789874549589573515
+    second: sprite_256_planet_01_54
   - first:
-      213: -3657729062179680405
-    second: animtion_128_planet_01_55
+      213: -6682954566091548346
+    second: sprite_256_planet_01_55
   - first:
-      213: -690449553225456865
-    second: animtion_128_planet_01_56
+      213: -7075501866609967146
+    second: sprite_256_planet_01_56
   - first:
-      213: -1319089178743895811
-    second: animtion_128_planet_01_57
+      213: 1867790761227160285
+    second: sprite_256_planet_01_57
   - first:
-      213: 3253806871031381996
-    second: animtion_128_planet_01_58
+      213: 2971487511175956493
+    second: sprite_256_planet_01_58
   - first:
-      213: 5542122625226348399
-    second: animtion_128_planet_01_59
-  - first:
-      213: 1410714536288524790
-    second: sprite_128_planet_01_0
-  - first:
-      213: -7664666071281059515
-    second: sprite_128_planet_01_1
-  - first:
-      213: -3350427262140635140
-    second: sprite_128_planet_01_2
-  - first:
-      213: 6489483182230114967
-    second: sprite_128_planet_01_3
-  - first:
-      213: -6743122721551614988
-    second: sprite_128_planet_01_4
-  - first:
-      213: -2894801877531774002
-    second: sprite_128_planet_01_5
-  - first:
-      213: 5720882411974358888
-    second: sprite_128_planet_01_6
-  - first:
-      213: -3837799496621305160
-    second: sprite_128_planet_01_7
-  - first:
-      213: -354532918855248132
-    second: sprite_128_planet_01_8
-  - first:
-      213: 2073843002076147114
-    second: sprite_128_planet_01_9
-  - first:
-      213: 5169746264306491046
-    second: sprite_128_planet_01_10
-  - first:
-      213: 1020262878060697889
-    second: sprite_128_planet_01_11
-  - first:
-      213: -6296481087172837064
-    second: sprite_128_planet_01_12
-  - first:
-      213: 98777816808234371
-    second: sprite_128_planet_01_13
-  - first:
-      213: -2792188712099879730
-    second: sprite_128_planet_01_14
-  - first:
-      213: -6528774928228119163
-    second: sprite_128_planet_01_15
-  - first:
-      213: -9108112860262577015
-    second: sprite_128_planet_01_16
-  - first:
-      213: -7836518817035444869
-    second: sprite_128_planet_01_17
-  - first:
-      213: 551979242091311322
-    second: sprite_128_planet_01_18
-  - first:
-      213: 5713834315562927115
-    second: sprite_128_planet_01_19
-  - first:
-      213: 478657947969596534
-    second: sprite_128_planet_01_20
-  - first:
-      213: 5139798028337457945
-    second: sprite_128_planet_01_21
-  - first:
-      213: 8756639465954102562
-    second: sprite_128_planet_01_22
-  - first:
-      213: -8113418849287000543
-    second: sprite_128_planet_01_23
-  - first:
-      213: 1889018509090268395
-    second: sprite_128_planet_01_24
-  - first:
-      213: -1526007649176332917
-    second: sprite_128_planet_01_25
-  - first:
-      213: -2938788870969080983
-    second: sprite_128_planet_01_26
-  - first:
-      213: -1387108955328491959
-    second: sprite_128_planet_01_27
-  - first:
-      213: -2767125145789265583
-    second: sprite_128_planet_01_28
-  - first:
-      213: 3717572633347652535
-    second: sprite_128_planet_01_29
-  - first:
-      213: -8466956485814880204
-    second: sprite_128_planet_01_30
-  - first:
-      213: -6183422064638146789
-    second: sprite_128_planet_01_31
-  - first:
-      213: -4523918225952194706
-    second: sprite_128_planet_01_32
-  - first:
-      213: -5198612186597223518
-    second: sprite_128_planet_01_33
-  - first:
-      213: 4330746835581005310
-    second: sprite_128_planet_01_34
-  - first:
-      213: -1671938593467423473
-    second: sprite_128_planet_01_35
-  - first:
-      213: -4753005608070512149
-    second: sprite_128_planet_01_36
-  - first:
-      213: -1125529923265196717
-    second: sprite_128_planet_01_37
-  - first:
-      213: -679321387186474930
-    second: sprite_128_planet_01_38
-  - first:
-      213: -4108168939496961864
-    second: sprite_128_planet_01_39
-  - first:
-      213: 278487310152240532
-    second: sprite_128_planet_01_40
-  - first:
-      213: -7046767912132158955
-    second: sprite_128_planet_01_41
-  - first:
-      213: 2960359555084227487
-    second: sprite_128_planet_01_42
-  - first:
-      213: 4135426507708275607
-    second: sprite_128_planet_01_43
-  - first:
-      213: -706186619881233289
-    second: sprite_128_planet_01_44
-  - first:
-      213: -52099954093686489
-    second: sprite_128_planet_01_45
-  - first:
-      213: -726543206715106237
-    second: sprite_128_planet_01_46
-  - first:
-      213: 8840415451312204304
-    second: sprite_128_planet_01_47
-  - first:
-      213: 6270161591090667756
-    second: sprite_128_planet_01_48
-  - first:
-      213: 6932976076623745255
-    second: sprite_128_planet_01_49
-  - first:
-      213: -5738148208929254152
-    second: sprite_128_planet_01_50
-  - first:
-      213: -1764782165222194334
-    second: sprite_128_planet_01_51
-  - first:
-      213: 3886833200633605065
-    second: sprite_128_planet_01_52
-  - first:
-      213: 3575432543952502160
-    second: sprite_128_planet_01_53
-  - first:
-      213: 8012080791453452617
-    second: sprite_128_planet_01_54
-  - first:
-      213: 57760540766188086
-    second: sprite_128_planet_01_55
-  - first:
-      213: 3705896570308105523
-    second: sprite_128_planet_01_56
-  - first:
-      213: 3091630027266694163
-    second: sprite_128_planet_01_57
-  - first:
-      213: 2907425205331468863
-    second: sprite_128_planet_01_58
-  - first:
-      213: -8379219902569749528
-    second: sprite_128_planet_01_59
+      213: -2355310255001861169
+    second: sprite_256_planet_01_59
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -447,13 +267,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: sprite_128_planet_01_0
+      name: sprite_256_planet_01_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 128
-        height: 128
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -461,41 +281,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6f915fe756dd39310800000000000000
-      internalID: 1410714536288524790
+      spriteID: 4fea07769efffab60800000000000000
+      internalID: 7759702060910554868
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_128_planet_01_1
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 549bd4b31d2a1a590800000000000000
-      internalID: -7664666071281059515
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sprite_128_planet_01_2
+      name: sprite_256_planet_01_1
       rect:
         serializedVersion: 2
         x: 256
         y: 0
-        width: 128
-        height: 128
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -503,41 +302,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cf7a25a0824e081d0800000000000000
-      internalID: -3350427262140635140
+      spriteID: 6cad5fad6bda745a0800000000000000
+      internalID: -6537065333235787066
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_128_planet_01_3
-      rect:
-        serializedVersion: 2
-        x: 384
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 79292bc42964f0a50800000000000000
-      internalID: 6489483182230114967
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sprite_128_planet_01_4
+      name: sprite_256_planet_01_2
       rect:
         serializedVersion: 2
         x: 512
         y: 0
-        width: 128
-        height: 128
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -545,41 +323,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4fbfc018c9d9b62a0800000000000000
-      internalID: -6743122721551614988
+      spriteID: 7e91e8f063a4b0610800000000000000
+      internalID: 1588444889627892199
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_128_planet_01_5
-      rect:
-        serializedVersion: 2
-        x: 640
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ec3b59a970993d7d0800000000000000
-      internalID: -2894801877531774002
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sprite_128_planet_01_6
+      name: sprite_256_planet_01_3
       rect:
         serializedVersion: 2
         x: 768
         y: 0
-        width: 128
-        height: 128
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -587,41 +344,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 867f28f3e38a46f40800000000000000
-      internalID: 5720882411974358888
+      spriteID: e0d30638f0f82ad20800000000000000
+      internalID: 3288347974725287182
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_128_planet_01_7
-      rect:
-        serializedVersion: 2
-        x: 896
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8b2d6bcf0b56dbac0800000000000000
-      internalID: -3837799496621305160
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sprite_128_planet_01_8
+      name: sprite_256_planet_01_4
       rect:
         serializedVersion: 2
         x: 1024
         y: 0
-        width: 128
-        height: 128
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -629,41 +365,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cf6537e4032741bf0800000000000000
-      internalID: -354532918855248132
+      spriteID: f817e078a0148ea80800000000000000
+      internalID: -8437422388407275121
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_128_planet_01_9
-      rect:
-        serializedVersion: 2
-        x: 1152
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: aadada20935c7cc10800000000000000
-      internalID: 2073843002076147114
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sprite_128_planet_01_10
+      name: sprite_256_planet_01_5
       rect:
         serializedVersion: 2
         x: 1280
         y: 0
-        width: 128
-        height: 128
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -671,41 +386,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6ae14ee36d0aeb740800000000000000
-      internalID: 5169746264306491046
+      spriteID: aae98ae0e083936d0800000000000000
+      internalID: -3010313242893836630
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_128_planet_01_11
-      rect:
-        serializedVersion: 2
-        x: 1408
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 12953589ea3b82e00800000000000000
-      internalID: 1020262878060697889
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sprite_128_planet_01_12
+      name: sprite_256_planet_01_6
       rect:
         serializedVersion: 2
         x: 1536
         y: 0
-        width: 128
-        height: 128
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -713,41 +407,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8310918bfc76e98a0800000000000000
-      internalID: -6296481087172837064
+      spriteID: 59068a000eaa771c0800000000000000
+      internalID: -4505945023100460907
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_128_planet_01_13
-      rect:
-        serializedVersion: 2
-        x: 1664
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 38d1b8aa6edee5100800000000000000
-      internalID: 98777816808234371
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sprite_128_planet_01_14
+      name: sprite_256_planet_01_7
       rect:
         serializedVersion: 2
         x: 1792
         y: 0
-        width: 128
-        height: 128
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -755,41 +428,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ec46e65f8272049d0800000000000000
-      internalID: -2792188712099879730
+      spriteID: 45aa781df0b749530800000000000000
+      internalID: 3860846088433412692
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_128_planet_01_15
-      rect:
-        serializedVersion: 2
-        x: 1920
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 58d8c703bc12565a0800000000000000
-      internalID: -6528774928228119163
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sprite_128_planet_01_16
+      name: sprite_256_planet_01_8
       rect:
         serializedVersion: 2
         x: 2048
         y: 0
-        width: 128
-        height: 128
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -797,41 +449,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 98cc1e54c9b799180800000000000000
-      internalID: -9108112860262577015
+      spriteID: ebb525492ef44c920800000000000000
+      internalID: 3009618285559962558
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_128_planet_01_17
-      rect:
-        serializedVersion: 2
-        x: 2176
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b7d10f2d7a71f3390800000000000000
-      internalID: -7836518817035444869
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sprite_128_planet_01_18
+      name: sprite_256_planet_01_9
       rect:
         serializedVersion: 2
         x: 2304
         y: 0
-        width: 128
-        height: 128
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -839,41 +470,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ad0fd38323609a700800000000000000
-      internalID: 551979242091311322
+      spriteID: 026166fb72240bda0800000000000000
+      internalID: -5931167970764646880
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_128_planet_01_19
-      rect:
-        serializedVersion: 2
-        x: 2432
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b04c09c690e9b4f40800000000000000
-      internalID: 5713834315562927115
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sprite_128_planet_01_20
+      name: sprite_256_planet_01_10
       rect:
         serializedVersion: 2
         x: 2560
         y: 0
-        width: 128
-        height: 128
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -881,41 +491,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 67c25ad1ed884a600800000000000000
-      internalID: 478657947969596534
+      spriteID: a727808cba5fc6d90800000000000000
+      internalID: -7103032394125905286
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_128_planet_01_21
-      rect:
-        serializedVersion: 2
-        x: 2688
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 91bae40331b345740800000000000000
-      internalID: 5139798028337457945
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sprite_128_planet_01_22
+      name: sprite_256_planet_01_11
       rect:
         serializedVersion: 2
         x: 2816
         y: 0
-        width: 128
-        height: 128
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -923,41 +512,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 22d4c5a1335d58970800000000000000
-      internalID: 8756639465954102562
+      spriteID: e8935f39890a68660800000000000000
+      internalID: 7387768815925672334
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_128_planet_01_23
-      rect:
-        serializedVersion: 2
-        x: 2944
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 12e2a461b88576f80800000000000000
-      internalID: -8113418849287000543
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sprite_128_planet_01_24
+      name: sprite_256_planet_01_12
       rect:
         serializedVersion: 2
         x: 3072
         y: 0
-        width: 128
-        height: 128
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -965,41 +533,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: be4a6785354273a10800000000000000
-      internalID: 1889018509090268395
+      spriteID: c701c96ed5418d480800000000000000
+      internalID: -8874320672200060804
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_128_planet_01_25
-      rect:
-        serializedVersion: 2
-        x: 3200
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b85d052d02882dae0800000000000000
-      internalID: -1526007649176332917
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sprite_128_planet_01_26
+      name: sprite_256_planet_01_13
       rect:
         serializedVersion: 2
         x: 3328
         y: 0
-        width: 128
-        height: 128
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1007,41 +554,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 963440c97135737d0800000000000000
-      internalID: -2938788870969080983
+      spriteID: c261e9463a482eb20800000000000000
+      internalID: 3162235725670127148
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_128_planet_01_27
-      rect:
-        serializedVersion: 2
-        x: 3456
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 94ec1ec11cfffbce0800000000000000
-      internalID: -1387108955328491959
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sprite_128_planet_01_28
+      name: sprite_256_planet_01_14
       rect:
         serializedVersion: 2
         x: 3584
         y: 0
-        width: 128
-        height: 128
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1049,41 +575,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1590e2c37523999d0800000000000000
-      internalID: -2767125145789265583
+      spriteID: 16dfafe0c33376280800000000000000
+      internalID: -9050208593135338143
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_128_planet_01_29
-      rect:
-        serializedVersion: 2
-        x: 3712
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7bb766d0d98779330800000000000000
-      internalID: 3717572633347652535
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sprite_128_planet_01_30
+      name: sprite_256_planet_01_15
       rect:
         serializedVersion: 2
         x: 3840
         y: 0
-        width: 128
-        height: 128
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1091,41 +596,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 438705e9fe35f7a80800000000000000
-      internalID: -8466956485814880204
+      spriteID: d84cbf284d432e360800000000000000
+      internalID: 7197373241826722957
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_128_planet_01_31
-      rect:
-        serializedVersion: 2
-        x: 3968
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b174ee4b462103aa0800000000000000
-      internalID: -6183422064638146789
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sprite_128_planet_01_32
+      name: sprite_256_planet_01_16
       rect:
         serializedVersion: 2
         x: 4096
         y: 0
-        width: 128
-        height: 128
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1133,41 +617,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e6f343d9750d731c0800000000000000
-      internalID: -4523918225952194706
+      spriteID: 0471bda702df20510800000000000000
+      internalID: 1514050740691867456
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_128_planet_01_33
-      rect:
-        serializedVersion: 2
-        x: 4224
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2a31bdc72c1dad7b0800000000000000
-      internalID: -5198612186597223518
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sprite_128_planet_01_34
+      name: sprite_256_planet_01_17
       rect:
         serializedVersion: 2
         x: 4352
         y: 0
-        width: 128
-        height: 128
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1175,41 +638,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: efde3fa3d47e91c30800000000000000
-      internalID: 4330746835581005310
+      spriteID: 3d941045fedbf2210800000000000000
+      internalID: 1310474852192307667
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_128_planet_01_35
-      rect:
-        serializedVersion: 2
-        x: 4480
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f05ab1225b41cc8e0800000000000000
-      internalID: -1671938593467423473
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sprite_128_planet_01_36
+      name: sprite_256_planet_01_18
       rect:
         serializedVersion: 2
         x: 4608
         y: 0
-        width: 128
-        height: 128
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1217,41 +659,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: be1848bf49ee90eb0800000000000000
-      internalID: -4753005608070512149
+      spriteID: 59522d9b0cf93e140800000000000000
+      internalID: 4747814082278729109
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_128_planet_01_37
-      rect:
-        serializedVersion: 2
-        x: 4736
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 35d84b38f705160f0800000000000000
-      internalID: -1125529923265196717
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sprite_128_planet_01_38
+      name: sprite_256_planet_01_19
       rect:
         serializedVersion: 2
         x: 4864
         y: 0
-        width: 128
-        height: 128
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1259,41 +680,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e40bc6c2cc09296f0800000000000000
-      internalID: -679321387186474930
+      spriteID: 1c65cf91e153d1330800000000000000
+      internalID: 3683158473660192449
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_128_planet_01_39
-      rect:
-        serializedVersion: 2
-        x: 4992
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8b88df39d1adcf6c0800000000000000
-      internalID: -4108168939496961864
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sprite_128_planet_01_40
+      name: sprite_256_planet_01_20
       rect:
         serializedVersion: 2
         x: 5120
         y: 0
-        width: 128
-        height: 128
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1301,41 +701,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 49d041cabb26dd300800000000000000
-      internalID: 278487310152240532
+      spriteID: 3c8a12c54fd795330800000000000000
+      internalID: 3700127057332775107
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_128_planet_01_41
-      rect:
-        serializedVersion: 2
-        x: 5248
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 51addb65be9d43e90800000000000000
-      internalID: -7046767912132158955
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sprite_128_planet_01_42
+      name: sprite_256_planet_01_21
       rect:
         serializedVersion: 2
         x: 5376
         y: 0
-        width: 128
-        height: 128
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1343,41 +722,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f939a38a45f451920800000000000000
-      internalID: 2960359555084227487
+      spriteID: 2c02b7e981014a2c0800000000000000
+      internalID: -4421391236246855486
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_128_planet_01_43
-      rect:
-        serializedVersion: 2
-        x: 5504
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 79b9fa29f7cf36930800000000000000
-      internalID: 4135426507708275607
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sprite_128_planet_01_44
+      name: sprite_256_planet_01_22
       rect:
         serializedVersion: 2
         x: 5632
         y: 0
-        width: 128
-        height: 128
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1385,41 +743,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 77468d0c20f1336f0800000000000000
-      internalID: -706186619881233289
+      spriteID: bd90ebc837eb357e0800000000000000
+      internalID: -1777868024389432869
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_128_planet_01_45
-      rect:
-        serializedVersion: 2
-        x: 5760
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7218e672e57e64ff0800000000000000
-      internalID: -52099954093686489
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sprite_128_planet_01_46
+      name: sprite_256_planet_01_23
       rect:
         serializedVersion: 2
         x: 5888
         y: 0
-        width: 128
-        height: 128
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1427,41 +764,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 34cd5c98dcccae5f0800000000000000
-      internalID: -726543206715106237
+      spriteID: 684066943cf1f39d0800000000000000
+      internalID: -2792478320335911802
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_128_planet_01_47
-      rect:
-        serializedVersion: 2
-        x: 6016
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 01aa652b3077faa70800000000000000
-      internalID: 8840415451312204304
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sprite_128_planet_01_48
+      name: sprite_256_planet_01_24
       rect:
         serializedVersion: 2
         x: 6144
         y: 0
-        width: 128
-        height: 128
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1469,41 +785,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ce0e1411fb6140750800000000000000
-      internalID: 6270161591090667756
+      spriteID: 362ec341b1d4b8080800000000000000
+      internalID: -9184162236393004445
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_128_planet_01_49
-      rect:
-        serializedVersion: 2
-        x: 6272
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7e0907b5201e63060800000000000000
-      internalID: 6932976076623745255
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sprite_128_planet_01_50
+      name: sprite_256_planet_01_25
       rect:
         serializedVersion: 2
         x: 6400
         y: 0
-        width: 128
-        height: 128
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1511,41 +806,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8f45a322b900e50b0800000000000000
-      internalID: -5738148208929254152
+      spriteID: 5bdf8a70d830fc8e0800000000000000
+      internalID: -1671113032477377099
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_128_planet_01_51
-      rect:
-        serializedVersion: 2
-        x: 6528
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2638cff88fb3287e0800000000000000
-      internalID: -1764782165222194334
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sprite_128_planet_01_52
+      name: sprite_256_planet_01_26
       rect:
         serializedVersion: 2
         x: 6656
         y: 0
-        width: 128
-        height: 128
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1553,41 +827,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9cbe5f0e33ec0f530800000000000000
-      internalID: 3886833200633605065
+      spriteID: 5dbba5b825aa58330800000000000000
+      internalID: 3712560739338861525
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_128_planet_01_53
-      rect:
-        serializedVersion: 2
-        x: 6784
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 09df8ac84fc7e9130800000000000000
-      internalID: 3575432543952502160
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sprite_128_planet_01_54
+      name: sprite_256_planet_01_27
       rect:
         serializedVersion: 2
         x: 6912
         y: 0
-        width: 128
-        height: 128
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1595,41 +848,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 949405ea701a03f60800000000000000
-      internalID: 8012080791453452617
+      spriteID: 9cd29343c38297650800000000000000
+      internalID: 6231055798483103177
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_128_planet_01_55
-      rect:
-        serializedVersion: 2
-        x: 7040
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6323762e7e43dc000800000000000000
-      internalID: 57760540766188086
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sprite_128_planet_01_56
+      name: sprite_256_planet_01_28
       rect:
         serializedVersion: 2
         x: 7168
         y: 0
-        width: 128
-        height: 128
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1637,41 +869,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3359d87cb4dfd6330800000000000000
-      internalID: 3705896570308105523
+      spriteID: b655ca39e6310b920800000000000000
+      internalID: 3003922317100995947
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_128_planet_01_57
-      rect:
-        serializedVersion: 2
-        x: 7296
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 31c9920312da7ea20800000000000000
-      internalID: 3091630027266694163
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: sprite_128_planet_01_58
+      name: sprite_256_planet_01_29
       rect:
         serializedVersion: 2
         x: 7424
         y: 0
-        width: 128
-        height: 128
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1679,20 +890,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f32accee1df395820800000000000000
-      internalID: 2907425205331468863
+      spriteID: 8139d1109f0a7a710800000000000000
+      internalID: 1704507975309038360
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprite_128_planet_01_59
+      name: sprite_256_planet_01_30
       rect:
         serializedVersion: 2
-        x: 7552
+        x: 7680
         y: 0
-        width: 128
-        height: 128
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1700,8 +911,617 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8e36274c4e707bb80800000000000000
-      internalID: -8379219902569749528
+      spriteID: 91c3f873848f8b270800000000000000
+      internalID: 8266630105092013081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_256_planet_01_31
+      rect:
+        serializedVersion: 2
+        x: 7936
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d62ba14f0ef6943e0800000000000000
+      internalID: -2068999541841284499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_256_planet_01_32
+      rect:
+        serializedVersion: 2
+        x: 8192
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03d49d3e83458b6f0800000000000000
+      internalID: -668691941346947792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_256_planet_01_33
+      rect:
+        serializedVersion: 2
+        x: 8448
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c869ee99f7df2590800000000000000
+      internalID: -7696695771039962936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_256_planet_01_34
+      rect:
+        serializedVersion: 2
+        x: 8704
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65b0d838898311480800000000000000
+      internalID: -8930294358405739690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_256_planet_01_35
+      rect:
+        serializedVersion: 2
+        x: 8960
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36261e703d15bc9f0800000000000000
+      internalID: -447173771181071773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_256_planet_01_36
+      rect:
+        serializedVersion: 2
+        x: 9216
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1d355c81c0a98760800000000000000
+      internalID: 7460671010859466013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_256_planet_01_37
+      rect:
+        serializedVersion: 2
+        x: 9472
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7901b9378692ba920800000000000000
+      internalID: 3002539105165447319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_256_planet_01_38
+      rect:
+        serializedVersion: 2
+        x: 9728
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3977380387e82c010800000000000000
+      internalID: 1207684296949856147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_256_planet_01_39
+      rect:
+        serializedVersion: 2
+        x: 9984
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d4eb5c69d5f7d3d0800000000000000
+      internalID: -3181804297539296041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_256_planet_01_40
+      rect:
+        serializedVersion: 2
+        x: 10240
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 040e886073e4dd810800000000000000
+      internalID: 1791674225003126848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_256_planet_01_41
+      rect:
+        serializedVersion: 2
+        x: 10496
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fce622189c8c9e4a0800000000000000
+      internalID: -6563494214135288113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_256_planet_01_42
+      rect:
+        serializedVersion: 2
+        x: 10752
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 81eba7e6d8e026f60800000000000000
+      internalID: 8025993486534360600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_256_planet_01_43
+      rect:
+        serializedVersion: 2
+        x: 11008
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9f98805971b48860800000000000000
+      internalID: 7531339611470602141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_256_planet_01_44
+      rect:
+        serializedVersion: 2
+        x: 11264
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 707086190e74329b0800000000000000
+      internalID: -5106158522670250233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_256_planet_01_45
+      rect:
+        serializedVersion: 2
+        x: 11520
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23c6ecfbc436a9c10800000000000000
+      internalID: 2061068960762063922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_256_planet_01_46
+      rect:
+        serializedVersion: 2
+        x: 11776
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 854ff1cad35391380800000000000000
+      internalID: -9000103841326173096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_256_planet_01_47
+      rect:
+        serializedVersion: 2
+        x: 12032
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e126e430e69e92ae0800000000000000
+      internalID: -1573469936078134754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_256_planet_01_48
+      rect:
+        serializedVersion: 2
+        x: 12288
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be3ffcfd97f7a04c0800000000000000
+      internalID: -4320500731085851669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_256_planet_01_49
+      rect:
+        serializedVersion: 2
+        x: 12544
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6d7a282d6eac5200800000000000000
+      internalID: 170202669781777775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_256_planet_01_50
+      rect:
+        serializedVersion: 2
+        x: 12800
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c18463082aa0ec70800000000000000
+      internalID: 8998379144318583240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_256_planet_01_51
+      rect:
+        serializedVersion: 2
+        x: 13056
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6458c23e421fcb260800000000000000
+      internalID: 7114826652071003462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_256_planet_01_52
+      rect:
+        serializedVersion: 2
+        x: 13312
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b6e69ebfbcc0bf70800000000000000
+      internalID: 9201079162626303672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_256_planet_01_53
+      rect:
+        serializedVersion: 2
+        x: 13568
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d32a49f02c64200d0800000000000000
+      internalID: -3458123764568120771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_256_planet_01_54
+      rect:
+        serializedVersion: 2
+        x: 13824
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5708bd2ae5ec4e390800000000000000
+      internalID: -7789874549589573515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_256_planet_01_55
+      rect:
+        serializedVersion: 2
+        x: 14080
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 649d90eda306143a0800000000000000
+      internalID: -6682954566091548346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_256_planet_01_56
+      rect:
+        serializedVersion: 2
+        x: 14336
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6df79193a84cecd90800000000000000
+      internalID: -7075501866609967146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_256_planet_01_57
+      rect:
+        serializedVersion: 2
+        x: 14592
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dda83b52dc9bbe910800000000000000
+      internalID: 1867790761227160285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_256_planet_01_58
+      rect:
+        serializedVersion: 2
+        x: 14848
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d080726d528dc3920800000000000000
+      internalID: 2971487511175956493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite_256_planet_01_59
+      rect:
+        serializedVersion: 2
+        x: 15104
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc387c25dc1405fd0800000000000000
+      internalID: -2355310255001861169
       vertices: []
       indices: 
       edges: []
