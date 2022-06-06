@@ -6,7 +6,7 @@ using System;
 using System.Linq;
 
 
-public class Planet : MonoBehaviour, IMouseHover
+public class Planet : MouseInteractable
 {
     private static int IDCount = 0;
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(EdgeCollider2D))]
-public class LinkVisual : MonoBehaviour,IMouseHover
+public class LinkVisual : MouseInteractable
 {
     private EdgeCollider2D edgeCollider;
     private LineRenderer myLine;
