@@ -236,9 +236,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pools:
-  - tag: Link
+  - tag: Capture
     prefab: {fileID: 539097037116262579, guid: 6f13bf6621d881b48b560df6d6670582, type: 3}
-    size: 0
+    size: 30
+  - tag: Reinforcement
+    prefab: {fileID: 7469761105797156472, guid: 68b52dfe0849a3d40b75b8c2e7457086,
+      type: 3}
+    size: 30
 --- !u!4 &107527513
 Transform:
   m_ObjectHideFlags: 0

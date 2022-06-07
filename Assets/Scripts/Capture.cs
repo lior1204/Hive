@@ -6,9 +6,20 @@ public class Capture : Link
 {
     public float strengthCaptured;
 
-    public Capture(Planet attacker, Planet captured) : base(attacker, captured)
+    public static Capture NewLink(Planet origin, Planet target)//create new link from outside pools
     {
-        strengthCaptured = 0;
+        GameObject obj = ObjectPooler.Instance.SpawnFromPool(ParamManager.Instance.CAPTUREPOOLTAG);//get from pool
+        Capture link = obj.GetComponent<Capture>();
+        if (link)
+        {
+            //set the members timestamp and not active
+            link.Origin = origin;
+            link.Target = target;
+            link.isActive = false;
+            link.TimeStemp = Time.time;
+            link.strengthCaptured = 0;
+        }
+        return link;
     }
     public void ConvertToReinforcement()//remove this link from members and create new reinforcement link instead
     {

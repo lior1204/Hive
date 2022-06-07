@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6530749165370013176}
   - component: {fileID: 7685364788573976889}
-  - component: {fileID: -5610869535105256357}
   - component: {fileID: 1533623977}
+  - component: {fileID: -191881521568446165}
   m_Layer: 8
   m_Name: LinkPrefab
   m_TagString: Link
@@ -130,18 +130,6 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
---- !u!114 &-5610869535105256357
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 539097037116262579}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 558bf10b9ef30984198d0f23fc8ed83e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!68 &1533623977
 EdgeCollider2D:
   m_ObjectHideFlags: 0
@@ -160,3 +148,17 @@ EdgeCollider2D:
   m_Points:
   - {x: -0.5, y: 0}
   - {x: 10.5, y: 0}
+--- !u!114 &-191881521568446165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 539097037116262579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4851956cb03be7c44ad5b143906770f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isActive: 0
+  strengthCaptured: 0

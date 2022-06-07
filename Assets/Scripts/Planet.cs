@@ -142,7 +142,7 @@ public class Planet : MouseInteractable
         //check if this planet in hive and if other planet is not in this hive
         if (hiveType != HiveController.Hive.Neutral && hiveType != captured.hiveType)
         {
-            Capture newLink = new Capture(this, captured);
+            Capture newLink = Capture.NewLink(this, captured);
             if (!captureLinks.Any(capture => capture.CompareExactTo(newLink))) //if not already in capture link list
             {
                 captureLinks.Add(newLink);// add capture link to list
@@ -226,7 +226,7 @@ public class Planet : MouseInteractable
         //check if this planet in hive and if other planet is in same hive
         if (hiveType != HiveController.Hive.Neutral && hiveType == reinforced.hiveType)
         {
-            Reinforcement newLink = new Reinforcement(this, reinforced);
+            Reinforcement newLink = Reinforcement.NewLink(this, reinforced);
             if (!reinforceLinks.Any(reinforce => reinforce.CompareExactTo(newLink))) //if not already in reinforcement link list
             {
                 Reinforcement existing = reinforceLinks.FirstOrDefault(reinforce => newLink.IsReverse(reinforce));//find if areverce reinfrocement exists

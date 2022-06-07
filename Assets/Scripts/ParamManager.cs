@@ -22,8 +22,11 @@ public class ParamManager : MonoBehaviour
     [SerializeField] private string fogMaskTag = "FogMask";
     public string FOGMASKTAG { get { return fogMaskTag; } }
 
-    [SerializeField] private string linkPoolerTag = "Link";
-    public string LINKPOOLTAG { get { return linkPoolerTag; } }
+    [SerializeField] private string capturePoolerTag = "Capture";
+    public string CAPTUREPOOLTAG { get { return capturePoolerTag; } }
+     
+    [SerializeField] private string reinforcementPoolerTag = "Reinforcement";
+    public string REINFORCEMENTPOOLTAG { get { return reinforcementPoolerTag; } }
 
     [Space(3)]
     [Header("Prefabs")]

@@ -3,24 +3,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Link 
+[RequireComponent(typeof(EdgeCollider2D))]
+public abstract class Link : MouseInteractable
 {
     public bool isActive;
-    public Planet Origin { get; private set; }
-    public Planet Target { get; private set; }
-    public float TimeStemp { get; private set; }
-    private LinkVisual visualLink;
+    public Planet Origin { get; protected set; }
+    public Planet Target { get; protected set; }
+    public float TimeStemp { get; protected set; }
+    private EdgeCollider2D edgeCollider;
+    private LineRenderer myLine;
+    public HiveController.Hive HiveType { get { return Origin ? Origin.HiveType : HiveController.Hive.Neutral; } }
+    
 
-    public Link(Planet origin, Planet target)
+    void Start()
     {
-        this.Origin = origin;
-        this.Target = target;
-        isActive = false;
-        TimeStemp = Time.time;
-        //visualLink = ObjectPooler.Instance.SpawnFromPool(ParamManager.Instance.LinkPoolTag).GetComponent<LinkVisual>();
-        //visualLink.transform.parent = origin.transform;
-        //visualLink.transform.position = origin.transform.position;
+        edgeCollider = this.GetComponent<EdgeCollider2D>();
+        myLine = this.GetComponent<LineRenderer>();
     }
+    void Update()
+    {
+        SetEdgeCollider(myLine);
+    }
+
+    
     public bool CompareExactTo(Link link)//is the same as another link
     {
         bool members= Origin == link.Origin && Target == link.Target;//check origin and target exactly the same
@@ -46,7 +51,33 @@ public abstract class Link
         //line.material = Material.;
         //line.SetColors(_spriteRenderer.color, captured.GetComponent<SpriteRenderer>().color);
     }
+   
+    public override void HoverObject()
+    {
+        //if (HiveRef)
+        //    _spriteRenderer.color = HiveRef.HiveHighlightColor;
+        //else
+        //    _spriteRenderer.color = ParamManager.Instance.NeutralHighlightColor;
+    }
+    public override void UnHoverObject()
+    {
+        //if (HiveRef)
+        //    _spriteRenderer.color = HiveRef.HiveColor;
+        //else
+        //    _spriteRenderer.color = ParamManager.Instance.NeutralColor;
+    }
+    void SetEdgeCollider(LineRenderer lineRenderer)
+    {
+        List<Vector2> edges = new List<Vector2>();
 
+        for (int point = 0; point < lineRenderer.positionCount; point++)
+        {
+            Vector3 lineRendererPoint = lineRenderer.GetPosition(point);
+            edges.Add(new Vector2(lineRendererPoint.x, lineRendererPoint.y));
+        }
+
+        edgeCollider.points = edges.ToArray();
+    }
     public void DestroyLink()//remove this link from both members
     {
         Origin.RemoveLink(this);
