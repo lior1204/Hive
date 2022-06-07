@@ -69,7 +69,6 @@ public class HiveController : MonoBehaviour
         {
             if (attacker.HiveType!=captured.HiveType)//check if captured is not in hive
             {
-                Debug.Log("captured");
                 attacker.AttemptCapture(captured);
             }
         }
@@ -99,6 +98,7 @@ public class HiveController : MonoBehaviour
     {
         foreach(Planet planet in hivePlanets)
         {
+            Debug.Log("Hive Remove to target");
             planet.RemoveLinkToTarget(target);
         }
     }

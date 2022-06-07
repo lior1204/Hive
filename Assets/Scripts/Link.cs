@@ -6,10 +6,10 @@ using UnityEngine;
 [RequireComponent(typeof(EdgeCollider2D))]
 public abstract class Link : MouseInteractable
 {
-    public bool isActive;
+    public bool isActive=false;
     public Planet Origin { get; protected set; }
     public Planet Target { get; protected set; }
-    public float TimeStemp { get; protected set; }
+    public float TimeStemp { get;  set ; }
     private EdgeCollider2D edgeCollider;
     private LineRenderer myLine;
     public HiveController.Hive HiveType { get { return Origin ? Origin.HiveType : HiveController.Hive.Neutral; } }

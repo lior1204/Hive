@@ -22,7 +22,6 @@ public class Planet : MouseInteractable
     [SerializeField] private float speed = 5f;
     [SerializeField] [Range(5f, 20f)] private float captureRange = 30;
     [SerializeField] [Range(100f, 300f)] private float visibilityRange = 150;
-    [SerializeField] [Range(1, 5)] private int maximumActiveCaptures = 2;
 
     public int PlanetID { get; private set; } = 0;
 
@@ -34,7 +33,7 @@ public class Planet : MouseInteractable
     //private List<Link> myLinks = new List<Link>();
 
 
-    private float captureImunity;
+    private float captureImunity=0;
     public bool IsImune { get { return captureImunity <= 0; } }
 
 
@@ -61,13 +60,13 @@ public class Planet : MouseInteractable
         strength = startingStrength;//st starting strength
         strenghtGrowthCoroutine = StartCoroutine(GenerateStrength());//start strength and save reference
         SetStartInHive();
-        captureImunity = ParamManager.Instance.CaptureImunityTime;
     }
     void Update()
     {
-        UpdateActiveLinks();
+        //UpdateActiveLinks();
         UpdateStrengthDisplay();
         UpdateColorAndHighlight();
+        if (captureImunity >= 0) captureImunity--;//reduce immunity timer 
     }
     private void SetStartInHive()//add to hive and set color
     {
@@ -88,6 +87,7 @@ public class Planet : MouseInteractable
             if (GameManager.Instance.IsPaused)//pause game
                 yield return new WaitUntil(() => !GameManager.Instance.IsPaused);
             yield return new WaitForSeconds(ParamManager.Instance.StrengthUpdateRate);//delay between strength ticks
+            UpdateActiveLinks();
             strength += CalculateDeltaStrength();
             foreach (Capture capture in activeLinks.Where(l => l.GetType() == typeof(Capture)))//for each capture interaction planet count contribution of capture
             {
@@ -140,7 +140,7 @@ public class Planet : MouseInteractable
     public void AttemptCapture(Planet captured)//start capture of other planet
     {
         //check if this planet in hive and if other planet is not in this hive
-        if (hiveType != HiveController.Hive.Neutral && hiveType != captured.hiveType)
+        if (HiveType != HiveController.Hive.Neutral && HiveType != captured.HiveType)
         {
             Capture newLink = Capture.NewLink(this, captured);
             if (!captureLinks.Any(capture => capture.CompareExactTo(newLink))) //if not already in capture link list
@@ -149,7 +149,9 @@ public class Planet : MouseInteractable
                 captured.DiscoverLink(newLink);//tell other planet they are under capture
             }
             else
+            {
                 newLink.DestroyLink();
+            }
         }
     }
     private void DiscoverLink(Link newLink)//become under capture by another planet
@@ -172,12 +174,13 @@ public class Planet : MouseInteractable
     }
     private void GetCaptured()//get captured by the hive that captured for the most time.
     {
-        if (captureLinks.Any(c => c.GetOther(this).hiveType != HiveController.Hive.Neutral))//if any non neutral capturer in link that this is the target
+        if (captureLinks.Where(c=>c.isActive).Any(c => c.GetOther(this).HiveType != HiveController.Hive.Neutral))//if any ACTIVE non neutral capturer in link that this is the target
         {
             //determine hive that captured this planet for the longest among active links
             float playerCaptureDuration = 0;
             float enemyCaptureDuration = 0;
-            foreach (Capture link in captureLinks.Where(c => c.isActive))//count active links
+            List<Capture> activeCaptures = captureLinks.Where(c => c.isActive).ToList();
+            foreach (Capture link in activeCaptures)//count active links
             {
                 if (link.GetOther(this).hiveType == HiveController.Hive.Player)//count strength taken by player
                 {
@@ -190,7 +193,7 @@ public class Planet : MouseInteractable
             }
             if ((playerCaptureDuration <= 0 && enemyCaptureDuration <= 0) || playerCaptureDuration == enemyCaptureDuration)// if no duration or equal duration count all links including non active
             {
-                foreach (Capture link in captureLinks.Where(c => !c.isActive))//add to count all not active links
+                foreach (Capture link in activeCaptures)//add to count all not active links
                 {
                     if (link.GetOther(this).hiveType == HiveController.Hive.Player)//count strength taken by player
                     {
@@ -215,15 +218,12 @@ public class Planet : MouseInteractable
         List<Capture> removeCapture = captureLinks.Where(c => c.Origin == this).ToList();//make a list of links to remove things this is attacking
         List<Reinforcement> removeReinforcement = reinforceLinks;//keep list of reinforcement to remove
         List<Capture> convert = captureLinks.Where(c => c.Target == this && c.Origin.HiveType == this.HiveType).ToList();//make list of links to convert to reinforcement
-        //captureLinks.RemoveAll(c => c.origin == this|| (c.target == this && c.origin.HiveType == this.HiveType));//remove captures were this is attacking or attacked by controlling hive
-        //reinforceLinks.Clear();//remove all reinforcements
-        foreach (Link link in removeCapture) link.DestroyLink();//destroy links
-        foreach (Link link in removeReinforcement) link.DestroyLink();//destroy links
-        foreach (Capture capture in convert) capture.ConvertToReinforcement();//convert captures by controlling hive to reinforcements
-
+        foreach (Link link in removeCapture) { link.DestroyLink(); }//destroy links
+        foreach (Link link in removeReinforcement) {link.DestroyLink(); }//destroy links
+        foreach (Capture capture in convert) {capture.ConvertToReinforcement(); }//convert captures by controlling hive to reinforcements
     }
 
-    public void AttemptReinforccing(Planet reinforced)//start reinforcing another planet
+    public Reinforcement AttemptReinforccing(Planet reinforced)//start reinforcing another planet
     {
         //check if this planet in hive and if other planet is in same hive
         if (hiveType != HiveController.Hive.Neutral && hiveType == reinforced.hiveType)
@@ -232,21 +232,25 @@ public class Planet : MouseInteractable
             if (!reinforceLinks.Any(reinforce => reinforce.CompareExactTo(newLink))) //if not already in reinforcement link list
             {
                 Reinforcement existing = reinforceLinks.FirstOrDefault(reinforce => newLink.IsReverse(reinforce));//find if areverce reinfrocement exists
-                existing.DestroyLink();//if reverse exists destroy it;
+                if(existing) existing.DestroyLink();//if reverse exists destroy it;
                 reinforceLinks.Add(newLink);// add reinforce link to list
                 reinforced.DiscoverLink(newLink);//tell other planet they are reinforced
             }
+            return newLink;
         }
+        return null;
     }
 
     private void UpdateActiveLinks()//check and update for active links in range choose based on time stemps
     {
         List<Link> myLinks = GetMyLinks();
-        myLinks.OrderBy(c => c.TimeStemp);//order by timestemp
+        myLinks=myLinks.OrderBy(c => c.TimeStemp).ToList();//order by timestemp
         activeLinks.Clear();//clear old active links
-        activeLinks.AddRange(myLinks.Where(l => IsCapturable(l.Target)).Take(maxActiveLinks));//set new actives equal to max 
+        //set new actives equal to max active if capturable or reinforcable
+        activeLinks.AddRange(myLinks.Where(l => l.GetType()==typeof(Capture)?
+            IsCapturable(l.Target):IsReinforcable(l.Target)).Take(maxActiveLinks)); 
         foreach (Link link in myLinks) link.isActive = false;//deactivate old links
-        foreach (Link link in activeLinks) link.isActive = true;//activate new links
+        foreach (Link link in activeLinks)link.isActive = true;//activate new links
     }
 
     private List<Link> GetMyLinks()//get a list of links where this is the origin
@@ -265,6 +269,8 @@ public class Planet : MouseInteractable
         {
             HiveRef.AddPlanet(this);
         }
+        //TODO remove being clicked
+        captureImunity = ParamManager.Instance.CaptureImunityTime;
     }
 
     public override void HoverObject()
@@ -307,11 +313,13 @@ public class Planet : MouseInteractable
     }
     public void RemoveLinkToTarget(Planet target)//destroy capture from this planet to target
     {
+        Debug.Log("Remove Planet");
         if (HiveType != target.HiveType)//check if target is in another hive
         {
             Capture capture = captureLinks.FirstOrDefault(c => c.Origin == this && c.Target == target);//get the link bertween this and target
             if (capture!=null)//if there is alink destroy it
             {
+                Debug.Log("Destroy");
                 capture.DestroyLink();
             }
         }
@@ -322,6 +330,12 @@ public class Planet : MouseInteractable
         bool range = (Vector2.Distance(transform.position, captured.transform.position) <= captureRange);//check range
         bool immunity = captured.IsImune;//check immunity
         return controller && range && immunity;
+    }
+    public bool IsReinforcable(Planet reinforced)//check if target within capture range, and of hive
+    {
+        bool controller = HiveType == reinforced.HiveType;//check hive
+        bool range = (Vector2.Distance(transform.position, reinforced.transform.position) <= captureRange);//check range
+        return controller && range;
     }
     public enum PlanetSize
     {

@@ -48,14 +48,16 @@ public class PlayerInput : MonoBehaviour
             {
                 if (currentHover && currentHover.GetType() == typeof(Planet))//if click target planet
                 {
-                    
+
                     if (currentHover == currentClickedPlanet)//if clicked current clicked
                     {
                         currentClickedPlanet.UnClickObject();
                         currentClickedPlanet = null;
                     }
                     else if (((Planet)currentHover).HiveType != HiveController.Hive.Player)// if hovering non-player planet start capture
+                    {
                         HiveController.Player.CapturePlanet(currentClickedPlanet, ((Planet)currentHover));
+                    }
                     else// if hovering player planet start capture
                         HiveController.Player.ReinforcePlanet(currentClickedPlanet, ((Planet)currentHover));
                 }
@@ -67,7 +69,8 @@ public class PlayerInput : MonoBehaviour
             }
             else //if not already clicked make hovered clicked
             {
-                if (currentHover && currentHover.GetType() == typeof(Planet))//if click planet set current hovered to clicked
+                if (currentHover && currentHover.GetType() == typeof(Planet)&&
+                    ((Planet)currentHover).HiveType == HiveController.Hive.Player)//if click player planet set current hovered to clicked
                 {
                     currentClickedPlanet = (Planet)currentHover;
                     currentClickedPlanet.ClickObject();
@@ -91,7 +94,10 @@ public class PlayerInput : MonoBehaviour
                     if (planet.HiveType == HiveController.Hive.Player)//if click on player planet remove all links from origin
                         HiveController.Player.RemoveAllLinksOfPlanet(planet);
                     else//if click on non player remove all links towards target
+                    {
+                        Debug.Log("Remove to target");
                         HiveController.Player.RemoveAllLinksToEnemy(planet);
+                    }
                 }
             }
         }

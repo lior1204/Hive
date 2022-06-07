@@ -23,7 +23,11 @@ public class Capture : Link
     }
     public void ConvertToReinforcement()//remove this link from members and create new reinforcement link instead
     {
-        Origin.AttemptReinforccing(Target);
+        Reinforcement newLink= Origin.AttemptReinforccing(Target);
+        if (newLink)
+        {
+            newLink.TimeStemp = this.TimeStemp;//keep the old connection timestamp
+        }
         DestroyLink();
     }
     public override void DestroyLink()
