@@ -18,5 +18,9 @@ public class Reinforcement : Link
         }
         return link;
     }
-   
+    public override void DestroyLink()
+    {
+        base.DestroyLink();
+        ObjectPooler.Instance.ReturnToPool(ParamManager.Instance.REINFORCEMENTPOOLTAG, this.gameObject);
+    }
 }

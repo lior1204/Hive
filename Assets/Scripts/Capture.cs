@@ -26,5 +26,9 @@ public class Capture : Link
         Origin.AttemptReinforccing(Target);
         DestroyLink();
     }
-
+    public override void DestroyLink()
+    {
+        base.DestroyLink();
+        ObjectPooler.Instance.ReturnToPool(ParamManager.Instance.CAPTUREPOOLTAG, this.gameObject);
+    }
 }

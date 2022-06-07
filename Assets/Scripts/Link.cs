@@ -38,19 +38,19 @@ public abstract class Link : MouseInteractable
         bool type = this.GetType() == link.GetType();//check type
         return members && type;
     }
-    private void DrawConnection(Planet captured)
-    {
-        GameObject captureLineObj = new GameObject();
-        captureLineObj.AddComponent(typeof(LineRenderer));
-        GameObject.Instantiate(captureLineObj);
-        LineRenderer line = captureLineObj.GetComponent<LineRenderer>();
-        line.positionCount = 2;
-        line.SetPosition(0, Origin.transform.position);
-        line.SetPosition(1, captured.transform.position);
-        line.SetWidth(0.25f, 0.1f);
-        //line.material = Material.;
-        //line.SetColors(_spriteRenderer.color, captured.GetComponent<SpriteRenderer>().color);
-    }
+    //private void DrawConnection(Planet captured)
+    //{
+    //    GameObject captureLineObj = new GameObject();
+    //    captureLineObj.AddComponent(typeof(LineRenderer));
+    //    GameObject.Instantiate(captureLineObj);
+    //    LineRenderer line = captureLineObj.GetComponent<LineRenderer>();
+    //    line.positionCount = 2;
+    //    line.SetPosition(0, Origin.transform.position);
+    //    line.SetPosition(1, captured.transform.position);
+    //    line.SetWidth(0.25f, 0.1f);
+    //    //line.material = Material.;
+    //    //line.SetColors(_spriteRenderer.color, captured.GetComponent<SpriteRenderer>().color);
+    //}
    
     public override void HoverObject()
     {
@@ -78,10 +78,10 @@ public abstract class Link : MouseInteractable
 
         edgeCollider.points = edges.ToArray();
     }
-    public void DestroyLink()//remove this link from both members
+    public virtual void DestroyLink()//remove this link from both members
     {
         Origin.RemoveLink(this);
-        Target.RemoveLink(this);
+        Target.RemoveLink(this); 
     }
     public Planet GetOther(Planet planet)//return the other planet in the link
     {

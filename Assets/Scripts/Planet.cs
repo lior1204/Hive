@@ -148,6 +148,8 @@ public class Planet : MouseInteractable
                 captureLinks.Add(newLink);// add capture link to list
                 captured.DiscoverLink(newLink);//tell other planet they are under capture
             }
+            else
+                newLink.DestroyLink();
         }
     }
     private void DiscoverLink(Link newLink)//become under capture by another planet

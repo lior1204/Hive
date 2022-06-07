@@ -67,8 +67,9 @@ public class HiveController : MonoBehaviour
     {
         if (hivePlanets.Contains(attacker))//check if attacker is in hive
         {
-            if (attacker.IsCapturable(captured))//check if captured is capturable
+            if (attacker.HiveType!=captured.HiveType)//check if captured is not in hive
             {
+                Debug.Log("captured");
                 attacker.AttemptCapture(captured);
             }
         }
