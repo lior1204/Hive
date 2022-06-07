@@ -1166,7 +1166,8 @@ MonoBehaviour:
   planetTag: Planet
   linkTag: Planet
   fogMaskTag: FogMask
-  linkPoolerTag: Link
+  capturePoolerTag: Capture
+  reinforcementPoolerTag: Reinforcement
   _strengthDisplayPrefab: {fileID: 2453109628788081193, guid: 006626a6175674e4c8c0f6b5f58cda84,
     type: 3}
   playerColor: {r: 0.5137255, g: 0.7490196, b: 0.50980395, a: 1}

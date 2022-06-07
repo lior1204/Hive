@@ -18,7 +18,7 @@ public class PlayerInput : MonoBehaviour
         List<RaycastHit2D> hits = new List<RaycastHit2D>(Physics2D.GetRayIntersectionAll(ray));//raycast to hit planets
         if (hits.Any(hit => hit.collider.CompareTag(ParamManager.Instance.FOGMASKTAG)))//check if planet is inside visability fog mask
         {
-            RaycastHit2D hover = (hits.FirstOrDefault(hit => hit.collider.GetComponent<MouseInteractable>() != null));//check if hit IMouseHover
+            RaycastHit2D hover = (hits.FirstOrDefault(hit => hit.collider.GetComponent<MouseInteractable>()));//check if hit IMouseHover
             if (hover)//if not null trigger mouseHover
             {
                 OnMouseHover(hover.collider.GetComponent<MouseInteractable>());
@@ -42,37 +42,47 @@ public class PlayerInput : MonoBehaviour
                 currentHover = null;
         }
     }
-    public void OnPickObject()//when left click on planet
+    public void OnClickObject(InputAction.CallbackContext context)//when left click on planet
     {
-        if (currentClickedPlanet)//if already have clicked planet
+        Debug.Log("Click");
+        if (context.performed)
         {
-            if (currentHover && currentHover.GetType() == typeof(Planet))//if click target planet
+            Debug.Log("Perform");
+            if (currentClickedPlanet)//if already have clicked planet
             {
-                if (currentHover == currentClickedPlanet)//if clicked current clicked
+                if (currentHover && currentHover.GetType() == typeof(Planet))//if click target planet
                 {
+                    if (currentHover == currentClickedPlanet)//if clicked current clicked
+                    {
+                        Debug.Log("Unclick current");
+                        currentClickedPlanet.UnClickObject();
+                        currentClickedPlanet = null;
+                    }
+                    else if (((Planet)currentHover).HiveType != HiveController.Hive.Player)// if hovering non-player planet start capture
+                        HiveController.Player.CapturePlanet(currentClickedPlanet, ((Planet)currentHover));
+                    else// if hovering player planet start capture
+                        HiveController.Player.ReinforcePlanet(currentClickedPlanet, ((Planet)currentHover));
+                }
+                else //if not hovering something or hovering link unClick planet
+                {
+                    Debug.Log("Unclick empty");
+
                     currentClickedPlanet.UnClickObject();
                     currentClickedPlanet = null;
                 }
-                else if (((Planet)currentHover).HiveType != HiveController.Hive.Player)// if hovering non-player planet start capture
-                    HiveController.Player.CapturePlanet(currentClickedPlanet, ((Planet)currentHover));
-                else// if hovering player planet start capture
-                    HiveController.Player.ReinforcePlanet(currentClickedPlanet, ((Planet)currentHover));
             }
-            else //if not hovering something or hovering link unClick planet
+            else //if not already clicked make hovered clicked
             {
-                currentClickedPlanet.UnClickObject();
-                currentClickedPlanet = null;
+                if (currentHover && currentHover.GetType() == typeof(Planet))//if click planet set current hovered to clicked
+                {
+                    Debug.Log("click");
+
+                    currentClickedPlanet = (Planet)currentHover;
+                    currentClickedPlanet.ClickObject();
+                }
+                else
+                    currentClickedPlanet = null;
             }
-        }
-        else //if not already clicked make hovered clicked
-        {
-            if (currentHover && currentHover.GetType() == typeof(Planet))//if click planet set current hovered to clicked
-            {
-                currentClickedPlanet = (Planet)currentHover;
-                currentClickedPlanet.ClickObject();
-            }
-            else
-                currentClickedPlanet = null;
         }
     }
     public void OnCancelLink()//when right click on planet or link
