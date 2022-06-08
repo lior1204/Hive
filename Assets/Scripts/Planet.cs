@@ -247,7 +247,7 @@ public class Planet : MouseInteractable
         myLinks=myLinks.OrderBy(c => c.TimeStemp).ToList();//order by timestemp
         activeLinks.Clear();//clear old active links
         //set new actives equal to max active if capturable or reinforcable
-        activeLinks.AddRange(myLinks.Where(l => l.GetType()==typeof(Capture)?
+        activeLinks.AddRange(myLinks.Where(l => l is Capture?
             IsCapturable(l.Target):IsReinforcable(l.Target)).Take(maxActiveLinks)); 
         foreach (Link link in myLinks) link.isActive = false;//deactivate old links
         foreach (Link link in activeLinks)link.isActive = true;//activate new links
@@ -301,9 +301,9 @@ public class Planet : MouseInteractable
     }
     public void RemoveLink(Link link)//remove link from coresponding list
     {
-        if (link.GetType() == typeof(Capture))
+        if (link is Capture)
             captureLinks.Remove((Capture)link);
-        else if (link.GetType() == typeof(Reinforcement))
+        else if (link is Reinforcement)
             reinforceLinks.Remove((Reinforcement)link);
     }
     public void RemoveAllLinks()//destroy all the links originating from this planet

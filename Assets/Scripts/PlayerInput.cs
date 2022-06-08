@@ -46,7 +46,7 @@ public class PlayerInput : MonoBehaviour
         {
             if (currentClickedPlanet)//if already have clicked planet
             {
-                if (currentHover && currentHover.GetType() == typeof(Planet))//if click target planet
+                if (currentHover && currentHover is Planet)//if click target planet
                 {
 
                     if (currentHover == currentClickedPlanet)//if clicked current clicked
@@ -69,7 +69,7 @@ public class PlayerInput : MonoBehaviour
             }
             else //if not already clicked make hovered clicked
             {
-                if (currentHover && currentHover.GetType() == typeof(Planet)&&
+                if (currentHover && currentHover is Planet&&
                     ((Planet)currentHover).HiveType == HiveController.Hive.Player)//if click player planet set current hovered to clicked
                 {
                     currentClickedPlanet = (Planet)currentHover;
@@ -88,7 +88,7 @@ public class PlayerInput : MonoBehaviour
             {
                 if (currentHover is Link)//if click on link remove this link
                     HiveController.Player.RemoveLink((Link)currentHover);
-                else if (currentHover.GetType() == typeof(Planet))//if click on planet
+                else if (currentHover is Planet)//if click on planet
                 {
                     Planet planet = (Planet)currentHover;
                     if (planet.HiveType == HiveController.Hive.Player)//if click on player planet remove all links from origin
