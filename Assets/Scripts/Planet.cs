@@ -6,7 +6,7 @@ using System;
 using System.Linq;
 
 
-public class Planet : MouseInteractable
+public class Planet : MouseInteractable, IOrbitable
 {
     private static int IDCount = 0;
 
@@ -17,11 +17,11 @@ public class Planet : MouseInteractable
     [SerializeField] private int startingStrength = 6;
     [SerializeField] private PlanetSize planetSize = PlanetSize.Small;
 
-    [SerializeField] private float strengthIncome = 2;
-    [SerializeField] private int maxActiveLinks = 2;
-    [SerializeField] private float speed = 5f;
-    [SerializeField] [Range(5f, 20f)] private float captureRange = 30;
-    [SerializeField] [Range(100f, 300f)] private float visibilityRange = 150;
+    private float strengthIncome = 2;
+    private int maxActiveLinks = 2;
+    private float orbitCycleTime = 5f;
+    private float captureRange = 30;
+    private float visibilityRange = 150;
 
     public int PlanetID { get; private set; } = 0;
 
@@ -30,10 +30,9 @@ public class Planet : MouseInteractable
     private List<Capture> captureLinks = new List<Capture>();
     private List<Reinforcement> reinforceLinks = new List<Reinforcement>();
     private List<Link> activeLinks = new List<Link>();
-    //private List<Link> myLinks = new List<Link>();
 
 
-    private float captureImunity=0;
+    private float captureImunity = 0;
     public bool IsImune { get { return captureImunity <= 0; } }
 
 
@@ -41,7 +40,7 @@ public class Planet : MouseInteractable
     private TextMeshPro _strengthDisplay = null;
     private SpriteRenderer _spriteRenderer = null;
     private Coroutine strenghtGrowthCoroutine;
-    private HiveController HiveRef //dynamic HiveControllerReference based on controllingHive
+    public HiveController HiveRef //dynamic HiveControllerReference based on controllingHive
     {
         get
         {
@@ -49,6 +48,7 @@ public class Planet : MouseInteractable
             else if (hiveType == HiveController.Hive.Enemy) return HiveController.Enemy;
             else return null;
         }
+        private set { }
     }
 
     void Start()
@@ -60,12 +60,11 @@ public class Planet : MouseInteractable
         strength = startingStrength;//st starting strength
         strenghtGrowthCoroutine = StartCoroutine(GenerateStrength());//start strength and save reference
         SetStartInHive();
+        SetPlanetParametersBySize();
     }
     void Update()
     {
-        //UpdateActiveLinks();
         UpdateStrengthDisplay();
-        UpdateColorAndHighlight();
         if (captureImunity >= 0) captureImunity--;//reduce immunity timer 
     }
     private void SetStartInHive()//add to hive and set color
@@ -74,7 +73,16 @@ public class Planet : MouseInteractable
             HiveRef.Queen = this;
         ChangeHive(hiveType);
     }
-
+    private void SetPlanetParametersBySize()
+    {
+        ParamManager.PlanetSizeParameters orbitCycleTime = null;
+        orbitCycleTime = ParamManager.Instance.planetSizeSet.FirstOrDefault(s => s.size == planetSize);
+        strengthIncome = orbitCycleTime.strengthIncome;
+        maxActiveLinks = orbitCycleTime.maxActiveLinks;
+        this.orbitCycleTime = orbitCycleTime.orbitCycleTime;
+        captureRange = orbitCycleTime.captureRange;
+        visibilityRange = orbitCycleTime.visibilityRange;
+    }
     private void UpdateStrengthDisplay()// update text and pin to planet
     {
         _strengthDisplay.text = strength + "";
@@ -94,14 +102,15 @@ public class Planet : MouseInteractable
                 capture.strengthCaptured += strength > 0 ? ParamManager.Instance.CaptureStrengthOutcome
                     : ParamManager.Instance.ZeroStrengthReducedOutcome;//count less contribution if other has 0 strength
             }
-            if (strength <= 0)//if reach zero or below get captured
+            if (strength >= ParamManager.Instance.StrengthCap)
+                strength = ParamManager.Instance.StrengthCap;
+            else if (strength <= 0)//if reach zero or below get captured
             {
                 strength = 0;
                 GetCaptured();
             }
         }
     }
-
     private float CalculateDeltaStrength()// determines strengrh change per strengt tick
     {
         float deltaStrengt = CalculateStrengthIncome() - CalculateStrengthOutcome();
@@ -174,7 +183,7 @@ public class Planet : MouseInteractable
     }
     private void GetCaptured()//get captured by the hive that captured for the most time.
     {
-        if (captureLinks.Where(c=>c.isActive).Any(c => c.GetOther(this).HiveType != HiveController.Hive.Neutral))//if any ACTIVE non neutral capturer in link that this is the target
+        if (captureLinks.Where(c => c.isActive).Any(c => c.GetOther(this).HiveType != HiveController.Hive.Neutral))//if any ACTIVE non neutral capturer in link that this is the target
         {
             //determine hive that captured this planet for the longest among active links
             float playerCaptureDuration = 0;
@@ -219,10 +228,9 @@ public class Planet : MouseInteractable
         List<Reinforcement> removeReinforcement = reinforceLinks;//keep list of reinforcement to remove
         List<Capture> convert = captureLinks.Where(c => c.Target == this && c.Origin.HiveType == this.HiveType).ToList();//make list of links to convert to reinforcement
         foreach (Link link in removeCapture) { link.DestroyLink(); }//destroy links
-        foreach (Link link in removeReinforcement) {link.DestroyLink(); }//destroy links
-        foreach (Capture capture in convert) {capture.ConvertToReinforcement(); }//convert captures by controlling hive to reinforcements
+        foreach (Link link in removeReinforcement) { link.DestroyLink(); }//destroy links
+        foreach (Capture capture in convert) { capture.ConvertToReinforcement(); }//convert captures by controlling hive to reinforcements
     }
-
     public Reinforcement AttemptReinforccing(Planet reinforced)//start reinforcing another planet
     {
         //check if this planet in hive and if other planet is in same hive
@@ -232,7 +240,7 @@ public class Planet : MouseInteractable
             if (!reinforceLinks.Any(reinforce => reinforce.CompareExactTo(newLink))) //if not already in reinforcement link list
             {
                 Reinforcement existing = reinforceLinks.FirstOrDefault(reinforce => newLink.IsReverse(reinforce));//find if areverce reinfrocement exists
-                if(existing) existing.DestroyLink();//if reverse exists destroy it;
+                if (existing) existing.DestroyLink();//if reverse exists destroy it;
                 reinforceLinks.Add(newLink);// add reinforce link to list
                 reinforced.DiscoverLink(newLink);//tell other planet they are reinforced
             }
@@ -240,18 +248,18 @@ public class Planet : MouseInteractable
         }
         return null;
     }
-
     private void UpdateActiveLinks()//check and update for active links in range choose based on time stemps
     {
         List<Link> myLinks = GetMyLinks();
-        myLinks=myLinks.OrderBy(c => c.TimeStemp).ToList();//order by timestemp
+        myLinks = myLinks.OrderBy(c => c.TimeStemp).ToList();//order by timestemp
         activeLinks.Clear();//clear old active links
         //set new actives equal to max active if capturable or reinforcable
-        activeLinks.AddRange(myLinks.Where(l => l is Capture?
-            IsCapturable(l.Target):IsReinforcable(l.Target)).Take(maxActiveLinks)); 
+        activeLinks.AddRange(myLinks.Where(l => l is Capture ?
+            IsCapturable(l.Target) : IsReinforcable(l.Target)).Take(maxActiveLinks));
         foreach (Link link in myLinks) link.isActive = false;//deactivate old links
-        foreach (Link link in activeLinks)link.isActive = true;//activate new links
+        foreach (Link link in activeLinks) link.isActive = true;//activate new links
     }
+
 
     private List<Link> GetMyLinks()//get a list of links where this is the origin
     {
@@ -271,18 +279,9 @@ public class Planet : MouseInteractable
         }
         //TODO remove being clicked
         captureImunity = ParamManager.Instance.CaptureImunityTime;
+        UpdateColorAndHighlight();
     }
-
-    public override void HoverObject()
-    {
-        base.HoverObject();
-        
-    }
-    public override void UnHoverObject()
-    {
-        base.UnHoverObject();
-    }
-    private void UpdateColorAndHighlight()//update planet collor based on hive and hishlight
+    protected override void UpdateColorAndHighlight()//update color based on hive and highlight
     {
         if (isHovered || isClicked)
         {
@@ -299,6 +298,7 @@ public class Planet : MouseInteractable
                 _spriteRenderer.color = ParamManager.Instance.NeutralColor;
         }
     }
+
     public void RemoveLink(Link link)//remove link from coresponding list
     {
         if (link is Capture)
@@ -317,13 +317,15 @@ public class Planet : MouseInteractable
         if (HiveType != target.HiveType)//check if target is in another hive
         {
             Capture capture = captureLinks.FirstOrDefault(c => c.Origin == this && c.Target == target);//get the link bertween this and target
-            if (capture!=null)//if there is alink destroy it
+            if (capture != null)//if there is alink destroy it
             {
                 Debug.Log("Destroy");
                 capture.DestroyLink();
             }
         }
     }
+
+    //checks
     public bool IsCapturable(Planet captured)//check if target within capture range, not immune and of another hive
     {
         bool controller = HiveType != captured.HiveType;//check hive
@@ -337,10 +339,17 @@ public class Planet : MouseInteractable
         bool range = (Vector2.Distance(transform.position, reinforced.transform.position) <= captureRange);//check range
         return controller && range;
     }
+    public float GetOrbitCycleTime()
+    {
+        return orbitCycleTime;
+    }
+
+
     public enum PlanetSize
     {
-        Small=0,
-        Medium=1,
-        Big=2
+        Small = 0,
+        Medium = 1,
+        Big = 2
     }
 }
+

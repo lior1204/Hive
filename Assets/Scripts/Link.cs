@@ -50,7 +50,10 @@ public abstract class Link : MouseInteractable
     }
     private void SetLinePosition()
     {
-        Vector3[] pos = { Origin.transform.position, Target.transform.position };
+        Vector3[] pos = { Origin.transform.position, Target.transform.position };//set to origin and target positions
+        //draw line behind planet
+        pos[0]-= new Vector3(0f, 0f, 0.01f);
+        pos[1]-= new Vector3(0f, 0f, 0.01f);
         myLine.SetPositions(pos);
     }
 
@@ -60,8 +63,38 @@ public abstract class Link : MouseInteractable
         myLine = this.GetComponent<LineRenderer>();
         myLine.startWidth = startWidth;
         myLine.endWidth = endWidth;
-        myLine.startColor = Origin.GetComponent<SpriteRenderer>().color;
+        UpdateColorAndHighlight();
+    }
+    protected override void UpdateColorAndHighlight()//update color based on hive and highlight
+    {
+        
         myLine.endColor = Target.GetComponent<SpriteRenderer>().color;
+        if (isHovered || isClicked)//highlighted
+        {
+            //start color
+            if (Origin.HiveRef)
+                myLine.startColor = Origin.HiveRef.HiveHighlightColor;
+            else
+                myLine.startColor = ParamManager.Instance.NeutralHighlightColor;
+            //end color
+            if (Target.HiveRef)
+                myLine.endColor = Target.HiveRef.HiveHighlightColor;
+            else
+                myLine.endColor = ParamManager.Instance.NeutralHighlightColor;
+        }
+        else//not highlithed
+        {
+            //start color
+            if (Origin.HiveRef)
+                myLine.startColor = Origin.HiveRef.HiveColor;
+            else
+                myLine.startColor = ParamManager.Instance.NeutralColor;
+            //end color
+            if (Target.HiveRef)
+                myLine.endColor = Target.HiveRef.HiveColor;
+            else
+                myLine.endColor = ParamManager.Instance.NeutralColor;
+        }
     }
 
     public bool CompareExactTo(Link link)//is the same as another link
@@ -84,21 +117,8 @@ public abstract class Link : MouseInteractable
             return Origin;
         return null;
     }
-    //public override void HoverObject()
-    //{
-    //    //if (HiveRef)
-    //    //    _spriteRenderer.color = HiveRef.HiveHighlightColor;
-    //    //else
-    //    //    _spriteRenderer.color = ParamManager.Instance.NeutralHighlightColor;
-    //}
-    //public override void UnHoverObject()
-    //{
-    //    //if (HiveRef)
-    //    //    _spriteRenderer.color = HiveRef.HiveColor;
-    //    //else
-    //    //    _spriteRenderer.color = ParamManager.Instance.NeutralColor;
-    //}
-
+    
+    
     public virtual void DestroyLink()//remove this link from both members
     {
         Origin.RemoveLink(this);

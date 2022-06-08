@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 public class ParamManager : MonoBehaviour
 {
     public static ParamManager Instance;//singelton
@@ -72,8 +73,11 @@ public class ParamManager : MonoBehaviour
     
     [SerializeField] private float reinforceCost = 0.5f;
     public float ReinforceCost { get { return reinforceCost; } }
+    [SerializeField] private float strengthCap = 100f;
+    public float StrengthCap { get { return strengthCap; } }
 
 
+    public PlanetSizeParameters[] planetSizeSet =new PlanetSizeParameters[3];
     private void Awake()
     {
         if (Instance != null && Instance != this)// implement singelton
@@ -85,5 +89,15 @@ public class ParamManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(this.gameObject);
         }
+    }
+    [Serializable]
+    public class PlanetSizeParameters
+    {
+        public Planet.PlanetSize size;
+        public float strengthIncome = 2;
+        public int maxActiveLinks = 2;
+        public float orbitCycleTime = 5f;
+        public float captureRange = 30;
+        public float visibilityRange = 150;
     }
 }
