@@ -89,7 +89,7 @@ public class Planet : MouseInteractable
             yield return new WaitForSeconds(ParamManager.Instance.StrengthUpdateRate);//delay between strength ticks
             UpdateActiveLinks();
             strength += CalculateDeltaStrength();
-            foreach (Capture capture in activeLinks.Where(l => l.GetType() == typeof(Capture)))//for each capture interaction planet count contribution of capture
+            foreach (Capture capture in activeLinks.Where(l => l is Capture))//for each capture interaction planet count contribution of capture
             {
                 capture.strengthCaptured += strength > 0 ? ParamManager.Instance.CaptureStrengthOutcome
                     : ParamManager.Instance.ZeroStrengthReducedOutcome;//count less contribution if other has 0 strength
@@ -156,14 +156,14 @@ public class Planet : MouseInteractable
     }
     private void DiscoverLink(Link newLink)//become under capture by another planet
     {
-        if (newLink.GetType() == typeof(Capture))//if a capture link
+        if (newLink is Capture)//if a capture link
         {
             if (!captureLinks.Any(c => c.CompareExactTo(newLink))) //if not already in under capture interaction with other
             {
                 captureLinks.Add((Capture)newLink);// add capture link to list
             }
         }
-        else if (newLink.GetType() == typeof(Reinforcement))//if a reinforce link
+        else if (newLink is Reinforcement)//if a reinforce link
         {
             if (!reinforceLinks.Any(r => r.CompareExactTo(newLink))) //if not already reinforced by other
             {
