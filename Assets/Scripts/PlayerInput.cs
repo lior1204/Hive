@@ -86,7 +86,7 @@ public class PlayerInput : MonoBehaviour
         {
             if (currentHover)//if currently hovering something
             {
-                if (currentHover.GetType() == typeof(Link))//if click on link remove this link
+                if (currentHover is Link)//if click on link remove this link
                     HiveController.Player.RemoveLink((Link)currentHover);
                 else if (currentHover.GetType() == typeof(Planet))//if click on planet
                 {

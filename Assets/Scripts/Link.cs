@@ -6,18 +6,17 @@ using UnityEngine;
 [RequireComponent(typeof(EdgeCollider2D))]
 public abstract class Link : MouseInteractable
 {
+    [SerializeField] private float startWidth = 0.25f;
+    [SerializeField] private float endWidth = 0.1f;
+    //parameters
     public bool isActive = false;
     public Planet Origin { get; protected set; }
     public Planet Target { get; protected set; }
     public float TimeStemp { get; set; }
+    //references
     private EdgeCollider2D edgeCollider;
     private LineRenderer myLine;
     public HiveController.Hive HiveType { get { return Origin ? Origin.HiveType : HiveController.Hive.Neutral; } }
-    void Start()
-    {
-        edgeCollider = this.GetComponent<EdgeCollider2D>();
-        myLine = this.GetComponent<LineRenderer>();
-    }
     void Update()
     {
         SetLinePosition();
@@ -27,13 +26,14 @@ public abstract class Link : MouseInteractable
     {
         if (link)
         {
-            //set the members, activity, timestamp, parent and position
+            //set the members, activity, timestamp, parent, position and color
             link.Origin = origin;
             link.Target = target;
             link.isActive = false;
             link.TimeStemp = Time.time;
             link.transform.parent = origin.transform.parent;
             link.transform.position = Vector3.zero;
+            link.SetLine();
         }
     }
     private void SetEdgeCollider()
@@ -50,23 +50,20 @@ public abstract class Link : MouseInteractable
     }
     private void SetLinePosition()
     {
-        throw new NotImplementedException();
+        Vector3[] pos = { Origin.transform.position, Target.transform.position };
+        myLine.SetPositions(pos);
     }
 
-    //private void DrawConnection(Planet captured)
-    //{
-    //    GameObject captureLineObj = new GameObject();
-    //    captureLineObj.AddComponent(typeof(LineRenderer));
-    //    GameObject.Instantiate(captureLineObj);
-    //    LineRenderer line = captureLineObj.GetComponent<LineRenderer>();
-    //    line.positionCount = 2;
-    //    line.SetPosition(0, Origin.transform.position);
-    //    line.SetPosition(1, captured.transform.position);
-    //    line.SetWidth(0.25f, 0.1f);
-    //    //line.material = Material.;
-    //    //line.SetColors(_spriteRenderer.color, captured.GetComponent<SpriteRenderer>().color);
-    //}
-   
+    private void SetLine()
+    {
+        edgeCollider = this.GetComponent<EdgeCollider2D>();
+        myLine = this.GetComponent<LineRenderer>();
+        myLine.startWidth = startWidth;
+        myLine.endWidth = endWidth;
+        myLine.startColor = Origin.GetComponent<SpriteRenderer>().color;
+        myLine.endColor = Target.GetComponent<SpriteRenderer>().color;
+    }
+
     public bool CompareExactTo(Link link)//is the same as another link
     {
         bool members = Origin == link.Origin && Target == link.Target;//check origin and target exactly the same
