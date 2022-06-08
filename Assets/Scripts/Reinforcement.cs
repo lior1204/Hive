@@ -8,14 +8,7 @@ public class Reinforcement : Link
     {
         GameObject obj = ObjectPooler.Instance.SpawnFromPool(ParamManager.Instance.REINFORCEMENTPOOLTAG);//get from pool
         Reinforcement link = obj.GetComponent<Reinforcement>();
-        if (link)
-        {
-            //set the members timestamp and not active
-            link.Origin = origin;
-            link.Target = target;
-            link.isActive = false;
-            link.TimeStemp = Time.time;
-        }
+        Link.NewLink(link, origin, target);
         return link;
     }
     public override void DestroyLink()

@@ -10,15 +10,8 @@ public class Capture : Link
     {
         GameObject obj = ObjectPooler.Instance.SpawnFromPool(ParamManager.Instance.CAPTUREPOOLTAG);//get from pool
         Capture link = obj.GetComponent<Capture>();
-        if (link)
-        {
-            //set the members timestamp and not active
-            link.Origin = origin;
-            link.Target = target;
-            link.isActive = false;
-            link.TimeStemp = Time.time;
-            link.strengthCaptured = 0;
-        }
+        Link.NewLink(link, origin, target);
+        link.strengthCaptured = 0;//set strength
         return link;
     }
     public void ConvertToReinforcement()//remove this link from members and create new reinforcement link instead

@@ -17,7 +17,7 @@ public abstract class MouseInteractable:MonoBehaviour
     {
         isHovered = false;
     }
-    public void ClickObject()//turn on click
+    public virtual void ClickObject()//turn on click
     {
         isClicked = true;
     }
