@@ -800,9 +800,9 @@ GameObject:
   - component: {fileID: 1417994059}
   - component: {fileID: 1417994058}
   - component: {fileID: 1417994057}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Fog
-  m_TagString: Untagged
+  m_TagString: Fog
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -891,7 +891,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1417994056}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.33, y: 0.3, z: -2.35}
+  m_LocalPosition: {x: 2.33, y: 0.3, z: -12.57}
   m_LocalScale: {x: 37.320152, y: 18.867748, z: -6}
   m_Children: []
   m_Father: {fileID: 0}
