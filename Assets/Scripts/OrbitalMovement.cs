@@ -77,7 +77,8 @@ public class OrbitalMovement : MonoBehaviour
             for (int i = 0; i < resolution; i++)
             {
                 Vector2 point = elipse.GetPositionOnElipse((float)i / resolution);
-                points[i] = new Vector3(point.x, point.y, 0) + transform.position;
+                Vector3 newPos = transform.localToWorldMatrix * new Vector4(point.x, point.y, points[i].z, 1);
+                points[i] = newPos;
             }
             _lineRenderer.positionCount = resolution;
             _lineRenderer.SetPositions(points);
