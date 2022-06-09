@@ -7,6 +7,8 @@ public class ParamManager : MonoBehaviour
 {
     public static ParamManager Instance;//singelton
 
+    public bool nonPlayerMaskActive = false;
+
     [Header("Tags")]
     [SerializeField] private string playerTag = "Player";
     public string PLAYERTAG { get { return playerTag; } }
@@ -80,6 +82,11 @@ public class ParamManager : MonoBehaviour
     public PlanetSizeParameters[] planetSizeSet =new PlanetSizeParameters[3];
     private void Awake()
     {
+        SetSingelton();
+    }
+
+    private void SetSingelton()
+    {
         if (Instance != null && Instance != this)// implement singelton
         {
             Destroy(this);
@@ -87,8 +94,13 @@ public class ParamManager : MonoBehaviour
         else
         {
             Instance = this;
+            if(Application.isPlaying)
             DontDestroyOnLoad(this.gameObject);
         }
+    }
+    private void OnValidate()
+    {
+        SetSingelton();
     }
     [Serializable]
     public class PlanetSizeParameters

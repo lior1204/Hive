@@ -7,22 +7,20 @@ using System;
 public class OrbitalMovement : MonoBehaviour
 {
     [SerializeField] private LineRenderer _lineRenderer;
-    [SerializeField] [Range(12,36)]private int resolution = 24;
+    [SerializeField] private Planet orbitingObject;
     [SerializeField] private Elipse elipse;
     [SerializeField] private bool isActive = true;
+    [SerializeField][Range(0,1f)] private float startingPosition = 0;
+    [SerializeField] [Range(12, 36)] private int resolution = 24;
 
-    private float cycleTime;
-    private Transform orbitingTransform;
-    private Planet orbitingObject;
     private float cycleProgress = 0;
     private float cycleFrequency;
     private void Start()
     {
-        transform.localPosition = Vector3.zero;
-        orbitingTransform = GetComponentInChildren<Transform>();
-        orbitingObject = orbitingTransform.GetComponent<Planet>();
-        Debug.Log(orbitingObject != null);
-        if (orbitingObject != null)
+        orbitingObject = GetComponentInChildren<Planet>();
+        if (transform.parent)//if parent then set the orbit position to the parent
+            transform.localPosition = Vector3.zero;
+        if (orbitingObject != null)//set cycle frequency for the planet
         {
             if (Mathf.Abs(orbitingObject.GetOrbitCycleTime()) > 0.5)
                 cycleFrequency = 1 / orbitingObject.GetOrbitCycleTime();
@@ -30,25 +28,26 @@ public class OrbitalMovement : MonoBehaviour
                 cycleFrequency = 1 / 0.5f;
         }
         else cycleFrequency = 0.2f;
-        Debug.Log(cycleFrequency);
+        cycleProgress = startingPosition;//set starting position
         SetIntoOrbitPosition();
     }
     private void Update()
     {
-        if (isActive && !GameManager.Instance.IsPaused)
+        if (isActive && !GameManager.Instance.IsPaused)//planet is active and game isnt paused
         {
-            cycleProgress += Time.deltaTime*cycleFrequency;
+            cycleProgress += Time.deltaTime*cycleFrequency;//increase time
             cycleProgress %= 1;
             SetIntoOrbitPosition();
         }
     }
     private void SetIntoOrbitPosition()
     {
-        orbitingTransform.localPosition = elipse.GetPositionOnElipse(cycleProgress);
+        if(orbitingObject)
+        orbitingObject.transform.localPosition = elipse.GetPositionOnElipse(cycleProgress);
     }
     
     
-    //draw
+    //draw elipse
     private void Awake()
     {
         _lineRenderer = GetComponent<LineRenderer>();
@@ -56,23 +55,29 @@ public class OrbitalMovement : MonoBehaviour
     }
     public void DrawElipse()
     {
-        _lineRenderer.startWidth = 0.1f;
-        _lineRenderer.endWidth = 0.1f;
-        _lineRenderer.loop = true;
-        Vector3[] points = new Vector3[resolution];
-        for(int i=0; i < resolution; i++)
+        if (_lineRenderer)
         {
-            Vector2 point = elipse.GetPositionOnElipse((float)i / resolution);
-            points[i] = new Vector3( point.x,point.y,0)+transform.position;
+            _lineRenderer.startWidth = 0.1f;
+            _lineRenderer.endWidth = 0.1f;
+            _lineRenderer.loop = true;
+            Vector3[] points = new Vector3[resolution];
+            for (int i = 0; i < resolution; i++)
+            {
+                Vector2 point = elipse.GetPositionOnElipse((float)i / resolution);
+                points[i] = new Vector3(point.x, point.y, 0) + transform.position;
+            }
+            _lineRenderer.positionCount = resolution;
+            _lineRenderer.SetPositions(points);
         }
-        _lineRenderer.positionCount = resolution;
-        _lineRenderer.SetPositions(points);
     }
-    //private void OnValidate()
-    //{
-    //    if (_lineRenderer)
-    //        DrawElipse();
-    //}
+    private void OnValidate()
+    {
+        if (transform.parent)//if parent then set the orbit position to the parent
+            transform.localPosition = Vector3.zero;
+        DrawElipse();
+        cycleProgress = startingPosition;
+        SetIntoOrbitPosition();
+    }
 
     [Serializable]
     public class Elipse

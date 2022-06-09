@@ -73,30 +73,30 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: -0.17, y: 3.38, z: 0}
-  - {x: 0.9144518, y: 3.2948146, z: 0}
-  - {x: 1.9250001, y: 3.0450635, z: 0}
-  - {x: 2.7927773, y: 2.647767, z: 0}
-  - {x: 3.4586465, y: 2.1299999, z: 0}
-  - {x: 3.8772292, y: 1.5270476, z: 0}
-  - {x: 4.02, y: 0.8799999, z: 0}
-  - {x: 3.8772292, y: 0.23295236, z: 0}
-  - {x: 3.4586463, y: -0.37000012, z: 0}
-  - {x: 2.7927773, y: -0.88776696, z: 0}
-  - {x: 1.9250003, y: -1.2850634, z: 0}
-  - {x: 0.9144513, y: -1.5348147, z: 0}
-  - {x: -0.17000037, y: -1.62, z: 0}
-  - {x: -1.254453, y: -1.5348145, z: 0}
-  - {x: -2.2649999, y: -1.2850634, z: 0}
-  - {x: -3.132778, y: -0.8877666, z: 0}
-  - {x: -3.7986467, y: -0.36999977, z: 0}
-  - {x: -4.2172294, y: 0.23295254, z: 0}
-  - {x: -4.36, y: 0.88000005, z: 0}
-  - {x: -4.217229, y: 1.5270486, z: 0}
-  - {x: -3.7986467, y: 2.1299996, z: 0}
-  - {x: -3.1327765, y: 2.6477675, z: 0}
-  - {x: -2.2649992, y: 3.045064, z: 0}
-  - {x: -1.2544509, y: 3.2948146, z: 0}
+  - {x: -0.17, y: 5.88, z: 0}
+  - {x: 1.1240953, y: 5.709629, z: 0}
+  - {x: 2.33, y: 5.210127, z: 0}
+  - {x: 3.3655338, y: 4.415534, z: 0}
+  - {x: 4.160127, y: 3.3799996, z: 0}
+  - {x: 4.659629, y: 2.1740954, z: 0}
+  - {x: 4.83, y: 0.87999976, z: 0}
+  - {x: 4.659629, y: -0.41409528, z: 0}
+  - {x: 4.1601267, y: -1.6200002, z: 0}
+  - {x: 3.3655338, y: -2.6555338, z: 0}
+  - {x: 2.3300002, y: -3.4501266, z: 0}
+  - {x: 1.1240946, y: -3.9496293, z: 0}
+  - {x: -0.17000043, y: -4.12, z: 0}
+  - {x: -1.4640965, y: -3.9496288, z: 0}
+  - {x: -2.6699998, y: -3.4501266, z: 0}
+  - {x: -3.7055345, y: -2.6555333, z: 0}
+  - {x: -4.5001273, y: -1.6199995, z: 0}
+  - {x: -4.9996295, y: -0.41409492, z: 0}
+  - {x: -5.17, y: 0.88000005, z: 0}
+  - {x: -4.9996285, y: 2.1740973, z: 0}
+  - {x: -4.5001273, y: 3.3799996, z: 0}
+  - {x: -3.7055328, y: 4.415535, z: 0}
+  - {x: -2.669999, y: 5.210128, z: 0}
+  - {x: -1.4640942, y: 5.7096295, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -174,11 +174,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _lineRenderer: {fileID: 2738706382663273321}
-  resolution: 24
+  orbitingObject: {fileID: 3580408730189242857}
   elipse:
-    xAxis: 4.19
-    yAxis: 2.5
+    xAxis: 5
+    yAxis: 5
   isActive: 1
+  startingPosition: 0.19
+  resolution: 24
 --- !u!1001 &3186274589961806234
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -194,12 +196,12 @@ PrefabInstance:
     - target: {fileID: 2127881686000975985, guid: 6d427bdb64eb93541acbb2a408b780ac,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.21
+      value: 4.6488824
       objectReference: {fileID: 0}
     - target: {fileID: 2127881686000975985, guid: 6d427bdb64eb93541acbb2a408b780ac,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.37
+      value: 1.8406227
       objectReference: {fileID: 0}
     - target: {fileID: 2127881686000975985, guid: 6d427bdb64eb93541acbb2a408b780ac,
         type: 3}
@@ -264,3 +266,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3186274589961806234}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3580408730189242857 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2127881686000975987, guid: 6d427bdb64eb93541acbb2a408b780ac,
+    type: 3}
+  m_PrefabInstance: {fileID: 3186274589961806234}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbc5e1536bb160245ac24975254a8613, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

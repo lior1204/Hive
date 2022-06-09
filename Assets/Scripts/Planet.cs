@@ -16,7 +16,7 @@ public class Planet : MouseInteractable, IOrbitable
     [SerializeField] private bool isQueen = false;
     [SerializeField] private int startingStrength = 6;
     [SerializeField] private PlanetSize planetSize = PlanetSize.Small;
-
+    [SerializeField] private SpriteMask _fogMask;
     private float strengthIncome = 2;
     private int maxActiveLinks = 2;
     private float orbitCycleTime = 5f;
@@ -57,6 +57,7 @@ public class Planet : MouseInteractable, IOrbitable
         IDCount++;//increase id count
         _strengthDisplay = Instantiate(ParamManager.Instance._StrengthDisplayPrefab);//create strength display
         _spriteRenderer = GetComponent<SpriteRenderer>();//sprite renderer reference
+        _fogMask = GetComponentInChildren<SpriteMask>();
         strength = startingStrength;//st starting strength
         strenghtGrowthCoroutine = StartCoroutine(GenerateStrength());//start strength and save reference
         SetStartInHive();
@@ -280,6 +281,7 @@ public class Planet : MouseInteractable, IOrbitable
         //TODO remove being clicked
         captureImunity = ParamManager.Instance.CaptureImunityTime;
         UpdateColorAndHighlight();
+        SetMask();
     }
     protected override void UpdateColorAndHighlight()//update color based on hive and highlight
     {
@@ -325,6 +327,18 @@ public class Planet : MouseInteractable, IOrbitable
         }
     }
 
+    private void SetMask()//set mask visibility and size
+    {
+        if (_fogMask)
+        {
+            if (HiveType == HiveController.Hive.Player||ParamManager.Instance.nonPlayerMaskActive)
+                _fogMask.enabled = true;
+            else
+                _fogMask.enabled = false;
+            _fogMask.transform.localScale = new Vector3(visibilityRange, visibilityRange, 1);
+        }
+    }
+
     //checks
     public bool IsCapturable(Planet captured)//check if target within capture range, not immune and of another hive
     {
@@ -350,6 +364,12 @@ public class Planet : MouseInteractable, IOrbitable
         Small = 0,
         Medium = 1,
         Big = 2
+    }
+
+    private void OnValidate()
+    {
+        SetPlanetParametersBySize();
+        SetMask();
     }
 }
 
