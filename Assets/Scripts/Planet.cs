@@ -366,7 +366,12 @@ public class Planet : MouseInteractable, IOrbitable
         Big = 2
     }
 
-    private void OnValidate()
+    //private void OnValidate()
+    //{
+    //    SetPlanetParametersBySize();
+    //    SetMask();
+    //}
+    private void OnRenderObject()
     {
         SetPlanetParametersBySize();
         SetMask();

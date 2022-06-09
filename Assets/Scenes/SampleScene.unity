@@ -1551,7 +1551,7 @@ MonoBehaviour:
     maxActiveLinks: 2
     orbitCycleTime: 10
     captureRange: 5
-    visibilityRange: 6
+    visibilityRange: 8
   - size: 0
     strengthIncome: 2
     maxActiveLinks: 2
