@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-
+[ExecuteInEditMode]
 [RequireComponent(typeof(LineRenderer))]
 public class OrbitalMovement : MonoBehaviour
 {
@@ -17,27 +17,37 @@ public class OrbitalMovement : MonoBehaviour
     private float cycleFrequency;
     private void Start()
     {
-        orbitingObject = GetComponentInChildren<Planet>();
-        if (transform.parent)//if parent then set the orbit position to the parent
-            transform.localPosition = Vector3.zero;
-        if (orbitingObject != null)//set cycle frequency for the planet
+        if (Application.isPlaying)
         {
-            if (Mathf.Abs(orbitingObject.GetOrbitCycleTime()) > 0.5)
-                cycleFrequency = 1 / orbitingObject.GetOrbitCycleTime();
-            else
-                cycleFrequency = 1 / 0.5f;
+            orbitingObject = GetComponentInChildren<Planet>();
+            if (transform.parent)//if parent then set the orbit position to the parent
+                transform.localPosition = Vector3.zero;
+            if (orbitingObject != null)//set cycle frequency for the planet
+            {
+                if (Mathf.Abs(orbitingObject.GetOrbitCycleTime()) > 0.5)
+                    cycleFrequency = 1 / orbitingObject.GetOrbitCycleTime();
+                else
+                    cycleFrequency = 1 / 0.5f;
+            }
+            else cycleFrequency = 0.2f;
+            cycleProgress = startingPosition;//set starting position
+            SetIntoOrbitPosition();
         }
-        else cycleFrequency = 0.2f;
-        cycleProgress = startingPosition;//set starting position
-        SetIntoOrbitPosition();
     }
     private void Update()
     {
-        if (isActive && !GameManager.Instance.IsPaused)//planet is active and game isnt paused
+        if (Application.isPlaying)
         {
-            cycleProgress += Time.deltaTime*cycleFrequency;//increase time
-            cycleProgress %= 1;
-            SetIntoOrbitPosition();
+            if (isActive && !GameManager.Instance.IsPaused)//planet is active and game isnt paused
+            {
+                cycleProgress += Time.deltaTime * cycleFrequency;//increase time
+                cycleProgress %= 1;
+                SetIntoOrbitPosition();
+            }
+        }
+        else
+        {
+            UpdateVisualInEditor();
         }
     }
     private void SetIntoOrbitPosition()
@@ -45,13 +55,16 @@ public class OrbitalMovement : MonoBehaviour
         if(orbitingObject)
         orbitingObject.transform.localPosition = elipse.GetPositionOnElipse(cycleProgress);
     }
-    
-    
+
+
     //draw elipse
     private void Awake()
     {
-        _lineRenderer = GetComponent<LineRenderer>();
-        _lineRenderer.enabled = false;
+        if (Application.isPlaying)
+        {
+            _lineRenderer = GetComponent<LineRenderer>();
+            _lineRenderer.enabled = false;
+        }
     }
     public void DrawElipse()
     {
@@ -70,7 +83,7 @@ public class OrbitalMovement : MonoBehaviour
             _lineRenderer.SetPositions(points);
         }
     }
-    private void OnValidate()
+    private void UpdateVisualInEditor()
     {
         if (transform.parent)//if parent then set the orbit position to the parent
             transform.localPosition = Vector3.zero;

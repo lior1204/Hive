@@ -5,7 +5,7 @@ using TMPro;
 using System;
 using System.Linq;
 
-
+[ExecuteInEditMode]
 public class Planet : MouseInteractable, IOrbitable
 {
     private static int IDCount = 0;
@@ -16,7 +16,7 @@ public class Planet : MouseInteractable, IOrbitable
     [SerializeField] private bool isQueen = false;
     [SerializeField] private int startingStrength = 6;
     [SerializeField] private PlanetSize planetSize = PlanetSize.Small;
-    [SerializeField] private SpriteMask _fogMask;
+    
     private float strengthIncome = 2;
     private int maxActiveLinks = 2;
     private float orbitCycleTime = 5f;
@@ -39,6 +39,7 @@ public class Planet : MouseInteractable, IOrbitable
     //references
     private TextMeshPro _strengthDisplay = null;
     private SpriteRenderer _spriteRenderer = null;
+    private SpriteMask _fogMask=null;
     private Coroutine strenghtGrowthCoroutine;
     public HiveController HiveRef //dynamic HiveControllerReference based on controllingHive
     {
@@ -53,21 +54,32 @@ public class Planet : MouseInteractable, IOrbitable
 
     void Start()
     {
-        PlanetID = IDCount;//set id
-        IDCount++;//increase id count
-        _strengthDisplay = Instantiate(ParamManager.Instance._StrengthDisplayPrefab);//create strength display
-        _spriteRenderer = GetComponent<SpriteRenderer>();//sprite renderer reference
-        _fogMask = GetComponentInChildren<SpriteMask>();
-        strength = startingStrength;//st starting strength
-        strenghtGrowthCoroutine = StartCoroutine(GenerateStrength());//start strength and save reference
-        SetStartInHive();
-        SetPlanetParametersBySize();
+        if (Application.isPlaying)
+        {
+            PlanetID = IDCount;//set id
+            IDCount++;//increase id count
+            _strengthDisplay = Instantiate(ParamManager.Instance._StrengthDisplayPrefab);//create strength display
+            _spriteRenderer = GetComponent<SpriteRenderer>();//sprite renderer reference
+            _fogMask = GetComponentInChildren<SpriteMask>();
+            strength = startingStrength;//st starting strength
+            strenghtGrowthCoroutine = StartCoroutine(GenerateStrength());//start strength and save reference
+            SetStartInHive();
+            SetPlanetParametersBySize();
+        }
     }
     void Update()
     {
-        UpdateStrengthDisplay();
-        if (captureImunity >= 0) captureImunity--;//reduce immunity timer 
+        if (Application.isPlaying)
+        {
+            UpdateStrengthDisplay();
+            if (captureImunity >= 0) captureImunity--;//reduce immunity timer 
+        }
+        else
+        {
+            UpdateVisualInEditor();
+        }
     }
+
     private void SetStartInHive()//add to hive and set color
     {
         if (isQueen && HiveRef)
@@ -365,16 +377,20 @@ public class Planet : MouseInteractable, IOrbitable
         Medium = 1,
         Big = 2
     }
-
-    //private void OnValidate()
-    //{
-    //    SetPlanetParametersBySize();
-    //    SetMask();
-    //}
-    private void OnRenderObject()
+    private void UpdateVisualInEditor()
     {
+        _spriteRenderer = GetComponent<SpriteRenderer>();//sprite renderer reference
+        _fogMask = GetComponentInChildren<SpriteMask>();
         SetPlanetParametersBySize();
         SetMask();
+        if (HiveType == HiveController.Hive.Player)
+            _spriteRenderer.color = ParamManager.Instance.PlayerColor;
+        else if (HiveType == HiveController.Hive.Enemy)
+            _spriteRenderer.color = ParamManager.Instance.EnemyColor;
+        else if (HiveType == HiveController.Hive.Neutral)
+            _spriteRenderer.color = ParamManager.Instance.NeutralColor;
+        
     }
+
 }
 
