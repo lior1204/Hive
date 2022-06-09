@@ -65,6 +65,7 @@ public class Planet : MouseInteractable, IOrbitable
             strenghtGrowthCoroutine = StartCoroutine(GenerateStrength());//start strength and save reference
             SetStartInHive();
             SetPlanetParametersBySize();
+            SetMask();
         }
     }
     void Update()
