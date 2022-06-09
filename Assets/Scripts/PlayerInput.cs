@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.EventSystems;
 using System.Linq;
-using System;
 
 public class PlayerInput : MonoBehaviour
 {
-    private Planet currentHoverPlanet;
+    private MouseInteractable currentHover;
     private Planet currentClickedPlanet;
     private void CheckforMouseHover()
     {
@@ -18,86 +16,93 @@ public class PlayerInput : MonoBehaviour
         List<RaycastHit2D> hits = new List<RaycastHit2D>(Physics2D.GetRayIntersectionAll(ray));//raycast to hit planets
         if (hits.Any(hit => hit.collider.CompareTag(ParamManager.Instance.FOGMASKTAG)))//check if planet is inside visability fog mask
         {
-            RaycastHit2D h;
-            if (h = (hits.FirstOrDefault(hit => hit.collider.CompareTag(ParamManager.Instance.PLANETTAG))))//check if hit planet
+            RaycastHit2D hover = (hits.FirstOrDefault(hit => hit.collider.GetComponent<MouseInteractable>()));//check if hit IMouseHover
+            if (hover)//if not null trigger mouseHover
             {
-                OnHoverPlanet(h.collider.GetComponent<Planet>());
+                OnMouseHover(hover.collider.GetComponent<MouseInteractable>());
+                return;
+            }
+        }
+        OnMouseHover(null);//if not inside mask or not on IMouseHover remove last hover
+    }
+    private void OnMouseHover(MouseInteractable hover)//when hover over planet or link
+    {
+        if (hover != currentHover)//if hover something other then current or hover null
+        {
+            if (currentHover)//if previously hover something unhover
+                currentHover.UnHoverObject();
+            if (hover) //if planet isnt null and is valid
+            {
+                currentHover = hover;//set current to new hover or null
+                currentHover.HoverObject();
             }
             else
-            {
-                OnHoverPlanet(null);//if not hover planet remove last hovered
-            }
-        }
-        else
-        {
-            OnHoverPlanet(null);//if not inside mask remove last hover
+                currentHover = null;
         }
     }
-    private void OnHoverPlanet(Planet planet)
+    public void OnClickObject(InputAction.CallbackContext context)//when left click on planet
     {
-        if (planet != currentHoverPlanet)//if hover something other then current or hover null
+        if (context.performed)
         {
-            if (currentHoverPlanet&&currentHoverPlanet!=currentClickedPlanet)//if previously hover something unhover
-                currentHoverPlanet.RemoveHighlightPlanet();
-            if (planet && IsValidHover(planet)) //if planet isnt null and is valid
+            if (currentClickedPlanet)//if already have clicked planet
             {
-                currentHoverPlanet = planet;//set current to new hover or null
-                currentHoverPlanet.HighlightPlanet();
-            }
-            else
-                currentHoverPlanet = null;
-        }
-    }
-
-    public void OnMouseClicked()//
-    {
-        if (currentClickedPlanet)//if already have clicked planet
-        {
-            if (!currentHoverPlanet)//if not hovering something unClick planet
-            {
-                currentClickedPlanet.RemoveHighlightPlanet();
-                currentClickedPlanet = null;
-            }
-            else//if hovering something do function
-            {
-                if (currentHoverPlanet == currentClickedPlanet)
+                if (currentHover && currentHover is Planet)//if click target planet
                 {
-                    currentClickedPlanet.RemoveHighlightPlanet();
+
+                    if (currentHover == currentClickedPlanet)//if clicked current clicked
+                    {
+                        currentClickedPlanet.UnClickObject();
+                        currentClickedPlanet = null;
+                    }
+                    else if (((Planet)currentHover).HiveType != HiveController.Hive.Player)// if hovering non-player planet start capture
+                    {
+                        HiveController.Player.CapturePlanet(currentClickedPlanet, ((Planet)currentHover));
+                    }
+                    else// if hovering player planet start capture
+                        HiveController.Player.ReinforcePlanet(currentClickedPlanet, ((Planet)currentHover));
+                }
+                else //if not hovering something or hovering link unClick planet
+                {
+                    currentClickedPlanet.UnClickObject();
                     currentClickedPlanet = null;
                 }
-                else if (currentHoverPlanet.HiveType != HiveController.Hive.Player)// if hovering non-player planet start capture
-                    HiveController.Player.CapturePlanet(currentClickedPlanet, currentHoverPlanet);
-                else
-                { //TODO link - in future
-                }
             }
-        }
-        else //if not already clicked make hovered clicked
-        {
-            currentClickedPlanet = currentHoverPlanet;
-            currentHoverPlanet = null;
-        }
-    }
-
-    private bool IsValidHover(Planet planet)//check if hovering over something that is a valid hover based on current clicked
-    {
-        if (planet != currentHoverPlanet)//if different from current hover
-        {
-            if (currentClickedPlanet)//if there is clicked planet
+            else //if not already clicked make hovered clicked
             {
-                if (currentClickedPlanet.IsWithinCaptureRange(planet))//allow hover planets inside range
+                if (currentHover && currentHover is Planet&&
+                    ((Planet)currentHover).HiveType == HiveController.Hive.Player)//if click player planet set current hovered to clicked
                 {
-                    return true;
+                    currentClickedPlanet = (Planet)currentHover;
+                    currentClickedPlanet.ClickObject();
                 }
-            }
-            else if (planet.HiveType == HiveController.Hive.Player)//if there is no clicked then allow hover on player planets
-            {
-                return true;
+                else
+                    currentClickedPlanet = null;
             }
         }
-        return false;
     }
-    // Update is called once per frame
+    public void OnCancelLink(InputAction.CallbackContext context)//when right click on planet or link
+    {
+        if (context.performed)
+        {
+            if (currentHover)//if currently hovering something
+            {
+                if (currentHover is Link)//if click on link remove this link
+                    HiveController.Player.RemoveLink((Link)currentHover);
+                else if (currentHover is Planet)//if click on planet
+                {
+                    Planet planet = (Planet)currentHover;
+                    if (planet.HiveType == HiveController.Hive.Player)//if click on player planet remove all links from origin
+                        HiveController.Player.RemoveAllLinksOfPlanet(planet);
+                    else//if click on non player remove all links towards target
+                    {
+                        Debug.Log("Remove to target");
+                        HiveController.Player.RemoveAllLinksToEnemy(planet);
+                    }
+                }
+            }
+        }
+    }
+    
     void Update()
     {
         CheckforMouseHover();

@@ -25,7 +25,7 @@ public class HiveController : MonoBehaviour
                 ParamManager.Instance.EnemyColor;
         }
     }
-   public Color HiveHighlightColor//public access dynamic color based on hive
+    public Color HiveHighlightColor//public access dynamic color based on hive
     {
         get
         {
@@ -35,6 +35,7 @@ public class HiveController : MonoBehaviour
     }
 
     [SerializeField] private Hive hiveType=Hive.Player;
+
     private void Awake()
     {
         //Coupleton
@@ -62,14 +63,43 @@ public class HiveController : MonoBehaviour
     
 
     //actions
-    public void CapturePlanet(Planet attacker, Planet captured)
+    public void CapturePlanet(Planet attacker, Planet captured)//crate new capture link between 2 planets
     {
-        if (hivePlanets.Contains(attacker) && captured.HiveType!=hiveType)//check if attacker is in hive and captured is not
+        if (hivePlanets.Contains(attacker))//check if attacker is in hive
         {
-            if (attacker.IsWithinCaptureRange(captured))//check if captured is within range
+            if (attacker.HiveType!=captured.HiveType)//check if captured is not in hive
             {
                 attacker.AttemptCapture(captured);
             }
+        }
+    }
+    public void ReinforcePlanet(Planet provider, Planet reinforced)//crate new reinforcement link between 2 planets
+    {
+        if (hivePlanets.Contains(provider)&&hivePlanets.Contains(reinforced))//check if both provider and reinforced in this hive
+        {
+            provider.AttemptReinforccing(reinforced);
+        }
+    }
+    public void RemoveLink(Link link)//end a spesific link belonging to this hive
+    {
+        if (hivePlanets.Contains(link.Origin))//check that the origin of the link is in the hive.
+        {
+            link.DestroyLink();
+        }
+    }
+    public void RemoveAllLinksOfPlanet(Planet origin)//destroy all links originating from a planet in hive
+    {
+        if (hivePlanets.Contains(origin))//check that the origin is in the hive.
+        {
+            origin.RemoveAllLinks();
+        }
+    }
+    public void RemoveAllLinksToEnemy(Planet target)//destroy all links originating from a planet in hive to target
+    {
+        foreach(Planet planet in hivePlanets)
+        {
+            Debug.Log("Hive Remove to target");
+            planet.RemoveLinkToTarget(target);
         }
     }
 

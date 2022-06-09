@@ -5,8 +5,8 @@ using TMPro;
 using System;
 using System.Linq;
 
-
-public class Planet : MonoBehaviour
+[ExecuteInEditMode]
+public class Planet : MouseInteractable, IOrbitable
 {
     private static int IDCount = 0;
 
@@ -15,32 +15,33 @@ public class Planet : MonoBehaviour
     public HiveController.Hive HiveType { get { return hiveType; } }
     [SerializeField] private bool isQueen = false;
     [SerializeField] private int startingStrength = 6;
-    [SerializeField] private int strengthIncome = 2;
-    [SerializeField] [Range(5f, 20f)] private float captureRange = 30;
-    [SerializeField] [Range(100f, 300f)] private float visibilityRange = 150;
-    [SerializeField] [Range(1, 5)] private int maximumActiveCaptures = 2;
-    //[SerializeField] private float planetSize = 5f;
+    [SerializeField] private PlanetSize planetSize = PlanetSize.Small;
+    
+    private float strengthIncome = 2;
+    private int maxActiveLinks = 2;
+    private float orbitCycleTime = 5f;
+    private float captureRange = 30;
+    private float visibilityRange = 150;
 
     public int PlanetID { get; private set; } = 0;
 
     //state variables
-    private int strength = 0;
-    private List<Capture> planetsInCaptureInteraction = new List<Capture>();
-    private List<Capture> capturedPlanets = new List<Capture>();
-    private List<Capture> attackingPlanets = new List<Capture>();
-    private List<Capture> activeCaptures = new List<Capture>();
-    private List<Planet> reinforcingPlanets = new List<Planet>();
-    private List<Planet> linkedPlanets = new List<Planet>();
+    private float strength = 0;
+    private List<Capture> captureLinks = new List<Capture>();
+    private List<Reinforcement> reinforceLinks = new List<Reinforcement>();
+    private List<Link> activeLinks = new List<Link>();
 
-    private float captureImunity;
+
+    private float captureImunity = 0;
     public bool IsImune { get { return captureImunity <= 0; } }
-    
+
 
     //references
     private TextMeshPro _strengthDisplay = null;
     private SpriteRenderer _spriteRenderer = null;
+    private SpriteMask _fogMask=null;
     private Coroutine strenghtGrowthCoroutine;
-    private HiveController HiveRef //dynamic HiveControllerReference based on controllingHive
+    public HiveController HiveRef //dynamic HiveControllerReference based on controllingHive
     {
         get
         {
@@ -48,38 +49,53 @@ public class Planet : MonoBehaviour
             else if (hiveType == HiveController.Hive.Enemy) return HiveController.Enemy;
             else return null;
         }
+        private set { }
     }
 
     void Start()
     {
-        PlanetID = Planet.IDCount;//set id
-        PlanetID++;//increase id count
-        _strengthDisplay = Instantiate(ParamManager.Instance._StrengthDisplayPrefab);//create strength display
-        _spriteRenderer = GetComponent<SpriteRenderer>();//sprite renderer reference
-        strength = startingStrength;//st starting strength
-        strenghtGrowthCoroutine = StartCoroutine(GenerateStrength());//start strength and save reference
-        SetStartInHive();
-        captureImunity = ParamManager.Instance.CaptureImunityTime;
+        if (Application.isPlaying)
+        {
+            PlanetID = IDCount;//set id
+            IDCount++;//increase id count
+            _strengthDisplay = Instantiate(ParamManager.Instance._StrengthDisplayPrefab);//create strength display
+            _spriteRenderer = GetComponent<SpriteRenderer>();//sprite renderer reference
+            _fogMask = GetComponentInChildren<SpriteMask>();
+            strength = startingStrength;//st starting strength
+            strenghtGrowthCoroutine = StartCoroutine(GenerateStrength());//start strength and save reference
+            SetStartInHive();
+            SetPlanetParametersBySize();
+        }
     }
     void Update()
     {
-        UpdateStrengthDisplay();
-    }
-    private void SetStartInHive()//add to hive and set color
-    {
-        if (HiveRef)//if is players first planet make player control.
+        if (Application.isPlaying)
         {
-            HiveRef.AddPlanet(this);
-            _spriteRenderer.color = HiveRef.HiveColor;
-            if (isQueen)
-                HiveRef.Queen = this;
+            UpdateStrengthDisplay();
+            if (captureImunity >= 0) captureImunity--;//reduce immunity timer 
         }
         else
         {
-            _spriteRenderer.color = ParamManager.Instance.NeutralColor;
+            UpdateVisualInEditor();
         }
     }
 
+    private void SetStartInHive()//add to hive and set color
+    {
+        if (isQueen && HiveRef)
+            HiveRef.Queen = this;
+        ChangeHive(hiveType);
+    }
+    private void SetPlanetParametersBySize()
+    {
+        ParamManager.PlanetSizeParameters orbitCycleTime = null;
+        orbitCycleTime = ParamManager.Instance.planetSizeSet.FirstOrDefault(s => s.size == planetSize);
+        strengthIncome = orbitCycleTime.strengthIncome;
+        maxActiveLinks = orbitCycleTime.maxActiveLinks;
+        this.orbitCycleTime = orbitCycleTime.orbitCycleTime;
+        captureRange = orbitCycleTime.captureRange;
+        visibilityRange = orbitCycleTime.visibilityRange;
+    }
     private void UpdateStrengthDisplay()// update text and pin to planet
     {
         _strengthDisplay.text = strength + "";
@@ -92,141 +108,289 @@ public class Planet : MonoBehaviour
             if (GameManager.Instance.IsPaused)//pause game
                 yield return new WaitUntil(() => !GameManager.Instance.IsPaused);
             yield return new WaitForSeconds(ParamManager.Instance.StrengthUpdateRate);//delay between strength ticks
+            UpdateActiveLinks();
             strength += CalculateDeltaStrength();
-            foreach (Capture c in planetsInCaptureInteraction)//for each capture interaction planet count contribution of capture
+            foreach (Capture capture in activeLinks.Where(l => l is Capture))//for each capture interaction planet count contribution of capture
             {
-                c.strengthCaptured += c.planet.strength > 0 ? ParamManager.Instance.CaptureStrengthOutcome
+                capture.strengthCaptured += strength > 0 ? ParamManager.Instance.CaptureStrengthOutcome
                     : ParamManager.Instance.ZeroStrengthReducedOutcome;//count less contribution if other has 0 strength
             }
-            if (strength <= 0)//if reach zero or below get captured
+            if (strength >= ParamManager.Instance.StrengthCap)
+                strength = ParamManager.Instance.StrengthCap;
+            else if (strength <= 0)//if reach zero or below get captured
             {
                 strength = 0;
                 GetCaptured();
             }
         }
     }
-
-
-    private int CalculateDeltaStrength()// determines strengrh change per strengt tick
+    private float CalculateDeltaStrength()// determines strengrh change per strengt tick
     {
-        int deltaStrengt = CalculateStrengthIncome() - CalculateStrengthOutcome();
+        float deltaStrengt = CalculateStrengthIncome() - CalculateStrengthOutcome();
         return deltaStrengt;
     }
-    private int CalculateStrengthIncome()//planet's passive income
+    private float CalculateStrengthIncome()//planet's passive income
     {
-        if(HiveRef)
-            return strengthIncome;
+        if (HiveRef)//if this is in hive it has income if neutral no income
+        {
+            float income = strengthIncome;//add this planet base income
+            income += reinforceLinks.Count(r => r.isActive && r.Target == this) * ParamManager.Instance.ReinforceBonus;//add bonus from active reinforcements to this planet
+            income -= reinforceLinks.Count(r => r.isActive && r.Origin == this) * ParamManager.Instance.ReinforceCost;//dedact cost of this planet active reinfrociements
+            return income;
+            // Mathf.Max(income,0); if we want to make impossible to be negative
+        }
         return 0;
     }
-    private int CalculateStrengthOutcome()//capture cost for each capture interaction
+    private float CalculateStrengthOutcome()//capture cost for each capture interaction
     {
-        int outcome = 0;
-        int zeroPlanets = planetsInCaptureInteraction.Where(capture => capture.planet.strength <= 0).Count();//count planets with 0 strength
+        float outcome = 0;
+        List<Capture> activeConnections = captureLinks.Where(capture => capture.isActive).ToList();//get active captures this planet is part of
+        int zeroPlanets = activeConnections.Where(capture => capture.Target == this && capture.Origin.strength <= 0).Count();//count attacking planets with 0 strength
         outcome += zeroPlanets * ParamManager.Instance.ZeroStrengthReducedOutcome;//planets with 0 strength contribute less to outcome
-        outcome += ParamManager.Instance.CaptureStrengthOutcome * (planetsInCaptureInteraction.Count() - zeroPlanets);//planets with strength contribute to outcopme
+        int captureLinkCount = 0;//count 2 sided connections wher this is both attacking and attacked by the same planet and both links are active
+        foreach (Capture capture in activeConnections)
+        {
+            foreach (Capture other in activeConnections)
+                if (capture.IsReverse(other))
+                    captureLinkCount++;
+        }
+        //outcome is active links - half the 2way connections(they will count twice and we need to count once) - zero planets (they already counted)
+        outcome += ParamManager.Instance.CaptureStrengthOutcome * (activeConnections.Count() - captureLinkCount / 2 - zeroPlanets);//planets with strength contribute to outcopme
         return outcome;
     }
-   
-    public void AttemptCapture(Planet other)//start capture of other planet
+
+    public void AttemptCapture(Planet captured)//start capture of other planet
     {
         //check if this planet in hive and if other planet is not in this hive
-        if (hiveType != HiveController.Hive.Neutral && hiveType != other.hiveType)
+        if (HiveType != HiveController.Hive.Neutral && HiveType != captured.HiveType)
         {
-            if (planetsInCaptureInteraction.Where(p => p.planet == other).Count() == 0) //if not already in capture interaction with other
+            Capture newLink = Capture.NewLink(this, captured);
+            if (!captureLinks.Any(capture => capture.CompareExactTo(newLink))) //if not already in capture link list
             {
-                planetsInCaptureInteraction.Add(new Capture(other));// add captured planet to list
-                
-                GameObject captureLineObj = new GameObject();
-                captureLineObj.AddComponent(typeof(LineRenderer));
-                Instantiate(captureLineObj);
-                LineRenderer line = captureLineObj.GetComponent<LineRenderer>();
-                line.positionCount = 2;
-                line.SetPosition(0, transform.position);
-                line.SetPosition(1, other.transform.position);
-                line.SetWidth(0.25f,0.1f);
-                //line.material = Material.;
-                line.SetColors(_spriteRenderer.color, other.GetComponent<SpriteRenderer>().color);
-                other.UnderCapture(this);//tell other planet they are under capture
+                captureLinks.Add(newLink);// add capture link to list
+                captured.DiscoverLink(newLink);//tell other planet they are under capture
+            }
+            else
+            {
+                newLink.DestroyLink();
             }
         }
     }
-    private void UnderCapture(Planet other)//become under capture by another planet
+    private void DiscoverLink(Link newLink)//become under capture by another planet
     {
-        if (planetsInCaptureInteraction.Where(p => p.planet == other).Count() == 0) //if not already in capture interaction with other
+        if (newLink is Capture)//if a capture link
         {
-            planetsInCaptureInteraction.Add(new Capture(other));
-            //if (captureCoroutine != null)//start capturing if not started
-            //    captureCoroutine = StartCoroutine(CaptureInteraction());
+            if (!captureLinks.Any(c => c.CompareExactTo(newLink))) //if not already in under capture interaction with other
+            {
+                captureLinks.Add((Capture)newLink);// add capture link to list
+            }
+        }
+        else if (newLink is Reinforcement)//if a reinforce link
+        {
+            if (!reinforceLinks.Any(r => r.CompareExactTo(newLink))) //if not already reinforced by other
+            {
+                if (!reinforceLinks.Any(r => r.CompareExactTo(newLink))) //if not already reinforced by other
+                    reinforceLinks.Add((Reinforcement)newLink);// add reinforce link to list
+            }
         }
     }
     private void GetCaptured()//get captured by the hive that captured for the most time.
     {
-        if (planetsInCaptureInteraction.Where(c => c.planet.hiveType != HiveController.Hive.Neutral).Count() > 0)//if in capture with non neutral planet
+        if (captureLinks.Where(c => c.isActive).Any(c => c.GetOther(this).HiveType != HiveController.Hive.Neutral))//if any ACTIVE non neutral capturer in link that this is the target
         {
-            //determine hive that captured this planet for the longest
-            int playerCaptureDuration = 0;
-            int enemyCaptureDuration = 0;
-            foreach (Capture c in planetsInCaptureInteraction)
+            //determine hive that captured this planet for the longest among active links
+            float playerCaptureDuration = 0;
+            float enemyCaptureDuration = 0;
+            List<Capture> activeCaptures = captureLinks.Where(c => c.isActive).ToList();
+            foreach (Capture link in activeCaptures)//count active links
             {
-                if (c.planet.hiveType == HiveController.Hive.Player)//count strength taken by player
+                if (link.GetOther(this).hiveType == HiveController.Hive.Player)//count strength taken by player
                 {
-                    playerCaptureDuration += c.strengthCaptured;
+                    playerCaptureDuration += link.strengthCaptured;
                 }
-                else if (c.planet.hiveType == HiveController.Hive.Enemy)//count strength taken by enemy
+                else if (link.GetOther(this).hiveType == HiveController.Hive.Enemy)//count strength taken by enemy
                 {
-                    enemyCaptureDuration += c.strengthCaptured;
+                    enemyCaptureDuration += link.strengthCaptured;
                 }
             }
-            foreach (Capture c in planetsInCaptureInteraction)
+            if ((playerCaptureDuration <= 0 && enemyCaptureDuration <= 0) || playerCaptureDuration == enemyCaptureDuration)// if no duration or equal duration count all links including non active
             {
-                c.planet.FinishCaptureInteraction(this);//tell other to remove yourself
+                foreach (Capture link in activeCaptures)//add to count all not active links
+                {
+                    if (link.GetOther(this).hiveType == HiveController.Hive.Player)//count strength taken by player
+                    {
+                        playerCaptureDuration += link.strengthCaptured;
+                    }
+                    else if (link.GetOther(this).hiveType == HiveController.Hive.Enemy)//count strength taken by enemy
+                    {
+                        enemyCaptureDuration += link.strengthCaptured;
+                    }
+                }
             }
-            planetsInCaptureInteraction.Clear();//remove all interections
-            if (playerCaptureDuration > 0 || enemyCaptureDuration > 0)// change hive if at least one capture is with hive
+            //check for winner if no duration or equal player wins
+            if (playerCaptureDuration >= enemyCaptureDuration)//player win if equal
+                ChangeHive(HiveController.Hive.Player);
+            else
+                ChangeHive(HiveController.Hive.Enemy);
+            FinishCaptureInteraction();
+        }
+    }
+    private void FinishCaptureInteraction()//remove other from interactions list
+    {
+        List<Capture> removeCapture = captureLinks.Where(c => c.Origin == this).ToList();//make a list of links to remove things this is attacking
+        List<Reinforcement> removeReinforcement = reinforceLinks;//keep list of reinforcement to remove
+        List<Capture> convert = captureLinks.Where(c => c.Target == this && c.Origin.HiveType == this.HiveType).ToList();//make list of links to convert to reinforcement
+        foreach (Link link in removeCapture) { link.DestroyLink(); }//destroy links
+        foreach (Link link in removeReinforcement) { link.DestroyLink(); }//destroy links
+        foreach (Capture capture in convert) { capture.ConvertToReinforcement(); }//convert captures by controlling hive to reinforcements
+    }
+    public Reinforcement AttemptReinforccing(Planet reinforced)//start reinforcing another planet
+    {
+        //check if this planet in hive and if other planet is in same hive
+        if (hiveType != HiveController.Hive.Neutral && hiveType == reinforced.hiveType)
+        {
+            Reinforcement newLink = Reinforcement.NewLink(this, reinforced);
+            if (!reinforceLinks.Any(reinforce => reinforce.CompareExactTo(newLink))) //if not already in reinforcement link list
             {
-                    if (HiveRef)
-                    HiveRef.RemovePlanet(this);
-                if (playerCaptureDuration > enemyCaptureDuration)
-                    hiveType = HiveController.Hive.Player;
-                else
-                    hiveType = HiveController.Hive.Enemy;
-                HiveRef.AddPlanet(this);
+                Reinforcement existing = reinforceLinks.FirstOrDefault(reinforce => newLink.IsReverse(reinforce));//find if areverce reinfrocement exists
+                if (existing) existing.DestroyLink();//if reverse exists destroy it;
+                reinforceLinks.Add(newLink);// add reinforce link to list
+                reinforced.DiscoverLink(newLink);//tell other planet they are reinforced
+            }
+            return newLink;
+        }
+        return null;
+    }
+    private void UpdateActiveLinks()//check and update for active links in range choose based on time stemps
+    {
+        List<Link> myLinks = GetMyLinks();
+        myLinks = myLinks.OrderBy(c => c.TimeStemp).ToList();//order by timestemp
+        activeLinks.Clear();//clear old active links
+        //set new actives equal to max active if capturable or reinforcable
+        activeLinks.AddRange(myLinks.Where(l => l is Capture ?
+            IsCapturable(l.Target) : IsReinforcable(l.Target)).Take(maxActiveLinks));
+        foreach (Link link in myLinks) link.isActive = false;//deactivate old links
+        foreach (Link link in activeLinks) link.isActive = true;//activate new links
+    }
+
+
+    private List<Link> GetMyLinks()//get a list of links where this is the origin
+    {
+        List<Link> myLinks = new List<Link>();
+        foreach (Link l in captureLinks.Where(c => c.Origin == this)) myLinks.Add(l);//captures
+        foreach (Link l in reinforceLinks.Where(c => c.Origin == this)) myLinks.Add(l);//reinforcements
+        return myLinks;
+    }
+    private void ChangeHive(HiveController.Hive hive)//swap hive to new hive, change color
+    {
+        if (HiveRef)//remove from current hive
+            HiveRef.RemovePlanet(this);
+        hiveType = hive;
+        if (HiveRef)//check if in hive
+        {
+            HiveRef.AddPlanet(this);
+        }
+        //TODO remove being clicked
+        captureImunity = ParamManager.Instance.CaptureImunityTime;
+        UpdateColorAndHighlight();
+        SetMask();
+    }
+    protected override void UpdateColorAndHighlight()//update color based on hive and highlight
+    {
+        if (isHovered || isClicked)
+        {
+            if (HiveRef)
+                _spriteRenderer.color = HiveRef.HiveHighlightColor;
+            else
+                _spriteRenderer.color = ParamManager.Instance.NeutralHighlightColor;
+        }
+        else
+        {
+            if (HiveRef)
                 _spriteRenderer.color = HiveRef.HiveColor;
+            else
+                _spriteRenderer.color = ParamManager.Instance.NeutralColor;
+        }
+    }
+
+    public void RemoveLink(Link link)//remove link from coresponding list
+    {
+        if (link is Capture)
+            captureLinks.Remove((Capture)link);
+        else if (link is Reinforcement)
+            reinforceLinks.Remove((Reinforcement)link);
+    }
+    public void RemoveAllLinks()//destroy all the links originating from this planet
+    {
+        List<Link> myLinks = GetMyLinks();
+        foreach (Link link in myLinks) link.DestroyLink();
+    }
+    public void RemoveLinkToTarget(Planet target)//destroy capture from this planet to target
+    {
+        Debug.Log("Remove Planet");
+        if (HiveType != target.HiveType)//check if target is in another hive
+        {
+            Capture capture = captureLinks.FirstOrDefault(c => c.Origin == this && c.Target == target);//get the link bertween this and target
+            if (capture != null)//if there is alink destroy it
+            {
+                Debug.Log("Destroy");
+                capture.DestroyLink();
             }
         }
     }
-    private void FinishCaptureInteraction(Planet other)//remove other from interactions list
-    {
-        Capture c = planetsInCaptureInteraction.Where(capture => capture.planet == other).ElementAt(0);//find Capture
-        planetsInCaptureInteraction.Remove(c);//remove from interaction list
-    }
-    public bool IsWithinCaptureRange(Planet captured)
-    {
-        return (Vector2.Distance(transform.position, captured.transform.position) <= captureRange);
-    }
 
-    public void HighlightPlanet()
+    private void SetMask()//set mask visibility and size
     {
-        if (HiveRef)
-            _spriteRenderer.color = HiveRef.HiveHighlightColor;
-        else
-            _spriteRenderer.color = ParamManager.Instance.NeutralHighlightColor;
-    }
-    public void RemoveHighlightPlanet()
-    {
-        if (HiveRef)
-            _spriteRenderer.color = HiveRef.HiveColor;
-        else
-            _spriteRenderer.color = ParamManager.Instance.NeutralColor;
-    }
-
-    private class Capture
-    {
-        public Planet planet;
-        public int strengthCaptured = 0;
-        public Capture(Planet planet)
+        if (_fogMask)
         {
-            this.planet = planet;
+            if (HiveType == HiveController.Hive.Player||ParamManager.Instance.nonPlayerMaskActive)
+                _fogMask.enabled = true;
+            else
+                _fogMask.enabled = false;
+            _fogMask.transform.localScale = new Vector3(visibilityRange, visibilityRange, 1);
         }
     }
+
+    //checks
+    public bool IsCapturable(Planet captured)//check if target within capture range, not immune and of another hive
+    {
+        bool controller = HiveType != captured.HiveType;//check hive
+        bool range = (Vector2.Distance(transform.position, captured.transform.position) <= captureRange);//check range
+        bool immunity = captured.IsImune;//check immunity
+        return controller && range && immunity;
+    }
+    public bool IsReinforcable(Planet reinforced)//check if target within capture range, and of hive
+    {
+        bool controller = HiveType == reinforced.HiveType;//check hive
+        bool range = (Vector2.Distance(transform.position, reinforced.transform.position) <= captureRange);//check range
+        return controller && range;
+    }
+    public float GetOrbitCycleTime()
+    {
+        return orbitCycleTime;
+    }
+
+
+    public enum PlanetSize
+    {
+        Small = 0,
+        Medium = 1,
+        Big = 2
+    }
+    private void UpdateVisualInEditor()
+    {
+        _spriteRenderer = GetComponent<SpriteRenderer>();//sprite renderer reference
+        _fogMask = GetComponentInChildren<SpriteMask>();
+        SetPlanetParametersBySize();
+        SetMask();
+        if (HiveType == HiveController.Hive.Player)
+            _spriteRenderer.color = ParamManager.Instance.PlayerColor;
+        else if (HiveType == HiveController.Hive.Enemy)
+            _spriteRenderer.color = ParamManager.Instance.EnemyColor;
+        else if (HiveType == HiveController.Hive.Neutral)
+            _spriteRenderer.color = ParamManager.Instance.NeutralColor;
+        
+    }
+
 }
+

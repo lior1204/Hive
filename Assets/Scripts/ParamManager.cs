@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 public class ParamManager : MonoBehaviour
 {
     public static ParamManager Instance;//singelton
+
+    public bool nonPlayerMaskActive = false;
 
     [Header("Tags")]
     [SerializeField] private string playerTag = "Player";
@@ -16,8 +19,17 @@ public class ParamManager : MonoBehaviour
     [SerializeField] private string planetTag = "Planet";
     public string PLANETTAG { get { return planetTag; } }
     
+    [SerializeField] private string linkTag = "Planet";
+    public string LINKTAG { get { return linkTag; } }
+    
     [SerializeField] private string fogMaskTag = "FogMask";
     public string FOGMASKTAG { get { return fogMaskTag; } }
+
+    [SerializeField] private string capturePoolerTag = "Capture";
+    public string CAPTUREPOOLTAG { get { return capturePoolerTag; } }
+     
+    [SerializeField] private string reinforcementPoolerTag = "Reinforcement";
+    public string REINFORCEMENTPOOLTAG { get { return reinforcementPoolerTag; } }
 
     [Space(3)]
     [Header("Prefabs")]
@@ -49,18 +61,31 @@ public class ParamManager : MonoBehaviour
     [SerializeField] private float strengthUpdateRate = 0.8f;
     public float StrengthUpdateRate { get { return strengthUpdateRate; } }
 
-    [SerializeField] private int captureStrengthOutcome = 3;
-    public int CaptureStrengthOutcome { get { return captureStrengthOutcome; } }
+    [SerializeField] private float captureStrengthOutcome = 3;
+    public float CaptureStrengthOutcome { get { return captureStrengthOutcome; } }
            
-    [SerializeField] private int zeroStrengthReducedOutcome = 1;
-    public int ZeroStrengthReducedOutcome { get { return zeroStrengthReducedOutcome; } }
+    [SerializeField] private float zeroStrengthReducedOutcome = 1;
+    public float ZeroStrengthReducedOutcome { get { return zeroStrengthReducedOutcome; } }
 
     [SerializeField] private float captureImunityTime = 3f;
     public float CaptureImunityTime { get { return captureImunityTime; } }
 
+    [SerializeField] private float reinforceBonus = 1f;
+    public float ReinforceBonus { get { return reinforceBonus; } }
+    
+    [SerializeField] private float reinforceCost = 0.5f;
+    public float ReinforceCost { get { return reinforceCost; } }
+    [SerializeField] private float strengthCap = 100f;
+    public float StrengthCap { get { return strengthCap; } }
 
 
+    public PlanetSizeParameters[] planetSizeSet =new PlanetSizeParameters[3];
     private void Awake()
+    {
+        SetSingelton();
+    }
+
+    private void SetSingelton()
     {
         if (Instance != null && Instance != this)// implement singelton
         {
@@ -69,7 +94,22 @@ public class ParamManager : MonoBehaviour
         else
         {
             Instance = this;
+            if(Application.isPlaying)
             DontDestroyOnLoad(this.gameObject);
         }
+    }
+    private void OnValidate()
+    {
+        SetSingelton();
+    }
+    [Serializable]
+    public class PlanetSizeParameters
+    {
+        public Planet.PlanetSize size;
+        public float strengthIncome = 2;
+        public int maxActiveLinks = 2;
+        public float orbitCycleTime = 5f;
+        public float captureRange = 30;
+        public float visibilityRange = 150;
     }
 }

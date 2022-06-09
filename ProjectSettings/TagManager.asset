@@ -7,6 +7,8 @@ TagManager:
   - Enemy
   - Planet
   - FogMask
+  - Link
+  - Fog
   layers:
   - Default
   - TransparentFX
@@ -43,4 +45,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Links
+    uniqueID: 3276797575
+    locked: 0
+  - name: Planets
+    uniqueID: 2626162681
     locked: 0

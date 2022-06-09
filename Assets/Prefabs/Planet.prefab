@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 466661087}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5.13455, y: 5.13455, z: 5.13455}
+  m_LocalScale: {x: 6, y: 6, z: 1}
   m_Children: []
   m_Father: {fileID: 2127881686000975985}
   m_RootOrder: 0
@@ -107,8 +107,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2127881686000975985}
   - component: {fileID: 2127881686000975986}
-  - component: {fileID: 2127881686000975987}
   - component: {fileID: -6242570625268823739}
+  - component: {fileID: 2127881686000975987}
   m_Layer: 8
   m_Name: Planet
   m_TagString: Planet
@@ -181,24 +181,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2127881686000975987
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2127881686000975996}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbc5e1536bb160245ac24975254a8613, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hiveType: 0
-  isQueen: 0
-  startingStrength: 3
-  strengthIncome: 1
-  captureRange: 10
-  visibilityRange: 150
 --- !u!58 &-6242570625268823739
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -215,3 +197,20 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &2127881686000975987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2127881686000975996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbc5e1536bb160245ac24975254a8613, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hiveType: 0
+  isQueen: 0
+  startingStrength: 3
+  planetSize: 0
+  _fogMask: {fileID: 466661090}
