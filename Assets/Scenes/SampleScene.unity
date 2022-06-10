@@ -749,7 +749,7 @@ PrefabInstance:
     - target: {fileID: 2127881686000975987, guid: 6d427bdb64eb93541acbb2a408b780ac,
         type: 3}
       propertyPath: startingStrength
-      value: 100
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 2127881686000975996, guid: 6d427bdb64eb93541acbb2a408b780ac,
         type: 3}
@@ -1382,12 +1382,12 @@ PrefabInstance:
     - target: {fileID: 3186274590310944634, guid: be71648fa890c9142a8d60adcca5ff29,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 5
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3186274590310944634, guid: be71648fa890c9142a8d60adcca5ff29,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 5
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3580408730189242856, guid: be71648fa890c9142a8d60adcca5ff29,
         type: 3}
@@ -2117,23 +2117,23 @@ MonoBehaviour:
   strengthCap: 100
   planetSizeSet:
   - size: 0
-    strengthIncome: 2
+    strengthIncome: 1.5
     maxActiveLinks: 2
     orbitCycleTime: 10
     captureRange: 7
     visibilityRange: 7
   - size: 1
     strengthIncome: 2
-    maxActiveLinks: 2
+    maxActiveLinks: 3
     orbitCycleTime: 15
-    captureRange: 30
-    visibilityRange: 5
+    captureRange: 8
+    visibilityRange: 8
   - size: 2
-    strengthIncome: 2
-    maxActiveLinks: 2
-    orbitCycleTime: 5
-    captureRange: 30
-    visibilityRange: 5
+    strengthIncome: 2.5
+    maxActiveLinks: 4
+    orbitCycleTime: 20
+    captureRange: 9
+    visibilityRange: 9
 --- !u!4 &2115953679 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2127881686000975985, guid: 6d427bdb64eb93541acbb2a408b780ac,
