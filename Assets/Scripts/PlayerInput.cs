@@ -8,6 +8,10 @@ public class PlayerInput : MonoBehaviour
 {
     private MouseInteractable currentHover;
     private Planet currentClickedPlanet;
+    
+    
+
+   
     private void CheckforMouseHover()
     {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());//get mouse position
