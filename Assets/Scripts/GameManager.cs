@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     private int playerPlanetsCount;
     private int enemyPlanetsCount;
     private int neutralPlanetsCount;
+    
     private void Awake()
     {
         if (Instance != null && Instance != this)// implement singelton
@@ -29,12 +30,13 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
         }
     }
+    
+    
     void Update()
     {
         UpdateGameClock();
         CheckIfGameEnd();
     }
-
     private void UpdateGameClock()//up the clock if game is running
     {
         if (state == GameState.Playing)
@@ -42,7 +44,6 @@ public class GameManager : MonoBehaviour
             endGameTimer += Time.deltaTime;
         }
     }
-
     private void CheckIfGameEnd()
     {
         if (state == GameState.Playing)//check if game is running

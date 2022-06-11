@@ -10,6 +10,7 @@ public class ParamManager : MonoBehaviour
     public bool nonPlayerMaskActive = false;
 
     [Header("Tags")]
+    
     [SerializeField] private string playerTag = "Player";
     public string PLAYERTAG { get { return playerTag; } }
 
@@ -31,8 +32,11 @@ public class ParamManager : MonoBehaviour
     [SerializeField] private string reinforcementPoolerTag = "Reinforcement";
     public string REINFORCEMENTPOOLTAG { get { return reinforcementPoolerTag; } }
     
-    [SerializeField] private string mainMenuSceneName = "MainMenuScene";
-    public string MAINMENUSCENENAME { get { return mainMenuSceneName; } }
+    [SerializeField] private string borderTopLeft = "Border_Top_Left";
+    public string BORDERTOPLEFT { get { return borderTopLeft; } }
+    
+    [SerializeField] private string borderBottomRight = "Border_Bottom_Right";
+    public string BORDERBOTTOMRIGHT { get { return borderBottomRight; } }
     
     [SerializeField] private string level01SceneName = "Level1";
     public string LEVEL01SCENENAME { get { return level01SceneName; } }

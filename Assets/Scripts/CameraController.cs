@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using System.Linq;
 public class CameraController : MonoBehaviour
 {
     //zoom
@@ -12,6 +12,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] [Range(8, 15)] private float maxZoomOut = 10;
     [SerializeField] [Range(0.01f, 1f)] private float zoomIncrement = 1f;
     private Camera cam;
+    
     //pan
     private bool isPanPressed = false;
     private Vector2 mouseOrigin;
@@ -20,10 +21,15 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float camSpeed = 0.02f;
     [SerializeField] [Range(0f, 1f)] private float autoCameraEdgeDistance = 0.2f;
 
+    //borders
+    Transform borderTopLeft;
+    Transform borderBottomRight;
     private void Start()
     {
         cam = Camera.main;
         cam.orthographicSize = camStartingZoom;
+        borderTopLeft = GetComponentsInChildren<Transform>().First(t => t.CompareTag(ParamManager.Instance.BORDERTOPLEFT));
+        borderBottomRight = GetComponentsInChildren<Transform>().First(t => t.CompareTag(ParamManager.Instance.BORDERBOTTOMRIGHT));
     }
     private void Update()
     {
@@ -65,7 +71,7 @@ public class CameraController : MonoBehaviour
         if (isPanPressed)
         {
             Vector3 deltaMousePosition = mouseOrigin - (Vector2)cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());//caculate delta
-            cam.transform.position += deltaMousePosition;
+            MoveCamera(deltaMousePosition);
         }
     }
     private void AutoMoveCamera()//auto move the camera when the mouse is by the edge of the screen
@@ -82,7 +88,14 @@ public class CameraController : MonoBehaviour
                 camDelta.y = -camSpeed;
             if (mouseScreenPosition.y >= 1 - autoCameraEdgeDistance)
                 camDelta.y = camSpeed;
-            cam.transform.position += camDelta*Time.deltaTime;
+            MoveCamera(camDelta * Time.deltaTime);
         }
+    }
+    private void MoveCamera(Vector3 movement)
+    {
+        Vector3 newPos = cam.transform.position+movement;
+        newPos.x = Mathf.Clamp(borderTopLeft.position.x, borderBottomRight.position.x, newPos.x);
+        newPos.y = Mathf.Clamp(borderBottomRight.position.y, borderTopLeft.position.y, newPos.y);
+        cam.transform.position=newPos;
     }
 }
