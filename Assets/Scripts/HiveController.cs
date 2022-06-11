@@ -15,6 +15,7 @@ public class HiveController : MonoBehaviour
     }
     //references
     private List<Planet> hivePlanets = new List<Planet>();
+    public int PlanetCount { get { return hivePlanets.Count; } }
     private Planet queen = null;
     public Planet Queen { get { return queen; } set { if (Queen == null) queen = value; } }
     public Color HiveColor//public access dynamic color based on hive

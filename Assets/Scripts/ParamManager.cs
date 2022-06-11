@@ -30,6 +30,15 @@ public class ParamManager : MonoBehaviour
      
     [SerializeField] private string reinforcementPoolerTag = "Reinforcement";
     public string REINFORCEMENTPOOLTAG { get { return reinforcementPoolerTag; } }
+    
+    [SerializeField] private string mainMenuSceneName = "MainMenuScene";
+    public string MAINMENUSCENENAME { get { return mainMenuSceneName; } }
+    
+    [SerializeField] private string level01SceneName = "Level1";
+    public string LEVEL01SCENENAME { get { return level01SceneName; } }
+    
+    [SerializeField] private string gameOverSceneName = "GameOverScreen";
+    public string GAMEOVERSCENENAME { get { return gameOverSceneName; } }
 
     [Space(3)]
     [Header("Prefabs")]

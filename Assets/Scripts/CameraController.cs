@@ -18,7 +18,7 @@ public class CameraController : MonoBehaviour
 
     //Auto Move
     [SerializeField] private float camSpeed = 0.02f;
-    [SerializeField] [Range(0f, 1f)] private float autoCameraMargin = 0.2f;
+    [SerializeField] [Range(0f, 1f)] private float autoCameraEdgeDistance = 0.2f;
 
     private void Start()
     {
@@ -27,7 +27,7 @@ public class CameraController : MonoBehaviour
     }
     private void Update()
     {
-        if (!GameManager.Instance.IsPaused)
+        if (!GameManager.Instance.IsPaused)//check if game is playing
         {
             PanCamera();
             AutoMoveCamera();
@@ -36,31 +36,31 @@ public class CameraController : MonoBehaviour
 
     public void OnZoom(InputAction.CallbackContext context)//zoom in and out
     {
-        if (context.ReadValue<float>() > 0)
+        if (context.ReadValue<float>() > 0)//zoom in
         {
             if (cam.orthographicSize > maxZoomIn)
                 cam.orthographicSize -= zoomIncrement;
         }
-        else if (context.ReadValue<float>() < 0)
+        else if (context.ReadValue<float>() < 0)//zoom out
         {
             if (cam.orthographicSize < maxZoomOut)
                 cam.orthographicSize += zoomIncrement;
         }
     }
-    public void OnHoldPan(InputAction.CallbackContext context)
+    public void OnHoldPan(InputAction.CallbackContext context)//turn on and off paning
     {
-        if (context.performed)
+        if (context.performed)//turn on pan when clicked
         {
             isPanPressed = true;
             mouseOrigin = cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());//save current mouse position
         }
-        if (context.canceled)
+        if (context.canceled)//turn off pan when released
         {
             isPanPressed = false;
         }
     }
 
-    private void PanCamera()
+    private void PanCamera()//id panning move camera equal to delta from starting pan
     {
         if (isPanPressed)
         {
@@ -68,19 +68,19 @@ public class CameraController : MonoBehaviour
             cam.transform.position += deltaMousePosition;
         }
     }
-    private void AutoMoveCamera()
+    private void AutoMoveCamera()//auto move the camera when the mouse is by the edge of the screen
     {
         if (!isPanPressed)
         {
-            Vector2 mouseScreenPosition = cam.ScreenToViewportPoint(Mouse.current.position.ReadValue());
-            Vector3 camDelta = Vector3.zero;
-            if (mouseScreenPosition.x <= autoCameraMargin)
+            Vector2 mouseScreenPosition = cam.ScreenToViewportPoint(Mouse.current.position.ReadValue());//mouse position on screen
+            Vector3 camDelta = Vector3.zero;//delta movment based on what edge
+            if (mouseScreenPosition.x <= autoCameraEdgeDistance)
                 camDelta.x = -camSpeed;
-            if (mouseScreenPosition.x >= 1 - autoCameraMargin)
+            if (mouseScreenPosition.x >= 1 - autoCameraEdgeDistance)
                 camDelta.x = camSpeed;
-            if (mouseScreenPosition.y <= autoCameraMargin)
+            if (mouseScreenPosition.y <= autoCameraEdgeDistance)
                 camDelta.y = -camSpeed;
-            if (mouseScreenPosition.y >= 1 - autoCameraMargin)
+            if (mouseScreenPosition.y >= 1 - autoCameraEdgeDistance)
                 camDelta.y = camSpeed;
             cam.transform.position += camDelta*Time.deltaTime;
         }
