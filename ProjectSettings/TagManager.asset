@@ -9,6 +9,8 @@ TagManager:
   - FogMask
   - Link
   - Fog
+  - Border_Top_Left
+  - Border_Bottom_Right
   layers:
   - Default
   - TransparentFX

@@ -89,7 +89,7 @@ public class CameraController : MonoBehaviour
             if (mouseScreenPosition.y >= 1 - autoCameraEdgeDistance)
                 camDelta.y = camSpeed;
             MoveCamera(camDelta * Time.deltaTime);
-        }
+        } 
     }
     private void MoveCamera(Vector3 movement)
     {
