@@ -43,6 +43,9 @@ public class ParamManager : MonoBehaviour
     
     [SerializeField] private string gameOverSceneName = "GameOverScreen";
     public string GAMEOVERSCENENAME { get { return gameOverSceneName; } }
+    
+    [SerializeField] private string mainMenuSceneName = "MainMenu";
+    public string MAINMENUSCENENAME { get { return mainMenuSceneName; } }
 
     [Space(3)]
     [Header("Prefabs")]

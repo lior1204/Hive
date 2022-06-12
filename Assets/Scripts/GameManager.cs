@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
             endGameTimer += Time.deltaTime;
         }
     }
-    private void CheckIfGameEnd()
+    private void CheckIfGameEnd()//checks every update if game is over
     {
         if (state == GameState.Playing)//check if game is running
         {
@@ -62,6 +62,7 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
 
     //get & set
 
