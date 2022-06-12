@@ -17,8 +17,14 @@ public class GameManager : MonoBehaviour
     private int playerPlanetsCount;
     private int enemyPlanetsCount;
     private int neutralPlanetsCount;
-    
+    public float screenRatio { get; private set; }
     private void Awake()
+    {
+        SetSingelton();
+        screenRatio = Screen.width / Screen.height;
+    }
+
+    private void SetSingelton()
     {
         if (Instance != null && Instance != this)// implement singelton
         {
@@ -30,8 +36,7 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
         }
     }
-    
-    
+
     void Update()
     {
         UpdateGameClock();

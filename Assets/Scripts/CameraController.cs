@@ -19,7 +19,7 @@ public class CameraController : MonoBehaviour
 
     //Auto Move
     [SerializeField] private float camSpeed = 0.02f;
-    [SerializeField] [Range(0f, 1f)] private float autoCameraEdgeDistance = 0.2f;
+    [SerializeField] [Range(0f, 1f)] private float autoCameraEdgeDistance = 0.1f;
 
     //borders
     Transform borderTopLeft;
@@ -52,6 +52,7 @@ public class CameraController : MonoBehaviour
             if (cam.orthographicSize < maxZoomOut)
                 cam.orthographicSize += zoomIncrement;
         }
+        MoveCamera(Vector3.zero);
     }
     public void OnHoldPan(InputAction.CallbackContext context)//turn on and off paning
     {
@@ -91,11 +92,13 @@ public class CameraController : MonoBehaviour
             MoveCamera(camDelta * Time.deltaTime);
         } 
     }
-    private void MoveCamera(Vector3 movement)
+    private void MoveCamera(Vector3 movement)//move the camera and boud to borders
     {
         Vector3 newPos = cam.transform.position+movement;
-        newPos.x = Mathf.Clamp(borderTopLeft.position.x, borderBottomRight.position.x, newPos.x);
-        newPos.y = Mathf.Clamp(borderBottomRight.position.y, borderTopLeft.position.y, newPos.y);
+        newPos.x = Mathf.Clamp(newPos.x,borderTopLeft.position.x+(GameManager.Instance.screenRatio* cam.orthographicSize)
+            , borderBottomRight.position.x- (GameManager.Instance.screenRatio * cam.orthographicSize));
+        newPos.y = Mathf.Clamp(newPos.y,borderBottomRight.position.y+ cam.orthographicSize
+            , borderTopLeft.position.y- cam.orthographicSize);
         cam.transform.position=newPos;
     }
 }
