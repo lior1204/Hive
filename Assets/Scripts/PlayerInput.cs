@@ -8,9 +8,6 @@ public class PlayerInput : MonoBehaviour
 {
     private MouseInteractable currentHover;
     private Planet currentClickedPlanet;
-    
-    
-
    
     private void CheckforMouseHover()
     {
@@ -53,22 +50,22 @@ public class PlayerInput : MonoBehaviour
                 if (currentHover && currentHover is Planet)//if click target planet
                 {
 
-                    if (currentHover == currentClickedPlanet)//if clicked current clicked
+                    if (currentHover == currentClickedPlanet)//if clicked current clicked -- do nothing
                     {
-                        currentClickedPlanet.UnClickObject();
-                        currentClickedPlanet = null;
+                        //currentClickedPlanet.UnClickObject();
+                        //currentClickedPlanet = null;
                     }
                     else if (((Planet)currentHover).HiveType != HiveController.Hive.Player)// if hovering non-player planet start capture
                     {
                         HiveController.Player.CapturePlanet(currentClickedPlanet, ((Planet)currentHover));
                     }
-                    else// if hovering player planet start capture
+                    else// if hovering player planet start reinforce
                         HiveController.Player.ReinforcePlanet(currentClickedPlanet, ((Planet)currentHover));
                 }
-                else //if not hovering something or hovering link unClick planet
+                else //if not hovering something or hovering link unClick planet -- do nothing
                 {
-                    currentClickedPlanet.UnClickObject();
-                    currentClickedPlanet = null;
+                    //currentClickedPlanet.UnClickObject();
+                    //currentClickedPlanet = null;
                 }
             }
             else //if not already clicked make hovered clicked
@@ -102,6 +99,14 @@ public class PlayerInput : MonoBehaviour
                         Debug.Log("Remove to target");
                         HiveController.Player.RemoveAllLinksToEnemy(planet);
                     }
+                }
+            }
+            else// if right click on empty
+            {
+                if (currentClickedPlanet)//if clicked planet unclick current
+                {
+                    currentClickedPlanet.UnClickObject();
+                    currentClickedPlanet = null;
                 }
             }
         }
