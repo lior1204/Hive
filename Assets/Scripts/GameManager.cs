@@ -23,6 +23,23 @@ public class GameManager : MonoBehaviour
         screenRatio = Screen.width / Screen.height;
         endGameTimer = gameTime;
     }
+    private void OnLevelWasLoaded(int level)
+    {
+        
+        screenRatio = Screen.width / Screen.height;
+        if (SceneManager.GetActiveScene().name == ParamManager.Instance.MAINMENUSCENENAME)
+        {
+            state = GameState.MainMenu;
+        }
+        if (SceneManager.GetActiveScene().name == ParamManager.Instance.GAMEOVERSCENENAME)
+        {
+            state = GameState.EndScreen;
+        }
+        if (SceneManager.GetActiveScene().name.Contains("Level"))
+        {
+            state = GameState.Playing;
+        }
+    }
     private void SetSingelton()
     {
         if (Instance != null && Instance != this)// implement singelton
@@ -64,6 +81,9 @@ public class GameManager : MonoBehaviour
             
             if (playerPlanetsCount <= 0 || enemyPlanetsCount <= 0 || IsTimeOver)//game ends if player or enemy has no planets or if time over
             {
+                Debug.Log("P:" + (playerPlanetsCount <= 0));
+                Debug.Log("E:" + (enemyPlanetsCount <= 0));
+                Debug.Log("T:" + (IsTimeOver));
                 state = GameState.EndScreen;
                 UpdateHiveCount();
                 SceneManager.LoadScene(ParamManager.Instance.GAMEOVERSCENENAME); 
@@ -78,4 +98,6 @@ public class GameManager : MonoBehaviour
         Paused=2,
         EndScreen=3
     }
+    
+    
 }

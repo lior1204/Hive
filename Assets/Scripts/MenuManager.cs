@@ -12,7 +12,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private RectTransform mainMenu;
     [SerializeField] private RectTransform levelMenu;
     [SerializeField] private RectTransform optionslMenu;
-    [SerializeField] private RectTransform advantageBar;
+    [SerializeField] private RectTransform advantageProgressBar;
     [SerializeField] private TextMeshProUGUI timer;
     private Stack<RectTransform> menusSeries = new Stack<RectTransform>();
     private void Start()
@@ -38,7 +38,7 @@ public class MenuManager : MonoBehaviour
                 mainMenu.gameObject.SetActive(true);
                 menusSeries.Push(mainMenu);
             }
-            if (advantageBar)
+            if (advantageProgressBar)
             {
                 DrawAdvantageBar();
             }
@@ -55,7 +55,8 @@ public class MenuManager : MonoBehaviour
 
     private void DrawAdvantageBar()//change the scale of the progress
     {
-        Vector3 newScale = advantageBar.localScale;
+
+        Vector3 newScale = advantageProgressBar.localScale;
         if (GameManager.Instance.enemyPlanetsCount <= 0)//if enemy is zero dont devide by 0
         {
             newScale.x = 1;
@@ -65,7 +66,7 @@ public class MenuManager : MonoBehaviour
             //scale is playercount divided by sum of player and enemy count
             newScale.x = (float)GameManager.Instance.playerPlanetsCount /(GameManager.Instance.playerPlanetsCount+ GameManager.Instance.enemyPlanetsCount);
         }
-        advantageBar.localScale = newScale;
+        advantageProgressBar.localScale = newScale;
     }
 
     private void DrawTimer()//update the timer text

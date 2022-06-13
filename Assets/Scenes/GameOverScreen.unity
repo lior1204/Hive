@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -2633,14 +2633,14 @@ RectTransform:
   m_GameObject: {fileID: 1447971444}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.57, y: 1, z: 1}
+  m_LocalScale: {x: 0.16, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 814456015}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -301.64163, y: 0.0000019073}
+  m_AnchoredPosition: {x: -301.64163, y: 0}
   m_SizeDelta: {x: 603.2831, y: 50}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1447971446
@@ -3056,7 +3056,7 @@ MonoBehaviour:
   mainMenu: {fileID: 455129528}
   levelMenu: {fileID: 1669601799}
   optionslMenu: {fileID: 2056067575}
-  advantageBar: {fileID: 814456015}
+  advantageProgressBar: {fileID: 1447971445}
   timer: {fileID: 0}
 --- !u!4 &1758404806
 Transform:

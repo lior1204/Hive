@@ -1888,7 +1888,7 @@ MonoBehaviour:
   mainMenu: {fileID: 0}
   levelMenu: {fileID: 0}
   optionslMenu: {fileID: 0}
-  advantageBar: {fileID: 2049099162}
+  advantageProgressBar: {fileID: 1045714400}
   timer: {fileID: 1755210322}
 --- !u!4 &1631876880
 Transform:
@@ -3567,7 +3567,7 @@ RectTransform:
   m_GameObject: {fileID: 2049099161}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.57, y: 1, z: 1}
+  m_LocalScale: {x: 0.9, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1045714400}
   m_RootOrder: 0
