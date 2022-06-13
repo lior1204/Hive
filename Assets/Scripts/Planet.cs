@@ -20,7 +20,7 @@ public class Planet : MouseInteractable, IOrbitable
     private float strengthIncome = 2;
     private int maxActiveLinks = 2;
     private float orbitCycleTime = 5f;
-    private float captureRange = 30;
+    public float captureRange { get; private set; } = 30;
     private float visibilityRange = 150;
 
     public int PlanetID { get; private set; } = 0;
