@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class MenuManager : MonoBehaviour
 {
@@ -11,8 +12,9 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private RectTransform mainMenu;
     [SerializeField] private RectTransform levelMenu;
     [SerializeField] private RectTransform optionslMenu;
-
-    private Stack<RectTransform> menus = new Stack<RectTransform>();
+    [SerializeField] private RectTransform advantageBar;
+    [SerializeField] private TextMeshProUGUI timer;
+    private Stack<RectTransform> menusSeries = new Stack<RectTransform>();
     private void Start()
     {
         if (mainMenu)
@@ -21,32 +23,76 @@ public class MenuManager : MonoBehaviour
             levelMenu.gameObject.SetActive(false);
         if (optionslMenu)
             optionslMenu.gameObject.SetActive(false);
-
         if (SceneManager.GetActiveScene().name == ParamManager.Instance.MAINMENUSCENENAME)
         {
             if (mainMenu)
             {
                 mainMenu.gameObject.SetActive(true);
-                menus.Push(mainMenu);
+                menusSeries.Push(mainMenu);
+            }
+        }
+        if (SceneManager.GetActiveScene().name == ParamManager.Instance.GAMEOVERSCENENAME)
+        {
+            if (mainMenu)
+            {
+                mainMenu.gameObject.SetActive(true);
+                menusSeries.Push(mainMenu);
+            }
+            if (advantageBar)
+            {
+                DrawAdvantageBar();
             }
         }
     }
+    private void Update()
+    {
+        if (SceneManager.GetActiveScene().name.Contains("Level"))
+        {
+            DrawTimer();
+            DrawAdvantageBar();
+        }
+    }
+
+    private void DrawAdvantageBar()//change the scale of the progress
+    {
+        Vector3 newScale = advantageBar.localScale;
+        if (GameManager.Instance.enemyPlanetsCount <= 0)//if enemy is zero dont devide by 0
+        {
+            newScale.x = 1;
+        }
+        else
+        {
+            //scale is playercount divided by sum of player and enemy count
+            newScale.x = (float)GameManager.Instance.playerPlanetsCount /(GameManager.Instance.playerPlanetsCount+ GameManager.Instance.enemyPlanetsCount);
+        }
+        advantageBar.localScale = newScale;
+    }
+
+    private void DrawTimer()//update the timer text
+    {
+        int time = (int)GameManager.Instance.endGameTimer;
+        if (timer)
+        {
+            timer.text = ((time / 60)).ToString("00") + ":" + (time % 60).ToString("00");
+        }
+    }
+
     public void LevelsMenu()//go to level menu
     {
         if (levelMenu)
         {
-            menus.Peek().gameObject.SetActive(false);
+            menusSeries.Peek().gameObject.SetActive(false);
             levelMenu.gameObject.SetActive(true);
-            menus.Push(levelMenu);
+            menusSeries.Push(levelMenu);
         }
     }
     public void OptionsMenu()//go to option menu
     {
         if (optionslMenu)
         {
-            menus.Peek().gameObject.SetActive(false);
+            menusSeries.Peek().gameObject.SetActive(false);
             optionslMenu.gameObject.SetActive(true);
-            menus.Push(optionslMenu);
+            menusSeries.Push(optionslMenu);
         }
     }
     public void QuitGame()//exit game
@@ -61,10 +107,10 @@ public class MenuManager : MonoBehaviour
     }
     public void GoBack()
     {
-        if (menus.Count > 1)
+        if (menusSeries.Count > 1)
         {
-            menus.Pop().gameObject.SetActive(false);
-            menus.Peek().gameObject.SetActive(true);
+            menusSeries.Pop().gameObject.SetActive(false);
+            menusSeries.Peek().gameObject.SetActive(true);
         }
     }
     public void CahngeVolume()

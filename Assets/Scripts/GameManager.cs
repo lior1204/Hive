@@ -8,22 +8,21 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;//singelton
     //parameters
-    [SerializeField] [Min(1)] private float GameTime = 180;//in seconds
+    [SerializeField] [Min(1)] private float gameTime = 180;//in seconds
     //state 
     public bool IsPaused { get { return state == GameState.Paused; } }
     private GameState state = GameState.Playing;
-    private float endGameTimer = 0;
-    private bool IsTimeOver { get { return endGameTimer >= GameTime; } }
-    private int playerPlanetsCount;
-    private int enemyPlanetsCount;
-    private int neutralPlanetsCount;
+    public float endGameTimer { get; private set; }
+    private bool IsTimeOver { get { return endGameTimer <=0; } }
+    public int playerPlanetsCount { get; private set; }
+    public int enemyPlanetsCount { get; private set; }
     public float screenRatio { get; private set; }
     private void Awake()
     {
         SetSingelton();
         screenRatio = Screen.width / Screen.height;
+        endGameTimer = gameTime;
     }
-
     private void SetSingelton()
     {
         if (Instance != null && Instance != this)// implement singelton
@@ -36,35 +35,41 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
         }
     }
-
+    
     void Update()
     {
-        UpdateGameClock();
-        CheckIfGameEnd();
+        if (state == GameState.Playing)
+        {
+            UpdateGameClock();
+            UpdateHiveCount();
+            CheckIfGameEnd();
+        }
     }
     private void UpdateGameClock()//up the clock if game is running
     {
         if (state == GameState.Playing)
         {
-            endGameTimer += Time.deltaTime;
+            endGameTimer -= Time.deltaTime;
         }
+    }
+    private void UpdateHiveCount()
+    {
+        playerPlanetsCount = HiveController.Player.PlanetCount;
+        enemyPlanetsCount = HiveController.Enemy.PlanetCount;
     }
     private void CheckIfGameEnd()//checks every update if game is over
     {
         if (state == GameState.Playing)//check if game is running
         {
-            playerPlanetsCount = HiveController.Player.PlanetCount;
-            enemyPlanetsCount = HiveController.Enemy.PlanetCount;
+            
             if (playerPlanetsCount <= 0 || enemyPlanetsCount <= 0 || IsTimeOver)//game ends if player or enemy has no planets or if time over
             {
-                //neutralPlanetsCount=?
+                state = GameState.EndScreen;
+                UpdateHiveCount();
                 SceneManager.LoadScene(ParamManager.Instance.GAMEOVERSCENENAME); 
             }
         }
     }
-
-
-    //get & set
 
     public enum GameState
     {
