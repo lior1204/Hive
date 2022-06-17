@@ -42,7 +42,7 @@ public class EnemyController : MonoBehaviour
         public HiveController.Hive TargetHive { get { return target.HiveType; } }//hive of target
         public Planet.PlanetSize TargetSize { get { return target.Size; } }//size of target
         public float IncomeDifference { get { return origin.CalculateDeltaStrength() - target.CalculateDeltaStrength(); } }//the income difference between the planets
-        public float CalculateInteraction()
+        public float CalculateInteraction()//calculate score for relative
         {
             float score = 0;
             switch(TargetSize)
@@ -106,5 +106,13 @@ public class EnemyController : MonoBehaviour
                     relatives.Add(new RelativeProfile(origin, target));
             }
         }
+        public void CheckForRelativeOverThreshold()//for every relative decide to connect or disconect
+        {
+            foreach(RelativeProfile relative in relatives)
+            {
+
+            }
+        }
+    
     }
 }
