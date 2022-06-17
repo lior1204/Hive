@@ -94,12 +94,32 @@ public class ParamManager : MonoBehaviour
     [SerializeField] private float strengthCap = 100f;
     public float StrengthCap { get { return strengthCap; } }
 
-
+    [Header ("Planet Parameters")]
     public PlanetSizeParameters[] planetSizeSet =new PlanetSizeParameters[3];
     private void Awake()
     {
         SetSingelton();
     }
+
+    [Header("Enemy Threshold Parameters")]
+    [SerializeField][Range(1f,100)] private int smallSizeScore = 0;
+    public float SmallSizeScore { get { return smallSizeScore; } }
+    [SerializeField] [Range(1f, 100)] private int mediumSizeScore = 20;
+    public float MediumSizeScore { get { return mediumSizeScore; } }
+    [SerializeField] [Range(1f, 100)] private int bigSizeScore = 50;
+    public float BigSizeScore { get { return bigSizeScore; } }
+    [SerializeField] [Range(1f, 100)] private int strengthScore = 50;
+    public float StrengthScore { get { return strengthScore; } }
+    [SerializeField] [Range(1f, 100)] private int incomeScore = 50;
+    public float IncomeScore { get { return incomeScore; } }
+    [SerializeField] [Range(1f, 100)] private int neutralScore = 20;
+    public float NeutralScore { get { return neutralScore; } }
+    [SerializeField] [Range(1f, 100)] private int playerScore = 20;
+    public float PlayerScore { get { return playerScore; } }
+    [SerializeField] [Range(1f, 500)] private int randomScore = 100;
+    public float RandomScore { get { return randomScore; } }
+    [SerializeField] [Range(1f,2f)] private Vector2 relativityScoreModifier = new Vector2(1,2);
+    public Vector2 RelativityScoreModifier { get { return relativityScoreModifier; } }
 
     private void SetSingelton()
     {

@@ -16,7 +16,7 @@ public class Planet : MouseInteractable, IOrbitable
     [SerializeField] private bool isQueen = false;
     [SerializeField] private int startingStrength = 6;
     [SerializeField] private PlanetSize planetSize = PlanetSize.Small;
-    
+    public PlanetSize Size { get { return planetSize; } }
     private float strengthIncome = 2;
     private int maxActiveLinks = 2;
     private float orbitCycleTime = 5f;
@@ -26,7 +26,7 @@ public class Planet : MouseInteractable, IOrbitable
     public int PlanetID { get; private set; } = 0;
 
     //state variables
-    private float strength = 0;
+    public float strength { get; private set; } = 0;
     private List<Capture> captureLinks = new List<Capture>();
     private List<Reinforcement> reinforceLinks = new List<Reinforcement>();
     private List<Link> activeLinks = new List<Link>();
@@ -125,7 +125,7 @@ public class Planet : MouseInteractable, IOrbitable
             }
         }
     }
-    private float CalculateDeltaStrength()// determines strengrh change per strengt tick
+    public float CalculateDeltaStrength()// determines strengrh change per strengt tick
     {
         float deltaStrengt = CalculateStrengthIncome() - CalculateStrengthOutcome();
         return deltaStrengt;
