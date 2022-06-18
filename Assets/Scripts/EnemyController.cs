@@ -5,6 +5,7 @@ using System.Linq;
 
 public class EnemyController : MonoBehaviour
 {
+    public static EnemyController Instance;//singelton reference
     private List<PlanetRelatives> planets = new List<PlanetRelatives>();
     // Update is called once per frame
     void Update()
@@ -17,6 +18,22 @@ public class EnemyController : MonoBehaviour
             }
         }
     }
+    private void Awake()
+    {
+        SetSingelton();
+    }
+        private void SetSingelton()
+    {
+        if (Instance != null && Instance != this)// implement singelton
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+
     public void MakeDesicion()
     {
 
@@ -24,56 +41,7 @@ public class EnemyController : MonoBehaviour
 
 
 
-    private class RelativeProfile//information on planet and the time of interaction with it
-    {
-        private Planet origin;
-        public Planet target { get; private set; }
-        public float timeTogather { get { return timeTogather; } set { timeTogather += value>0?value:0; } }
-        public float timeApart { get { return timeApart; } set { timeApart += value > 0 ? value : 0; } }
-        public RelativeProfile(Planet origin,Planet target)
-        {
-            this.origin = origin;
-            this.target = target;
-            timeTogather = 0;
-            timeApart = 0;
-        }
-        public float RelativityRatio { get { return timeTogather / (timeTogather + timeApart); } }//how much to prioritize this planet
-        public float StrengthDifference { get { return origin.strength - target.strength; } }//the stength difference between the planets
-        public HiveController.Hive TargetHive { get { return target.HiveType; } }//hive of target
-        public Planet.PlanetSize TargetSize { get { return target.Size; } }//size of target
-        public float IncomeDifference { get { return origin.CalculateDeltaStrength() - target.CalculateDeltaStrength(); } }//the income difference between the planets
-        public float CalculateInteraction()//calculate score for relative
-        {
-            float score = 0;
-            switch(TargetSize)
-            {
-                case Planet.PlanetSize.Small:
-                    {
-                        score += ParamManager.Instance.SmallSizeScore;
-                        break;
-                    }
-                case Planet.PlanetSize.Medium:
-                    {
-                        score += ParamManager.Instance.MediumSizeScore;
-                        break;
-                    }
-                case Planet.PlanetSize.Big:
-                    {
-                        score += ParamManager.Instance.BigSizeScore;
-                        break;
-                    }
-
-            }//score for size
-            score += StrengthDifference * ParamManager.Instance.StrengthScore;//score for strength difference
-            score += IncomeDifference * ParamManager.Instance.IncomeScore;//score for income difference
-            if (TargetHive == HiveController.Hive.Neutral) score += ParamManager.Instance.NeutralScore;//score for neutral target
-            else if (TargetHive == HiveController.Hive.Player) score += ParamManager.Instance.PlayerScore;//score for player target
-            score += Random.Range(-ParamManager.Instance.RandomScore, ParamManager.Instance.RandomScore);//add random noise
-            score *= Mathf.Lerp(ParamManager.Instance.RelativityScoreModifier.x,
-                ParamManager.Instance.RelativityScoreModifier.y, Mathf.Pow(RelativityRatio, 1.5f));//modifier based on relativity ratio
-            return score;
-        }
-    }
+    
     private class PlanetRelatives//contains a list of all relatives for a specific planet
     {
         public Planet origin { get; private set; }
@@ -115,4 +83,31 @@ public class EnemyController : MonoBehaviour
         }
     
     }
+
+
+    [Header("Enemy Threshold Parameters")]
+    [SerializeField] [Range(1f, 100)] private int planetSizeScore = 0;
+    public float PlanetSizeScore { get { return planetSizeScore; } }
+    //[SerializeField][Range(1f,100)] private int smallSizeScore = 0;
+    //public float SmallSizeScore { get { return smallSizeScore; } }
+    //[SerializeField] [Range(1f, 100)] private int mediumSizeScore = 20;
+    //public float MediumSizeScore { get { return mediumSizeScore; } }
+    //[SerializeField] [Range(1f, 100)] private int bigSizeScore = 50;
+    //public float BigSizeScore { get { return bigSizeScore; } }
+    [SerializeField] [Range(1f, 100)] private int strengthScore = 50;
+    public float StrengthScore { get { return strengthScore; } }
+    [SerializeField] [Range(0.1f, 5f)] private int strengthSkewing = 2;
+    public float StrengthSkewing { get { return strengthSkewing; } }
+    [SerializeField] [Range(1f, 100)] private int incomeScore = 50;
+    public float IncomeScore { get { return incomeScore; } }
+    [SerializeField] [Range(1f, 100)] private int neutralScore = 20;
+    public float NeutralScore { get { return neutralScore; } }
+    [SerializeField] [Range(1f, 100)] private int playerScore = 20;
+    public float PlayerScore { get { return playerScore; } }
+    [SerializeField] [Range(1f, 500)] private int randomScore = 100;
+    public float RandomScore { get { return randomScore; } }
+    [SerializeField] [Range(1f, 2f)] private Vector2 relativityScoreModifier = new Vector2(1, 2);
+    public Vector2 RelativityScoreModifier { get { return relativityScoreModifier; } }
+
+
 }
