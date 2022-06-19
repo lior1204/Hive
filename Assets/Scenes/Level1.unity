@@ -2028,6 +2028,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1701700552}
   - component: {fileID: 1701700551}
+  - component: {fileID: 1701700553}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -2062,6 +2063,43 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1701700553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1701700550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5c5fa1acba59e0498aaba65d78def54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  planetSizeScore: 50
+  strengthCaptureScore: 50
+  strengthCaptureSkewing: 2
+  incomeCaptureScore: 50
+  incomeDifferenceMax: 10
+  incomeCaptureSkewing: 2
+  incomeRelevenceBasedStrength: 3
+  neutralScore: 20
+  playerCaptureScore: 50
+  randomCaptureScore: 100
+  strengthReinforceScore: 50
+  strengthReinforceSkewing: 2
+  incomeReinforceScore: 50
+  incomeReinforceMax: 10
+  incomeReinforceSkewing: 2
+  randomReinforceScore: 100
+  randomDisconnectScore: 100
+  relativityMinModifier: 1
+  relativityMaxModifier: 2
+  relativitySkewing: 1.5
+  lowStrengthPriorityThreshold: 10
+  captureThreshold: 500
+  reinforceThreshold: 500
+  disconnectCaptureThreshold: 500
+  disconnectReinforceThreshold: 500
 --- !u!1 &1705175169
 GameObject:
   m_ObjectHideFlags: 0
@@ -3704,15 +3742,6 @@ MonoBehaviour:
     orbitCycleTime: 20
     captureRange: 9
     visibilityRange: 9
-  smallSizeScore: 0
-  mediumSizeScore: 0
-  bigSizeScore: 0
-  strengthScore: 50
-  incomeScore: 50
-  neutralScore: 20
-  playerScore: 20
-  randomScore: 100
-  relativityScoreModifier: {x: 1, y: 2}
 --- !u!4 &2115953679 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2127881686000975985, guid: 6d427bdb64eb93541acbb2a408b780ac,

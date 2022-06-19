@@ -79,32 +79,32 @@ public class RelativeProfile//information on planet and the time of interaction 
         float score = 0;
         float sizeScore = Normalize01(((float)Planet.PlanetSize.Small), ((float)Planet.PlanetSize.Big), ((int)TargetSize));
         score += sizeScore * EnemyController.Instance.PlanetSizeScore;//score for size
-        float strengthScore = NormalizeNegativeParabole(-2 * ParamManager.Instance.StrengthCap, 2 * ParamManager.Instance.StrengthCap, StrengthDifference, EnemyController.Instance.StrengthSkewing);
-        score += strengthScore * EnemyController.Instance.StrengthScore;//score for strength difference
-        float incomeScore = NormalizeNegativeParabole(-EnemyController.Instance.IncomeDifferenceMax, EnemyController.Instance.IncomeDifferenceMax, IncomeDifference, EnemyController.Instance.IncomeSkewing);
+        float strengthScore = NormalizeNegativeParabole(-2 * ParamManager.Instance.StrengthCap, 2 * ParamManager.Instance.StrengthCap, StrengthDifference, EnemyController.Instance.StrengthCaptureSkewing);
+        score += strengthScore * EnemyController.Instance.StrengthCaptureScore;//score for strength difference
+        float incomeScore = NormalizeNegativeParabole(-EnemyController.Instance.IncomeDifferenceMax, EnemyController.Instance.IncomeDifferenceMax, IncomeDifference, EnemyController.Instance.IncomeCaptureSkewing);
         incomeScore = Mathf.Sign(incomeScore) * Mathf.Pow(Mathf.Abs(incomeScore), Mathf.Abs(strengthScore) * EnemyController.Instance.IncomeRelevenceBasedStrength);
-        score += incomeScore * EnemyController.Instance.IncomeScore;//score for income difference
+        score += incomeScore * EnemyController.Instance.IncomeCaptureScore;//score for income difference
         if (TargetHive == HiveController.Hive.Neutral) score += EnemyController.Instance.NeutralScore;//score for neutral target
-        else if (TargetHive == HiveController.Hive.Player) score += EnemyController.Instance.PlayerScore;//score for player target
+        else if (TargetHive == HiveController.Hive.Player) score += EnemyController.Instance.PlayerCaptureScore;//score for player target
         score += Random.Range(-EnemyController.Instance.RandomCaptureScore, EnemyController.Instance.RandomCaptureScore);//add random noise
         //modifier based on relativity ratio 
-        score *= Mathf.Lerp(EnemyController.Instance.RelativityScoreModifier.x,
-            EnemyController.Instance.RelativityScoreModifier.y, Mathf.Pow(RelativityRatio, EnemyController.Instance.RelativitySkewing));
+        score *= Mathf.Lerp(EnemyController.Instance.RelativityMinModifier,
+            EnemyController.Instance.RelativityMaxModifier, Mathf.Pow(RelativityRatio, EnemyController.Instance.RelativitySkewing));
         this.Score = score;
         IsPriority = false;
     }
     private void CalculateCaptureDisconnectScore()
     {
         float score = 0;
-        float strengthScore = NormalizeNegativeParabole(-2 * ParamManager.Instance.StrengthCap, 2 * ParamManager.Instance.StrengthCap, StrengthDifference, EnemyController.Instance.StrengthSkewing);
-        score -= strengthScore * EnemyController.Instance.StrengthScore;//score for strength difference
-        float incomeScore = NormalizeNegativeParabole(-EnemyController.Instance.IncomeDifferenceMax, EnemyController.Instance.IncomeDifferenceMax, IncomeDifference, EnemyController.Instance.IncomeSkewing);
+        float strengthScore = NormalizeNegativeParabole(-2 * ParamManager.Instance.StrengthCap, 2 * ParamManager.Instance.StrengthCap, StrengthDifference, EnemyController.Instance.StrengthCaptureSkewing);
+        score -= strengthScore * EnemyController.Instance.StrengthCaptureScore;//score for strength difference
+        float incomeScore = NormalizeNegativeParabole(-EnemyController.Instance.IncomeDifferenceMax, EnemyController.Instance.IncomeDifferenceMax, IncomeDifference, EnemyController.Instance.IncomeCaptureSkewing);
         incomeScore = Mathf.Sign(incomeScore) * Mathf.Pow(Mathf.Abs(incomeScore), Mathf.Abs(strengthScore) * EnemyController.Instance.IncomeRelevenceBasedStrength);
-        score -= incomeScore * EnemyController.Instance.IncomeScore;//score for income difference
+        score -= incomeScore * EnemyController.Instance.IncomeCaptureScore;//score for income difference
         this.Score = score;
         score += Random.Range(-EnemyController.Instance.RandomDisconnectScore, EnemyController.Instance.RandomDisconnectScore);//add random noise
-        score *= Mathf.Lerp(EnemyController.Instance.RelativityScoreModifier.x,
-            EnemyController.Instance.RelativityScoreModifier.y,1- Mathf.Pow(RelativityRatio, EnemyController.Instance.RelativitySkewing));//modifier based on relativity ratio
+        score *= Mathf.Lerp(EnemyController.Instance.RelativityMinModifier,
+            EnemyController.Instance.RelativityMaxModifier, 1- Mathf.Pow(RelativityRatio, EnemyController.Instance.RelativitySkewing));//modifier based on relativity ratio
         this.Score = score;
         if (origin.strength <= EnemyController.Instance.LowStrengthPriorityThreshold)
             IsPriority = true;
@@ -124,9 +124,9 @@ public class RelativeProfile//information on planet and the time of interaction 
         float targetIncomeScore =1- Normalize01Parabole(0, EnemyController.Instance.IncomeReinforceMax, target.CalculateDeltaStrength(), EnemyController.Instance.IncomeReinforceSkewing);
         score += targetIncomeScore * EnemyController.Instance.IncomeReinforceScore;//score for target income
         this.Score = score;
-        score += Random.Range(-EnemyController.Instance.RandomReinforcetScore, EnemyController.Instance.RandomReinforcetScore);//add random noise
-        score *= Mathf.Lerp(EnemyController.Instance.RelativityScoreModifier.x,
-            EnemyController.Instance.RelativityScoreModifier.y, Mathf.Pow(RelativityRatio, EnemyController.Instance.RelativitySkewing));//modifier based on relativity ratio
+        score += Random.Range(-EnemyController.Instance.RandomReinforceScore, EnemyController.Instance.RandomReinforceScore);//add random noise
+        score *= Mathf.Lerp(EnemyController.Instance.RelativityMinModifier,
+            EnemyController.Instance.RelativityMaxModifier, Mathf.Pow(RelativityRatio, EnemyController.Instance.RelativitySkewing));//modifier based on relativity ratio
         this.Score = score;
         if (target.strength <= EnemyController.Instance.LowStrengthPriorityThreshold)
             IsPriority = true;
@@ -146,9 +146,9 @@ public class RelativeProfile//information on planet and the time of interaction 
         float targetIncomeScore = Normalize01Parabole(0, EnemyController.Instance.IncomeReinforceMax, target.CalculateDeltaStrength(), EnemyController.Instance.IncomeReinforceSkewing);
         score += targetIncomeScore * EnemyController.Instance.IncomeReinforceScore;//score for target income
         this.Score = score;
-        score += Random.Range(-EnemyController.Instance.RandomReinforcetScore, EnemyController.Instance.RandomReinforcetScore);//add random noise
-        score *= Mathf.Lerp(EnemyController.Instance.RelativityScoreModifier.x,
-            EnemyController.Instance.RelativityScoreModifier.y, Mathf.Pow(RelativityRatio, EnemyController.Instance.RelativitySkewing));//modifier based on relativity ratio
+        score += Random.Range(-EnemyController.Instance.RandomDisconnectScore, EnemyController.Instance.RandomDisconnectScore);//add random noise
+        score *= Mathf.Lerp(EnemyController.Instance.RelativityMinModifier,
+            EnemyController.Instance.RelativityMaxModifier, Mathf.Pow(RelativityRatio, EnemyController.Instance.RelativitySkewing));//modifier based on relativity ratio
         this.Score = score;
         if (origin.strength <= EnemyController.Instance.LowStrengthPriorityThreshold)
             IsPriority = true;

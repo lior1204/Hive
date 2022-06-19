@@ -84,7 +84,8 @@ public class EnemyController : MonoBehaviour
 
 
     [Header("Enemy Threshold Parameters")]
-    [SerializeField] [Range(1f, 100)] private int planetSizeScore = 0;
+    [Header("Capture")]
+    [SerializeField] [Range(1f, 100)] private float planetSizeScore = 50;
     public float PlanetSizeScore { get { return planetSizeScore; } }
     //[SerializeField][Range(1f,100)] private int smallSizeScore = 0;
     //public float SmallSizeScore { get { return smallSizeScore; } }
@@ -92,26 +93,64 @@ public class EnemyController : MonoBehaviour
     //public float MediumSizeScore { get { return mediumSizeScore; } }
     //[SerializeField] [Range(1f, 100)] private int bigSizeScore = 50;
     //public float BigSizeScore { get { return bigSizeScore; } }
-    [SerializeField] [Range(1f, 100)] private int strengthScore = 50;
-    public float StrengthScore { get { return strengthScore; } }
-    [SerializeField] [Range(0.1f, 5f)] private int strengthSkewing = 2;
-    public float StrengthSkewing { get { return strengthSkewing; } }
-    [SerializeField] [Range(1f, 100)] private int incomeScore = 50;
-    public float IncomeScore { get { return incomeScore; } }
-    [SerializeField] [Range(5f, 15f)] private int incomeDifferencMax = 10;
-    public float IncomeDifferencMax { get { return incomeDifferencMax; } }
-    [SerializeField] [Range(0.1f, 5f)] private int incomeSkewing = 2;
-    public float IncomeSkewing { get { return incomeSkewing; } }
-    [SerializeField] [Range(2f, 5f)] private int incomeRelevenceBasedStrength = 3;
+    [SerializeField] [Range(1f, 100)] private float strengthCaptureScore = 50;
+    public float StrengthCaptureScore { get { return strengthCaptureScore; } }
+    [SerializeField] [Range(0.5f, 5f)] private float strengthCaptureSkewing = 2;
+    public float StrengthCaptureSkewing { get { return strengthCaptureSkewing; } }
+    [SerializeField] [Range(1f, 100)] private float incomeCaptureScore = 50;
+    public float IncomeCaptureScore { get { return incomeCaptureScore; } }
+    [SerializeField] [Range(5f, 15f)] private float incomeDifferenceMax = 10;
+    public float IncomeDifferenceMax { get { return incomeDifferenceMax; } }
+    [SerializeField] [Range(0.5f, 5f)] private float incomeCaptureSkewing = 2;
+    public float IncomeCaptureSkewing { get { return incomeCaptureSkewing; } }
+    [SerializeField] [Range(2f, 5f)] private float incomeRelevenceBasedStrength = 3;
     public float IncomeRelevenceBasedStrength { get { return incomeRelevenceBasedStrength; } }
-    [SerializeField] [Range(1f, 100)] private int neutralScore = 20;
+    [SerializeField] [Range(1f, 100)] private float neutralScore = 20;
     public float NeutralScore { get { return neutralScore; } }
-    [SerializeField] [Range(1f, 100)] private int playerScore = 20;
-    public float PlayerScore { get { return playerScore; } }
-    [SerializeField] [Range(1f, 500)] private int randomScore = 100;
-    public float RandomScore { get { return randomScore; } }
-    [SerializeField] [Range(1f, 2f)] private Vector2 relativityScoreModifier = new Vector2(1, 2);
-    public Vector2 RelativityScoreModifier { get { return relativityScoreModifier; } }
+    [SerializeField] [Range(1f, 100)] private float playerCaptureScore = 50;
+    public float PlayerCaptureScore { get { return playerCaptureScore; } }
+    [SerializeField] [Range(1f, 500)] private float randomCaptureScore = 100;
+    public float RandomCaptureScore { get { return randomCaptureScore; } }
 
+    [Header("Reinforce")]
+    [SerializeField] [Range(1f, 100)] private int strengthReinforceScore = 50;
+    public float StrengthReinforceScore { get { return strengthReinforceScore; } }
+    [SerializeField] [Range(0.5f, 5f)] private float strengthReinforceSkewing = 2;
+    public float StrengthReinforceSkewing { get { return strengthReinforceSkewing; } }
+    [SerializeField] [Range(1f, 100)] private float incomeReinforceScore = 50;
+    public float IncomeReinforceScore { get { return incomeReinforceScore; } }
+    [SerializeField] [Range(5f, 15f)] private float incomeReinforceMax = 10;
+    public float IncomeReinforceMax { get { return incomeReinforceMax; } }
+    [SerializeField] [Range(0.5f, 5f)] private float incomeReinforceSkewing = 2;
+    public float IncomeReinforceSkewing { get { return incomeReinforceSkewing; } }
+    [SerializeField] [Range(1f, 500)] private float randomReinforceScore = 100;
+    public float RandomReinforceScore { get { return randomReinforceScore; } }
+
+
+    [Header("Disconnect")]
+    [SerializeField] [Range(1f, 500)] private float randomDisconnectScore = 100;
+    public float RandomDisconnectScore { get { return randomDisconnectScore; } }
+
+
+    [Header("General")]
+    [SerializeField] [Range(1f, 2f)] private float relativityMinModifier = 1;
+    public float RelativityMinModifier { get { return relativityMinModifier; } }
+    [SerializeField] [Range(2f, 3f)] private float relativityMaxModifier = 2;
+    public float RelativityMaxModifier { get { return relativityMaxModifier; } }
+    [SerializeField] [Range(1f, 2.5f)] private float relativitySkewing = 1.5f;
+    public float RelativitySkewing { get { return relativitySkewing; } }
+
+
+    [Header("Thresholds")]
+    [SerializeField] [Range(1f, 100)] private float lowStrengthPriorityThreshold = 10;
+    public float LowStrengthPriorityThreshold { get { return lowStrengthPriorityThreshold; } }
+    [SerializeField]  private float captureThreshold = 500;
+    public float CaptureThreshold { get { return captureThreshold; } }
+    [SerializeField] private float reinforceThreshold = 500;
+    public float ReinforceThreshold { get { return reinforceThreshold; } }
+    [SerializeField]  private float disconnectCaptureThreshold = 500;
+    public float DisconnectCaptureThreshold { get { return disconnectCaptureThreshold; } }
+    [SerializeField]  private float disconnectReinforceThreshold = 500;
+    public float DisconnectReinforceThreshold { get { return disconnectReinforceThreshold; } }
 
 }
