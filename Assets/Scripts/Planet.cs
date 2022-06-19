@@ -378,7 +378,10 @@ public class Planet : MouseInteractable, IOrbitable
     {
         return activeLinks.Any(link => link.Target == target);
     }
-
+    public Link GetLink(Planet target)
+    {
+        return GetMyLinks().FirstOrDefault(link => link.Target == target);
+    }
     public enum PlanetSize
     {
         Small = 0,

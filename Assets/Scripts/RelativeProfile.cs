@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class RelativeProfile//information on planet and the time of interaction with it
+public class ActionProfile//information on planet and the time of interaction with it
 {
-    private Planet origin;
+    public Planet origin { get; private set; }
     public Planet target { get; private set; }
     public float Score
     {
@@ -36,7 +36,7 @@ public class RelativeProfile//information on planet and the time of interaction 
 
     public float timeTogather { get { return timeTogather; } set { timeTogather += value > 0 ? value : 0; } }
     public float timeApart { get { return timeApart; } set { timeApart += value > 0 ? value : 0; } }
-    public RelativeProfile(Planet origin, Planet target)
+    public ActionProfile(Planet origin, Planet target)
     {
         this.origin = origin;
         this.target = target;

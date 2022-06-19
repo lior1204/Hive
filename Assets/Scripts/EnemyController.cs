@@ -6,23 +6,21 @@ using System.Linq;
 public class EnemyController : MonoBehaviour
 {
     public static EnemyController Instance;//singelton reference
-    private List<PlanetRelatives> planets = new List<PlanetRelatives>();
-    // Update is called once per frame
-    void Update()
-    {
-        if (!GameManager.Instance.IsPaused)
-        {
-            foreach (PlanetRelatives planet in planets)
-            {
-                planet.UpdateRelativesTimes();
-            }
-        }
-    }
+    //parameters
+    [Header("Enemy")]
+    [SerializeField] private float enemyDecisionRate = 1f;
+    [SerializeField] private int decisionsPerCycle = 4;
+    [SerializeField] private float enemyDelay = 5f;
+
+    //references    
+    private List<PlanetIntel> planets = new List<PlanetIntel>();
+    private List<ActionProfile> actions = new List<ActionProfile>();
+    Coroutine decisionsCoroutine;
     private void Awake()
     {
         SetSingelton();
     }
-        private void SetSingelton()
+    private void SetSingelton()
     {
         if (Instance != null && Instance != this)// implement singelton
         {
@@ -33,18 +31,76 @@ public class EnemyController : MonoBehaviour
             Instance = this;
         }
     }
-
-    public void MakeDesicion()
+    private void Start()
     {
-
+        decisionsCoroutine = StartCoroutine(DecisionCycle());
+    }
+    void Update()
+    {
+        if (!GameManager.Instance.IsPaused)
+        {
+            foreach (PlanetIntel planet in planets)
+            {
+                planet.UpdateRelativesTimes();
+            }
+        }
     }
 
+    IEnumerator DecisionCycle()
+    {
+        yield return new WaitForSeconds(enemyDelay);
+        while (true)
+        {
+            if (GameManager.Instance.IsPaused)//pause game
+                yield return new WaitUntil(() => !GameManager.Instance.IsPaused);
+            yield return new WaitForSeconds(enemyDecisionRate);//delay between strength ticks
+            MakeDecision();
+        }
+    }
+    public void MakeDecision()
+    {
+        actions.Clear();
+        foreach (PlanetIntel planet in planets)
+        {
+            actions.AddRange(planet.GetActions());
+        }
+        actions = actions.OrderBy(act => act.IsPriority).ThenBy(act => act.Score).ToList();
+        for(int i = 0; i < Mathf.Min(decisionsPerCycle, actions.Count); i++)
+        {
+            ActivateAction(actions.ElementAt(i));
+        }
+    }
+    private void ActivateAction(ActionProfile action)
+    {
+        switch (action.Action)
+        {
+            case ActionProfile.ActionType.Capture:
+                HiveController.Enemy.CapturePlanet(action.origin, action.target);
+                break;
+            case ActionProfile.ActionType.Reinforce:
+                HiveController.Enemy.ReinforcePlanet(action.origin, action.target);
+                break;
+            case ActionProfile.ActionType.DisconnectCapture:
+            case ActionProfile.ActionType.DisconnectReinforcement:
+                HiveController.Enemy.RemoveLink(action.origin, action.target);
+                break;
+        }
+    }
+    public void AddPlanet(Planet planet)
+    {
+        planets.Add(new PlanetIntel(planet));
+    }
+    public void Removelanet(Planet planet)
+    {
+        PlanetIntel p= planets.FirstOrDefault(intel => intel.origin == planet);
+        if (p != null) planets.Remove(p);
+    }
 
-    private class PlanetRelatives//contains a list of all relatives for a specific planet
+    private class PlanetIntel//contains a list of all relatives for a specific planet
     {
         public Planet origin { get; private set; }
-        private List<RelativeProfile> relatives = new List<RelativeProfile>();
-        public PlanetRelatives(Planet planet)
+        private List<ActionProfile> relatives = new List<ActionProfile>();
+        public PlanetIntel(Planet planet)
         {
             this.origin = planet;
         }
@@ -52,7 +108,7 @@ public class EnemyController : MonoBehaviour
         {
             List<Collider2D> collided = Physics2D.OverlapCircleAll(origin.transform.position, origin.captureRange)
                 .Where(col => col.CompareTag(ParamManager.Instance.PLANETTAG)&&col.gameObject!=origin.gameObject).ToList();//all planets in range exclute myself
-            foreach(RelativeProfile relative in relatives)//for all existing relatives
+            foreach(ActionProfile relative in relatives)//for all existing relatives
             {
                 Collider2D collider = collided.FirstOrDefault(col => col.gameObject == relative.target.gameObject);
                 if (collider)//if collided add time togather and
@@ -69,22 +125,26 @@ public class EnemyController : MonoBehaviour
             {
                 Planet target = collider.gameObject.GetComponent<Planet>();
                 if(target)
-                    relatives.Add(new RelativeProfile(origin, target));
+                    relatives.Add(new ActionProfile(origin, target));
             }
         }
-        public void CheckForRelativeOverThreshold()//for every relative decide to connect or disconect
+        public List<ActionProfile> GetActions()//update relative scores and return the top actions
         {
-            foreach(RelativeProfile relative in relatives)
+            List<ActionProfile> actions;
+            foreach(ActionProfile relative in relatives)
             {
                 relative.CalculateScore();
             }
+            //list of all actions above threshhold orderd by priority then threshold
+            actions = relatives.Where(act => act.Score >= 1).OrderBy(act => act.IsPriority).ThenBy(act=>act.Score).ToList();
+            return actions.Take(EnemyController.Instance.decisionsPerCycle).ToList();
         }
     
     }
 
-
-    [Header("Enemy Threshold Parameters")]
+    
     [Header("Capture")]
+    [Header("Enemy Threshold Parameters")]
     [SerializeField] [Range(1f, 100)] private float planetSizeScore = 50;
     public float PlanetSizeScore { get { return planetSizeScore; } }
     //[SerializeField][Range(1f,100)] private int smallSizeScore = 0;
