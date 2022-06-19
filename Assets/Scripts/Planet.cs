@@ -370,7 +370,14 @@ public class Planet : MouseInteractable, IOrbitable
     {
         return orbitCycleTime;
     }
-
+    public bool IsCapturingTarget(Planet target)
+    {
+        return activeLinks.Any(link => link.Target == target);
+    }
+    public bool IsReinforcingTarget(Planet target)
+    {
+        return activeLinks.Any(link => link.Target == target);
+    }
 
     public enum PlanetSize
     {
