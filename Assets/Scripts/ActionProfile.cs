@@ -7,6 +7,7 @@ public class ActionProfile//information on planet and the time of interaction wi
 {
     public Planet origin { get; private set; }
     public Planet target { get; private set; }
+    private float score = 0;
     public float Score
     {
         get
@@ -27,15 +28,15 @@ public class ActionProfile//information on planet and the time of interaction wi
                     threshold = EnemyController.Instance.DisconnectReinforceThreshold;
                     break;
             }
-            return Score/threshold;
+            return score/threshold;
         }
-        private set { Score = value; }
+        private set { score = value; }
     }
     public ActionType Action { get; private set; }
     public bool IsPriority { get; private set; } = false;
 
-    public float timeTogather { get { return timeTogather; } set { timeTogather += value > 0 ? value : 0; } }
-    public float timeApart { get { return timeApart; } set { timeApart += value > 0 ? value : 0; } }
+    public float timeTogather = 0;
+    public float timeApart = 0;
     public ActionProfile(Planet origin, Planet target)
     {
         this.origin = origin;
@@ -53,6 +54,7 @@ public class ActionProfile//information on planet and the time of interaction wi
         if (origin.HiveType != target.HiveType) {//hostile planet
             if (origin.IsCapturingTarget(target))//already capturing
             {
+                
                 Action = ActionType.DisconnectCapture;
                 CalculateCaptureDisconnectScore();
             }
@@ -90,6 +92,8 @@ public class ActionProfile//information on planet and the time of interaction wi
         //modifier based on relativity ratio 
         score *= Mathf.Lerp(EnemyController.Instance.RelativityMinModifier,
             EnemyController.Instance.RelativityMaxModifier, Mathf.Pow(RelativityRatio, EnemyController.Instance.RelativitySkewing));
+        if (timeApart + timeTogather > EnemyController.Instance.MinimumProfileTime)
+            score = 0;
         this.Score = score;
         IsPriority = false;
     }

@@ -238,11 +238,11 @@ public class Planet : MouseInteractable, IOrbitable
     }
     private void FinishCaptureInteraction()//remove other from interactions list
     {
-        List<Capture> removeCapture = captureLinks.Where(c => c.Origin == this).ToList();//make a list of links to remove things this is attacking
-        List<Reinforcement> removeReinforcement = reinforceLinks;//keep list of reinforcement to remove
-        List<Capture> convert = captureLinks.Where(c => c.Target == this && c.Origin.HiveType == this.HiveType).ToList();//make list of links to convert to reinforcement
-        foreach (Link link in removeCapture) { link.DestroyLink(); }//destroy links
-        foreach (Link link in removeReinforcement) { link.DestroyLink(); }//destroy links
+        Capture[] removeCapture = captureLinks.Where(c => c.Origin == this).ToArray();//make a list of links to remove things this is attacking
+        Reinforcement[] removeReinforcement = reinforceLinks.ToArray();//keep list of reinforcement to remove
+        Capture[] convert = captureLinks.Where(c => c.Target == this && c.Origin.HiveType == this.HiveType).ToArray ();//make list of links to convert to reinforcement
+        foreach (Capture link in removeCapture) { link.DestroyLink(); }//destroy links
+        foreach (Reinforcement link in removeReinforcement) { if(link)link.DestroyLink(); }//destroy links
         foreach (Capture capture in convert) { capture.ConvertToReinforcement(); }//convert captures by controlling hive to reinforcements
     }
     public Reinforcement AttemptReinforccing(Planet reinforced)//start reinforcing another planet
@@ -372,11 +372,12 @@ public class Planet : MouseInteractable, IOrbitable
     }
     public bool IsCapturingTarget(Planet target)
     {
-        return activeLinks.Any(link => link.Target == target);
+        
+        return captureLinks.Any(link => link.Target == target);
     }
     public bool IsReinforcingTarget(Planet target)
     {
-        return activeLinks.Any(link => link.Target == target);
+        return reinforceLinks.Any(link => link.Target == target);
     }
     public Link GetLink(Planet target)
     {

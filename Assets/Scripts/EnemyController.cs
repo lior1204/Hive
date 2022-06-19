@@ -54,12 +54,11 @@ public class EnemyController : MonoBehaviour
             if (GameManager.Instance.IsPaused)//pause game
                 yield return new WaitUntil(() => !GameManager.Instance.IsPaused);
             yield return new WaitForSeconds(enemyDecisionRate);//delay between strength ticks
-            //MakeDecision();
+            MakeDecision();
         }
     }
     public void MakeDecision()
     {
-
         actions.Clear();
         foreach (PlanetIntel planet in planets)
         {
@@ -128,7 +127,6 @@ public class EnemyController : MonoBehaviour
                 if(target)
                     relatives.Add(new ActionProfile(origin, target));
             }
-            Debug.Log("Relatives: " + relatives.Count);
         }
         public List<ActionProfile> GetActions()//update relative scores and return the top actions
         {
@@ -136,6 +134,7 @@ public class EnemyController : MonoBehaviour
             foreach(ActionProfile relative in relatives)
             {
                 relative.CalculateScore();
+                //Debug.Log("Target: " + relative.target.GetInstanceID()+",Actiom: "+ relative.Action + " ,Score:" + relative.Score) ;
             }
             //list of all actions above threshhold orderd by priority then threshold
             actions = relatives.Where(act => act.Score >= 1).OrderBy(act => act.IsPriority).ThenBy(act=>act.Score).ToList();
@@ -201,6 +200,8 @@ public class EnemyController : MonoBehaviour
     public float RelativityMaxModifier { get { return relativityMaxModifier; } }
     [SerializeField] [Range(1f, 2.5f)] private float relativitySkewing = 1.5f;
     public float RelativitySkewing { get { return relativitySkewing; } }
+    [SerializeField] [Range(1f, 5f)] private float minimumProfileTime = 1.5f;
+    public float MinimumProfileTime { get { return minimumProfileTime; } }
 
 
     [Header("Thresholds")]
