@@ -40,8 +40,6 @@ public class EnemyController : MonoBehaviour
     }
 
 
-
-    
     private class PlanetRelatives//contains a list of all relatives for a specific planet
     {
         public Planet origin { get; private set; }
@@ -78,7 +76,7 @@ public class EnemyController : MonoBehaviour
         {
             foreach(RelativeProfile relative in relatives)
             {
-
+                relative.CalculateScore();
             }
         }
     
@@ -100,6 +98,12 @@ public class EnemyController : MonoBehaviour
     public float StrengthSkewing { get { return strengthSkewing; } }
     [SerializeField] [Range(1f, 100)] private int incomeScore = 50;
     public float IncomeScore { get { return incomeScore; } }
+    [SerializeField] [Range(5f, 15f)] private int incomeDifferencMax = 10;
+    public float IncomeDifferencMax { get { return incomeDifferencMax; } }
+    [SerializeField] [Range(0.1f, 5f)] private int incomeSkewing = 2;
+    public float IncomeSkewing { get { return incomeSkewing; } }
+    [SerializeField] [Range(2f, 5f)] private int incomeRelevenceBasedStrength = 3;
+    public float IncomeRelevenceBasedStrength { get { return incomeRelevenceBasedStrength; } }
     [SerializeField] [Range(1f, 100)] private int neutralScore = 20;
     public float NeutralScore { get { return neutralScore; } }
     [SerializeField] [Range(1f, 100)] private int playerScore = 20;
