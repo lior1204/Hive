@@ -54,11 +54,12 @@ public class EnemyController : MonoBehaviour
             if (GameManager.Instance.IsPaused)//pause game
                 yield return new WaitUntil(() => !GameManager.Instance.IsPaused);
             yield return new WaitForSeconds(enemyDecisionRate);//delay between strength ticks
-            MakeDecision();
+            //MakeDecision();
         }
     }
     public void MakeDecision()
     {
+
         actions.Clear();
         foreach (PlanetIntel planet in planets)
         {
@@ -127,6 +128,7 @@ public class EnemyController : MonoBehaviour
                 if(target)
                     relatives.Add(new ActionProfile(origin, target));
             }
+            Debug.Log("Relatives: " + relatives.Count);
         }
         public List<ActionProfile> GetActions()//update relative scores and return the top actions
         {
