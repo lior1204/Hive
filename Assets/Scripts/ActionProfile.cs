@@ -74,24 +74,41 @@ public class ActionProfile//information on planet and the time of interaction wi
             Action = ActionType.Reinforce;
             CalculateReinforceScore();
         }
+        
     }
 
     private void CalculateCaptureScore()
     {
+        if (origin.GetInstanceID() == -1196 && Action == ActionType.Capture)
+            Debug.Log("Target:" + target.GetInstanceID() + " Action: " + Action + " Score: " + this.score + " score/threshhold: " + Score);
         float score = 0;
+        float val = 0;
         float sizeScore = Normalize01(((float)Planet.PlanetSize.Small), ((float)Planet.PlanetSize.Big), ((int)TargetSize));
-        score += sizeScore * EnemyController.Instance.PlanetSizeScore;//score for size
+        val= sizeScore * EnemyController.Instance.PlanetSizeScore;//score for size
+        if (origin.GetInstanceID() == -1196 && Action == ActionType.Capture) Debug.Log("Size Score: " + val);
+        score += val;
         float strengthScore = NormalizeNegativeParabole(-2 * ParamManager.Instance.StrengthCap, 2 * ParamManager.Instance.StrengthCap, StrengthDifference, EnemyController.Instance.StrengthCaptureSkewing);
-        score += strengthScore * EnemyController.Instance.StrengthCaptureScore;//score for strength difference
+        val= strengthScore * EnemyController.Instance.StrengthCaptureScore;//score for strength difference
+        if (origin.GetInstanceID() == -1196 && Action == ActionType.Capture) Debug.Log("Strength Score: " + val);
+        score += val;
         float incomeScore = NormalizeNegativeParabole(-EnemyController.Instance.IncomeDifferenceMax, EnemyController.Instance.IncomeDifferenceMax, IncomeDifference, EnemyController.Instance.IncomeCaptureSkewing);
         incomeScore = Mathf.Sign(incomeScore) * Mathf.Pow(Mathf.Abs(incomeScore), Mathf.Abs(strengthScore) * EnemyController.Instance.IncomeRelevenceBasedStrength);
-        score += incomeScore * EnemyController.Instance.IncomeCaptureScore;//score for income difference
-        if (TargetHive == HiveController.Hive.Neutral) score += EnemyController.Instance.NeutralScore;//score for neutral target
-        else if (TargetHive == HiveController.Hive.Player) score += EnemyController.Instance.PlayerCaptureScore;//score for player target
-        score += Random.Range(-EnemyController.Instance.RandomCaptureScore, EnemyController.Instance.RandomCaptureScore);//add random noise
+        val= incomeScore * EnemyController.Instance.IncomeCaptureScore;//score for income difference
+        if (origin.GetInstanceID() == -1196 && Action == ActionType.Capture) Debug.Log("Income Score: " + val);
+        score += val;
+        val = 0;
+        if (TargetHive == HiveController.Hive.Neutral) val= EnemyController.Instance.NeutralScore;//score for neutral target
+        else if (TargetHive == HiveController.Hive.Player) val= EnemyController.Instance.PlayerCaptureScore;//score for player target
+        if (origin.GetInstanceID() == -1196 && Action == ActionType.Capture) Debug.Log("Target Hive Score: " + val);
+        score += val;
+        val= Random.Range(-EnemyController.Instance.RandomCaptureScore, EnemyController.Instance.RandomCaptureScore);//add random noise
+        if (origin.GetInstanceID() == -1196 && Action == ActionType.Capture) Debug.Log("Random Score: " + val);
+        score += val;
         //modifier based on relativity ratio 
-        score *= Mathf.Lerp(EnemyController.Instance.RelativityMinModifier,
+        val= Mathf.Lerp(EnemyController.Instance.RelativityMinModifier,
             EnemyController.Instance.RelativityMaxModifier, Mathf.Pow(RelativityRatio, EnemyController.Instance.RelativitySkewing));
+        if (origin.GetInstanceID() == -1196 && Action == ActionType.Capture) Debug.Log("Relativity Modifier: " + val);
+        score *= val;
         if (timeApart + timeTogather > EnemyController.Instance.MinimumProfileTime)
             score = 0;
         this.Score = score;
