@@ -11,6 +11,8 @@ TagManager:
   - Fog
   - Border_Top_Left
   - Border_Bottom_Right
+  - Background
+  - Stars
   layers:
   - Default
   - TransparentFX

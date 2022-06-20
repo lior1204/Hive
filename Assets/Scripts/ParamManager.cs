@@ -28,6 +28,12 @@ public class ParamManager : MonoBehaviour
     
     [SerializeField] private string fogTag = "Fog";
     public string FOGTAG { get { return fogTag; } }
+    
+    [SerializeField] private string backgroundTag = "Background";
+    public string BACKGROUNDTAG { get { return backgroundTag; } }
+    
+    [SerializeField] private string backgroundStarsTag = "Stars";
+    public string BACKGROUNDSTARSTAG { get { return backgroundStarsTag; } }
 
     [SerializeField] private string capturePoolerTag = "Capture";
     public string CAPTUREPOOLTAG { get { return capturePoolerTag; } }

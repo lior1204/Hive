@@ -7,6 +7,7 @@ using System.Linq;
 public class CameraController : MonoBehaviour
 {
     //zoom
+    [Header("Camera")]
     [SerializeField] [Range(3, 8)] private float camStartingZoom = 5;
     [SerializeField] [Range(1, 5)] private float maxZoomIn = 2;
     [SerializeField] [Range(8, 15)] private float maxZoomOut = 10;
@@ -27,7 +28,18 @@ public class CameraController : MonoBehaviour
 
     //fog
     Material _fogMat;
+    [Header("Fog")]
     [SerializeField] private float fogParallaxSpeed = 0.2f;
+
+    //background
+    [Header("Background")]
+    SpriteRenderer _background;
+    SpriteRenderer _stars;
+    [SerializeField] private float backgroundSpeed = 0.1f;
+    [SerializeField] private Vector2 backgroundParallaxSpeed = new Vector2(0.05f, 0.05f);
+    [SerializeField] private float starsSpeed = 0.2f;
+    [SerializeField] private Vector2 starsParallaxSpeed = new Vector2(0.1f, 0.1f);
+
     private void Start()
     {
         cam = Camera.main;
@@ -35,6 +47,8 @@ public class CameraController : MonoBehaviour
         _borderTopLeft = GetComponentsInChildren<Transform>().First(t => t.CompareTag(ParamManager.Instance.BORDERTOPLEFT));
         _borderBottomRight = GetComponentsInChildren<Transform>().First(t => t.CompareTag(ParamManager.Instance.BORDERBOTTOMRIGHT));
         _fogMat= GetComponentsInChildren<SpriteRenderer>().First(t => t.CompareTag(ParamManager.Instance.FOGTAG)).material;
+        _background= GetComponentsInChildren<SpriteRenderer>().First(t => t.CompareTag(ParamManager.Instance.BACKGROUNDTAG));
+        _stars = GetComponentsInChildren<SpriteRenderer>().First(t => t.CompareTag(ParamManager.Instance.BACKGROUNDSTARSTAG));
     }
     private void Update()
     {
@@ -42,13 +56,18 @@ public class CameraController : MonoBehaviour
         {
             PanCamera();
             AutoMoveCamera();
-            ScrollFog();
+            ParallaxEffects();
         }
     }
 
-    private void ScrollFog()
+    private void ParallaxEffects()
     {
+        if(_fogMat)
         _fogMat.mainTextureOffset -= new Vector2( Time.deltaTime * fogParallaxSpeed,0);
+        if(_background)
+        _background.material.mainTextureOffset -= Time.deltaTime*(new Vector2(backgroundParallaxSpeed.x, backgroundParallaxSpeed.y));
+       if(_stars)
+        _stars.material.mainTextureOffset -= Time.deltaTime * (new Vector2( starsParallaxSpeed.x, starsParallaxSpeed.y));
     }
 
     public void OnZoom(InputAction.CallbackContext context)//zoom in and out
@@ -68,6 +87,7 @@ public class CameraController : MonoBehaviour
             }
         }
         cam.transform.localScale = Vector3.one * (cam.orthographicSize / camStartingZoom);
+       
         MoveCamera(Vector3.zero);
     }
     public void OnHoldPan(InputAction.CallbackContext context)//turn on and off paning
@@ -111,10 +131,16 @@ public class CameraController : MonoBehaviour
     private void MoveCamera(Vector3 movement)//move the camera and boud to borders
     {
         Vector3 newPos = cam.transform.position+movement;
+        Vector2 deltaPos;
         newPos.x = Mathf.Clamp(newPos.x,_borderTopLeft.position.x+(GameManager.Instance.screenRatio* cam.orthographicSize)
             , _borderBottomRight.position.x- (GameManager.Instance.screenRatio * cam.orthographicSize));
         newPos.y = Mathf.Clamp(newPos.y,_borderBottomRight.position.y+ cam.orthographicSize
             , _borderTopLeft.position.y- cam.orthographicSize);
+        deltaPos = (Vector2) newPos - (Vector2)cam.transform.position;
         cam.transform.position=newPos;
+        if(_background)
+        _background.transform.Translate(deltaPos * backgroundSpeed);
+        if(_stars)
+        _stars.transform.Translate(deltaPos * starsSpeed);
     }
 }
