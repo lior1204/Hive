@@ -51,6 +51,11 @@ public class ActionProfile//information on planet and the time of interaction wi
     public float IncomeDifference { get { return origin.CalculateDeltaStrength() - target.CalculateDeltaStrength(); } }//the income difference between the planets
     public void CalculateScore()//calculate score for relative
     {
+        if (timeApart + timeTogather < EnemyController.Instance.MinimumProfileTime)
+        {
+            score = 0;
+            return;
+        }
         if (origin.HiveType != target.HiveType) {//hostile planet
             if (origin.IsCapturingTarget(target))//already capturing
             {
@@ -79,40 +84,49 @@ public class ActionProfile//information on planet and the time of interaction wi
 
     private void CalculateCaptureScore()
     {
-        if (origin.GetInstanceID() == -1196 && Action == ActionType.Capture)
-            Debug.Log("Target:" + target.GetInstanceID() + " Action: " + Action + " Score: " + this.score + " score/threshhold: " + Score);
+        //if (origin.GetInstanceID() == -1196 && Action == ActionType.Capture)
+        //    Debug.Log("Target:" + target.GetInstanceID() +" Origin: "+origin.GetInstanceID()+ " Action: " + Action);
         float score = 0;
         float val = 0;
         float sizeScore = Normalize01(((float)Planet.PlanetSize.Small), ((float)Planet.PlanetSize.Big), ((int)TargetSize));
         val= sizeScore * EnemyController.Instance.PlanetSizeScore;//score for size
-        if (origin.GetInstanceID() == -1196 && Action == ActionType.Capture) Debug.Log("Size Score: " + val);
+        //if (origin.GetInstanceID() == -1196 && Action == ActionType.Capture)
+        //Debug.Log("Size Score: " + val);
         score += val;
         float strengthScore = NormalizeNegativeParabole(-2 * ParamManager.Instance.StrengthCap, 2 * ParamManager.Instance.StrengthCap, StrengthDifference, EnemyController.Instance.StrengthCaptureSkewing);
         val= strengthScore * EnemyController.Instance.StrengthCaptureScore;//score for strength difference
-        if (origin.GetInstanceID() == -1196 && Action == ActionType.Capture) Debug.Log("Strength Score: " + val);
+        //if (origin.GetInstanceID() == -1196 && Action == ActionType.Capture)
+        //Debug.Log("Strength Score: " + val);
         score += val;
         float incomeScore = NormalizeNegativeParabole(-EnemyController.Instance.IncomeDifferenceMax, EnemyController.Instance.IncomeDifferenceMax, IncomeDifference, EnemyController.Instance.IncomeCaptureSkewing);
         incomeScore = Mathf.Sign(incomeScore) * Mathf.Pow(Mathf.Abs(incomeScore), Mathf.Abs(strengthScore) * EnemyController.Instance.IncomeRelevenceBasedStrength);
         val= incomeScore * EnemyController.Instance.IncomeCaptureScore;//score for income difference
-        if (origin.GetInstanceID() == -1196 && Action == ActionType.Capture) Debug.Log("Income Score: " + val);
+        //if (origin.GetInstanceID() == -1196 && Action == ActionType.Capture) 
+        //Debug.Log("Income Score: " + val);
         score += val;
         val = 0;
         if (TargetHive == HiveController.Hive.Neutral) val= EnemyController.Instance.NeutralScore;//score for neutral target
         else if (TargetHive == HiveController.Hive.Player) val= EnemyController.Instance.PlayerCaptureScore;//score for player target
-        if (origin.GetInstanceID() == -1196 && Action == ActionType.Capture) Debug.Log("Target Hive Score: " + val);
+        //if (origin.GetInstanceID() == -1196 && Action == ActionType.Capture) 
+        //Debug.Log("Target Hive Score: " + val);
         score += val;
         val= Random.Range(-EnemyController.Instance.RandomCaptureScore, EnemyController.Instance.RandomCaptureScore);//add random noise
-        if (origin.GetInstanceID() == -1196 && Action == ActionType.Capture) Debug.Log("Random Score: " + val);
+        //if (origin.GetInstanceID() == -1196 && Action == ActionType.Capture) 
+        //Debug.Log("Random Score: " + val);
         score += val;
         //modifier based on relativity ratio 
         val= Mathf.Lerp(EnemyController.Instance.RelativityMinModifier,
             EnemyController.Instance.RelativityMaxModifier, Mathf.Pow(RelativityRatio, EnemyController.Instance.RelativitySkewing));
-        if (origin.GetInstanceID() == -1196 && Action == ActionType.Capture) Debug.Log("Relativity Modifier: " + val);
+        //if (origin.GetInstanceID() == -1196 && Action == ActionType.Capture)
+        //Debug.Log("Relativity Ratio: " + RelativityRatio + " Skew: " + EnemyController.Instance.RelativitySkewing);
+        //Debug.Log("Lerp between:" + EnemyController.Instance.RelativityMinModifier + ", " + EnemyController.Instance.RelativityMaxModifier
+        //    + " Value:" + Mathf.Pow(RelativityRatio, EnemyController.Instance.RelativitySkewing));
+        //Debug.Log("Relativity Modifier: " + val);
         score *= val;
-        if (timeApart + timeTogather > EnemyController.Instance.MinimumProfileTime)
-            score = 0;
         this.Score = score;
         IsPriority = false;
+        //if (origin.GetInstanceID() == -1196 && Action == ActionType.Capture) 
+        //Debug.Log(" Score: " + this.score + " score/threshhold: " + Score);
     }
     private void CalculateCaptureDisconnectScore()
     {
@@ -181,17 +195,35 @@ public class ActionProfile//information on planet and the time of interaction wi
     //help
     public static float NormalizeNegative(float min,float max, float value)// normalize number between -1 to 1
     {
-        if (min == max) return 0;
-        if (value <= min) return -1;
-        if (value >= min) return 1;
-        float normal = ((value - min) / (max - min)) * 2 - 1;
+        if (min == max)
+        {
+            return 0;
+        }
+        if (value <= min)
+        {
+            return -1;
+        }
+        if (value >= max)
+        {
+            return 1;
+        }
+            float normal = ((value - min) / (max - min)) * 2 - 1;
         return normal;
     }
     public static float Normalize01(float min,float max, float value)// normalize number between 0 to 1
     {
-        if (min == max) return 0;
-        if (value <= min) return -1;
-        if (value >= min) return 1;
+        if (min == max)
+        {
+            return 0;
+        }
+        if (value <= min)
+        {
+            return 0;
+        }
+        if (value >= max)
+        {
+            return 1;
+        }
         float normal = ((value - min) / (max - min));
         return normal;
     }
