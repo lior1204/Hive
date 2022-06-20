@@ -16,17 +16,17 @@ public class Planet : MouseInteractable, IOrbitable
     [SerializeField] private bool isQueen = false;
     [SerializeField] private int startingStrength = 6;
     [SerializeField] private PlanetSize planetSize = PlanetSize.Small;
-    
+    public PlanetSize Size { get { return planetSize; } }
     private float strengthIncome = 2;
     private int maxActiveLinks = 2;
     private float orbitCycleTime = 5f;
-    private float captureRange = 30;
+    public float captureRange { get; private set; } = 30;
     private float visibilityRange = 150;
 
     public int PlanetID { get; private set; } = 0;
 
     //state variables
-    private float strength = 0;
+    public float strength { get; private set; } = 0;
     private List<Capture> captureLinks = new List<Capture>();
     private List<Reinforcement> reinforceLinks = new List<Reinforcement>();
     private List<Link> activeLinks = new List<Link>();
@@ -125,7 +125,7 @@ public class Planet : MouseInteractable, IOrbitable
             }
         }
     }
-    private float CalculateDeltaStrength()// determines strengrh change per strengt tick
+    public float CalculateDeltaStrength()// determines strengrh change per strengt tick
     {
         float deltaStrengt = CalculateStrengthIncome() - CalculateStrengthOutcome();
         return deltaStrengt;
@@ -238,11 +238,11 @@ public class Planet : MouseInteractable, IOrbitable
     }
     private void FinishCaptureInteraction()//remove other from interactions list
     {
-        List<Capture> removeCapture = captureLinks.Where(c => c.Origin == this).ToList();//make a list of links to remove things this is attacking
-        List<Reinforcement> removeReinforcement = reinforceLinks;//keep list of reinforcement to remove
-        List<Capture> convert = captureLinks.Where(c => c.Target == this && c.Origin.HiveType == this.HiveType).ToList();//make list of links to convert to reinforcement
-        foreach (Link link in removeCapture) { link.DestroyLink(); }//destroy links
-        foreach (Link link in removeReinforcement) { link.DestroyLink(); }//destroy links
+        Capture[] removeCapture = captureLinks.Where(c => c.Origin == this).ToArray();//make a list of links to remove things this is attacking
+        Reinforcement[] removeReinforcement = reinforceLinks.ToArray();//keep list of reinforcement to remove
+        Capture[] convert = captureLinks.Where(c => c.Target == this && c.Origin.HiveType == this.HiveType).ToArray ();//make list of links to convert to reinforcement
+        foreach (Capture link in removeCapture) { link.DestroyLink(); }//destroy links
+        foreach (Reinforcement link in removeReinforcement) { if(link)link.DestroyLink(); }//destroy links
         foreach (Capture capture in convert) { capture.ConvertToReinforcement(); }//convert captures by controlling hive to reinforcements
     }
     public Reinforcement AttemptReinforccing(Planet reinforced)//start reinforcing another planet
@@ -370,8 +370,19 @@ public class Planet : MouseInteractable, IOrbitable
     {
         return orbitCycleTime;
     }
-
-
+    public bool IsCapturingTarget(Planet target)
+    {
+        
+        return captureLinks.Any(link => link.Target == target);
+    }
+    public bool IsReinforcingTarget(Planet target)
+    {
+        return reinforceLinks.Any(link => link.Target == target);
+    }
+    public Link GetLink(Planet target)
+    {
+        return GetMyLinks().FirstOrDefault(link => link.Target == target);
+    }
     public enum PlanetSize
     {
         Small = 0,

@@ -10,6 +10,7 @@ public class ParamManager : MonoBehaviour
     public bool nonPlayerMaskActive = false;
 
     [Header("Tags")]
+    
     [SerializeField] private string playerTag = "Player";
     public string PLAYERTAG { get { return playerTag; } }
 
@@ -30,6 +31,21 @@ public class ParamManager : MonoBehaviour
      
     [SerializeField] private string reinforcementPoolerTag = "Reinforcement";
     public string REINFORCEMENTPOOLTAG { get { return reinforcementPoolerTag; } }
+    
+    [SerializeField] private string borderTopLeft = "Border_Top_Left";
+    public string BORDERTOPLEFT { get { return borderTopLeft; } }
+    
+    [SerializeField] private string borderBottomRight = "Border_Bottom_Right";
+    public string BORDERBOTTOMRIGHT { get { return borderBottomRight; } }
+    
+    [SerializeField] private string level01SceneName = "Level1";
+    public string LEVEL01SCENENAME { get { return level01SceneName; } }
+    
+    [SerializeField] private string gameOverSceneName = "GameOverScreen";
+    public string GAMEOVERSCENENAME { get { return gameOverSceneName; } }
+    
+    [SerializeField] private string mainMenuSceneName = "MainMenu";
+    public string MAINMENUSCENENAME { get { return mainMenuSceneName; } }
 
     [Space(3)]
     [Header("Prefabs")]
@@ -78,13 +94,14 @@ public class ParamManager : MonoBehaviour
     [SerializeField] private float strengthCap = 100f;
     public float StrengthCap { get { return strengthCap; } }
 
-
+    [Header ("Planet Parameters")]
     public PlanetSizeParameters[] planetSizeSet =new PlanetSizeParameters[3];
+    
+
     private void Awake()
     {
         SetSingelton();
     }
-
     private void SetSingelton()
     {
         if (Instance != null && Instance != this)// implement singelton

@@ -15,6 +15,7 @@ public class HiveController : MonoBehaviour
     }
     //references
     private List<Planet> hivePlanets = new List<Planet>();
+    public int PlanetCount { get { return hivePlanets.Count; } }
     private Planet queen = null;
     public Planet Queen { get { return queen; } set { if (Queen == null) queen = value; } }
     public Color HiveColor//public access dynamic color based on hive
@@ -82,10 +83,15 @@ public class HiveController : MonoBehaviour
     }
     public void RemoveLink(Link link)//end a spesific link belonging to this hive
     {
-        if (hivePlanets.Contains(link.Origin))//check that the origin of the link is in the hive.
+        if (link&&hivePlanets.Contains(link.Origin))//check that the origin of the link is in the hive.
         {
             link.DestroyLink();
         }
+    }
+    public void RemoveLink(Planet origin,Planet target)//end a spesific link belonging to this hive
+    {
+        Link link = origin.GetLink(target);
+        RemoveLink(link);
     }
     public void RemoveAllLinksOfPlanet(Planet origin)//destroy all links originating from a planet in hive
     {
@@ -115,9 +121,17 @@ public class HiveController : MonoBehaviour
     public void AddPlanet(Planet planet)//add new planet to player
     {
         hivePlanets.Add(planet);
+        if (hiveType == Hive.Enemy)//add planet to enemy
+        {
+            EnemyController.Instance.AddPlanet(planet);
+        }
     }
     public void RemovePlanet(Planet planet)//add new planet to player
     {
         hivePlanets.Remove(planet);
+        if (hiveType == Hive.Enemy)//add planet to enemy
+        {
+            EnemyController.Instance.Removelanet(planet);
+        }
     }
 }
