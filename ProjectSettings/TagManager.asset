@@ -13,6 +13,7 @@ TagManager:
   - Border_Bottom_Right
   - Background
   - Stars
+  - Orbit
   layers:
   - Default
   - TransparentFX

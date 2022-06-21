@@ -203,40 +203,40 @@ public class ActionProfile//information on planet and the time of interaction wi
     }
     private void CalculateReinforceDisconnectScore()
     {
-        Debug.Log("Target:" + target.GetInstanceID() + " Origin: " + origin.GetInstanceID() + " Action: " + Action);
+        //Debug.Log("Target:" + target.GetInstanceID() + " Origin: " + origin.GetInstanceID() + " Action: " + Action);
         float score = 0;
         float val = 0;
         float strengthScore = 1 - Normalize01Sigmoid(0, ParamManager.Instance.StrengthCap, origin.strength);
         val= strengthScore * EnemyController.Instance.StrengthReinforceScore;//score for origin strength
-        Debug.Log("Origin Strength Score: " + val);
+        //Debug.Log("Origin Strength Score: " + val);
         score += val;
         float incomeScore = Mathf.Pow( NormalizeNegative(-EnemyController.Instance.IncomeReinforceMax, EnemyController.Instance.IncomeReinforceMax, origin.CalculateDeltaStrength()),3);
         val= incomeScore * EnemyController.Instance.IncomeReinforceScore;//score for origin income
         //Debug.Log("Normalize(Min: " + -EnemyController.Instance.IncomeReinforceMax + ",Max: " + EnemyController.Instance.IncomeReinforceMax + ",Val: " + origin.CalculateDeltaStrength() + ")");
         //Debug.Log("Normal: " + NormalizeNegative(-EnemyController.Instance.IncomeReinforceMax, EnemyController.Instance.IncomeReinforceMax, origin.CalculateDeltaStrength()) + " Value: " + incomeScore + ", Multiplier: " + EnemyController.Instance.IncomeReinforceScore);
-        Debug.Log("Origin Income Score: " + val);
+        //Debug.Log("Origin Income Score: " + val);
         score += val;
         float targetStrengthScore =  Normalize01Sigmoid(0, ParamManager.Instance.StrengthCap, target.strength);
         val= targetStrengthScore * EnemyController.Instance.StrengthReinforceScore;//score for target strength
-        Debug.Log("Target Strength Score: " + val);
+        //Debug.Log("Target Strength Score: " + val);
         score += val;
         float targetIncomeScore = NormalizeNegativeSigmoid(-EnemyController.Instance.IncomeReinforceMax, EnemyController.Instance.IncomeReinforceMax, target.CalculateDeltaStrength());
         val= targetIncomeScore * EnemyController.Instance.IncomeReinforceScore;//score for target income
-        Debug.Log("Target Income Score: " + val);
+        //Debug.Log("Target Income Score: " + val);
         score += val;
         val = Random.Range(-EnemyController.Instance.RandomDisconnectScore, EnemyController.Instance.RandomDisconnectScore);//add random noise
-        Debug.Log("Random Score: " + val);
+        //Debug.Log("Random Score: " + val);
         score += val;
         val = Mathf.Lerp(EnemyController.Instance.RelativityMinModifier,
             EnemyController.Instance.RelativityMaxModifier, Mathf.Pow(RelativityRatio, EnemyController.Instance.RelativitySkewing));//modifier based on relativity ratio
-        Debug.Log("Relativity Modifier: " + val);
+        //Debug.Log("Relativity Modifier: " + val);
         score *= val;
         this.Score = score;
         if (origin.strength <= EnemyController.Instance.LowStrengthPriorityThreshold)
             IsPriority = true;
         else
             IsPriority = false;
-        Debug.Log(" Score: " + this.score + " score/threshhold: " + Score);
+        //Debug.Log(" Score: " + this.score + " score/threshhold: " + Score);
     }
 
 
