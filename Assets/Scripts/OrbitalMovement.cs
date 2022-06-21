@@ -22,16 +22,27 @@ public class OrbitalMovement : MonoBehaviour
             orbitingObject = GetComponentInChildren<Planet>();
             if (transform.parent)//if parent then set the orbit position to the parent
                 transform.localPosition = Vector3.zero;
-            if (orbitingObject != null)//set cycle frequency for the planet
-            {
-                if (Mathf.Abs(orbitingObject.GetOrbitCycleTime()) > 0.5)
-                    cycleFrequency = 1 / orbitingObject.GetOrbitCycleTime();
-                else
-                    cycleFrequency = 1 / 0.5f;
-            }
-            else cycleFrequency = 0.2f;
+            SetCycleTime();
             cycleProgress = startingPosition;//set starting position
             SetIntoOrbitPosition();
+        }
+    }
+    public void SetCycleTime()
+    {
+        if (orbitingObject != null)//set cycle frequency for the planet
+        {
+            if (Mathf.Abs(orbitingObject.GetOrbitCycleTime()) > 0.5)
+            {
+                cycleFrequency = 1 / orbitingObject.GetOrbitCycleTime();
+            }
+            else
+            {
+                cycleFrequency = 1 / 0.5f;
+            }
+        }
+        else
+        {
+            cycleFrequency = 0.2f;
         }
     }
     private void Update()

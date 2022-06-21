@@ -25,12 +25,24 @@ public class ParamManager : MonoBehaviour
     
     [SerializeField] private string fogMaskTag = "FogMask";
     public string FOGMASKTAG { get { return fogMaskTag; } }
+    
+    [SerializeField] private string fogTag = "Fog";
+    public string FOGTAG { get { return fogTag; } }
+    
+    [SerializeField] private string backgroundTag = "Background";
+    public string BACKGROUNDTAG { get { return backgroundTag; } }
+    
+    [SerializeField] private string backgroundStarsTag = "Stars";
+    public string BACKGROUNDSTARSTAG { get { return backgroundStarsTag; } }
 
     [SerializeField] private string capturePoolerTag = "Capture";
     public string CAPTUREPOOLTAG { get { return capturePoolerTag; } }
      
     [SerializeField] private string reinforcementPoolerTag = "Reinforcement";
     public string REINFORCEMENTPOOLTAG { get { return reinforcementPoolerTag; } }
+    
+    [SerializeField] private string orbitTag = "Orbit";
+    public string ORBITTAG { get { return orbitTag; } }
     
     [SerializeField] private string borderTopLeft = "Border_Top_Left";
     public string BORDERTOPLEFT { get { return borderTopLeft; } }

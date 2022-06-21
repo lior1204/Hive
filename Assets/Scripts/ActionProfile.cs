@@ -93,12 +93,12 @@ public class ActionProfile//information on planet and the time of interaction wi
         //if (origin.GetInstanceID() == -1196 && Action == ActionType.Capture)
         //Debug.Log("Size Score: " + val);
         score += val;
-        float strengthScore = NormalizeNegativeParabole(-2 * ParamManager.Instance.StrengthCap, 2 * ParamManager.Instance.StrengthCap, StrengthDifference, EnemyController.Instance.StrengthCaptureSkewing);
+        float strengthScore = NormalizeNegativeSigmoid(-2 * ParamManager.Instance.StrengthCap, 2 * ParamManager.Instance.StrengthCap, StrengthDifference);//, EnemyController.Instance.StrengthCaptureSkewing);
         val= strengthScore * EnemyController.Instance.StrengthCaptureScore;//score for strength difference
         //if (origin.GetInstanceID() == -1196 && Action == ActionType.Capture)
         //Debug.Log("Strength Score: " + val);
         score += val;
-        float incomeScore = NormalizeNegativeParabole(-EnemyController.Instance.IncomeDifferenceMax, EnemyController.Instance.IncomeDifferenceMax, IncomeDifference, EnemyController.Instance.IncomeCaptureSkewing);
+        float incomeScore = NormalizeNegativeSigmoid(-EnemyController.Instance.IncomeDifferenceMax, EnemyController.Instance.IncomeDifferenceMax, IncomeDifference);//, EnemyController.Instance.IncomeCaptureSkewing);
         incomeScore = Mathf.Sign(incomeScore) * Mathf.Pow(Mathf.Abs(incomeScore), Mathf.Abs(strengthScore) * EnemyController.Instance.IncomeRelevenceBasedStrength);
         val= incomeScore * EnemyController.Instance.IncomeCaptureScore;//score for income difference
         //if (origin.GetInstanceID() == -1196 && Action == ActionType.Capture) 
@@ -130,70 +130,118 @@ public class ActionProfile//information on planet and the time of interaction wi
     }
     private void CalculateCaptureDisconnectScore()
     {
+        //Debug.Log("Target:" + target.GetInstanceID() + " Origin: " + origin.GetInstanceID() + " Action: " + Action);
         float score = 0;
-        float strengthScore = NormalizeNegativeParabole(-2 * ParamManager.Instance.StrengthCap, 2 * ParamManager.Instance.StrengthCap, StrengthDifference, EnemyController.Instance.StrengthCaptureSkewing);
-        score -= strengthScore * EnemyController.Instance.StrengthCaptureScore;//score for strength difference
-        float incomeScore = NormalizeNegativeParabole(-EnemyController.Instance.IncomeDifferenceMax, EnemyController.Instance.IncomeDifferenceMax, IncomeDifference, EnemyController.Instance.IncomeCaptureSkewing);
-        incomeScore = Mathf.Sign(incomeScore) * Mathf.Pow(Mathf.Abs(incomeScore), Mathf.Abs(strengthScore) * EnemyController.Instance.IncomeRelevenceBasedStrength);
-        score -= incomeScore * EnemyController.Instance.IncomeCaptureScore;//score for income difference
-        this.Score = score;
-        score += Random.Range(-EnemyController.Instance.RandomDisconnectScore, EnemyController.Instance.RandomDisconnectScore);//add random noise
-        score *= Mathf.Lerp(EnemyController.Instance.RelativityMinModifier,
+        float val = 0;
+        float strengthScore = NormalizeNegativeSigmoid(-2 * ParamManager.Instance.StrengthCap, 2 * ParamManager.Instance.StrengthCap, StrengthDifference);//, EnemyController.Instance.StrengthDisconnectSkewing);
+        val = -strengthScore * EnemyController.Instance.StrengthDisconnectScore;//score for strength difference
+        //Debug.Log("Normalize(Min: " + -2 * ParamManager.Instance.StrengthCap + ",Max: " + 2 * ParamManager.Instance.StrengthCap + ",Val: " + StrengthDifference+")");
+        //Debug.Log("Normal: "+ NormalizeNegative(-2 * ParamManager.Instance.StrengthCap, 2 * ParamManager.Instance.StrengthCap, StrengthDifference) + " Value: " + -strengthScore + ", Multiplier: " + EnemyController.Instance.StrengthDisconnectScore);
+        //Debug.Log("Strength Score: " + val);
+        score += val;
+        float incomeScore = NormalizeNegativeSigmoid(-EnemyController.Instance.IncomeDisconnectMax, EnemyController.Instance.IncomeDisconnectMax, IncomeDifference);//, EnemyController.Instance.IncomeDisconnectSkewing);
+        incomeScore = Mathf.Sign(incomeScore) * Mathf.Pow(Mathf.Abs(incomeScore), Mathf.Abs(strengthScore) * EnemyController.Instance.IncomeRelevenceBasedStrengthDisconnect);
+        val= -incomeScore * EnemyController.Instance.IncomeDisconnectScore;//score for income difference
+        //Debug.Log("Income Score: " + val);
+        score += val;
+        val= Random.Range(-EnemyController.Instance.RandomDisconnectScore, EnemyController.Instance.RandomDisconnectScore);//add random noise
+        //Debug.Log("Random Score: " + val);
+        score += val;
+        val= Mathf.Lerp(EnemyController.Instance.RelativityMinModifier,
             EnemyController.Instance.RelativityMaxModifier, 1- Mathf.Pow(RelativityRatio, EnemyController.Instance.RelativitySkewing));//modifier based on relativity ratio
+        //Debug.Log("Relativity Modifier: " + val);
+        score *= val;
         this.Score = score;
         if (origin.strength <= EnemyController.Instance.LowStrengthPriorityThreshold)
             IsPriority = true;
         else
             IsPriority = false;
+        //Debug.Log(" Score: " + this.score + " score/threshhold: " + Score);
     }
     private void CalculateReinforceScore()
     {
-        float score = 0;
-        float strengthScore = Normalize01Parabole(0, ParamManager.Instance.StrengthCap, origin.strength, EnemyController.Instance.StrengthReinforceSkewing);
-        score += strengthScore * EnemyController.Instance.StrengthReinforceScore;//score for origin strength
-        float incomeScore = Normalize01Parabole(0, EnemyController.Instance.IncomeReinforceMax, origin.CalculateDeltaStrength(), EnemyController.Instance.IncomeReinforceSkewing);
-        score += incomeScore * EnemyController.Instance.IncomeReinforceScore;//score for origin income
-
-        float targetStrengthScore =1- Normalize01Parabole(0, ParamManager.Instance.StrengthCap, target.strength, EnemyController.Instance.StrengthReinforceSkewing);
-        score += targetStrengthScore * EnemyController.Instance.StrengthReinforceScore;//score for target strength
-        float targetIncomeScore =1- Normalize01Parabole(0, EnemyController.Instance.IncomeReinforceMax, target.CalculateDeltaStrength(), EnemyController.Instance.IncomeReinforceSkewing);
-        score += targetIncomeScore * EnemyController.Instance.IncomeReinforceScore;//score for target income
-        this.Score = score;
-        score += Random.Range(-EnemyController.Instance.RandomReinforceScore, EnemyController.Instance.RandomReinforceScore);//add random noise
-        score *= Mathf.Lerp(EnemyController.Instance.RelativityMinModifier,
-            EnemyController.Instance.RelativityMaxModifier, Mathf.Pow(RelativityRatio, EnemyController.Instance.RelativitySkewing));//modifier based on relativity ratio
-        this.Score = score;
-        if (target.strength <= EnemyController.Instance.LowStrengthPriorityThreshold)
-            IsPriority = true;
+        //Debug.Log("Target:" + target.GetInstanceID() + " Origin: " + origin.GetInstanceID() + " Action: " + Action);
+        if (origin.strength > EnemyController.Instance.ReinforceMinStrength && target.strength < EnemyController.Instance.GetHelpMaxStrength)//thresholds for offering reinforcement
+        {
+            float score = 0;
+            float val = 0;
+            float strengthScore = Normalize01Sigmoid(0, ParamManager.Instance.StrengthCap, origin.strength);
+            val= strengthScore * EnemyController.Instance.StrengthReinforceScore;//score for origin strength
+            //Debug.Log("Origin Strength Score: " + val);
+            score += val;
+            float incomeScore = NormalizeNegativeSigmoid(-EnemyController.Instance.IncomeReinforceMax, EnemyController.Instance.IncomeReinforceMax, origin.CalculateDeltaStrength());
+            val= incomeScore * EnemyController.Instance.IncomeReinforceScore;//score for origin income
+            //Debug.Log("Origin Income Score: " + val);
+            score += val;
+            float targetStrengthScore = 1 - Normalize01Sigmoid(0, ParamManager.Instance.StrengthCap, target.strength);
+            val= targetStrengthScore * EnemyController.Instance.StrengthTargetReinforceScore;//score for target strength
+            //Debug.Log("Target Strength Score: " + val);
+            score += val;
+            float targetIncomeScore = 1 - NormalizeNegativeSigmoid(-EnemyController.Instance.IncomeReinforceMax, EnemyController.Instance.IncomeReinforceMax, target.CalculateDeltaStrength());
+            val= targetIncomeScore * EnemyController.Instance.IncomeTargetReinforceScore;//score for target income
+            //Debug.Log("Target Income Score: " + val);
+            score += val;
+            val= Random.Range(-EnemyController.Instance.RandomReinforceScore, EnemyController.Instance.RandomReinforceScore);//add random noise
+            //Debug.Log("Random Score: " + val);
+            score += val;
+            val= Mathf.Lerp(EnemyController.Instance.RelativityMinModifier,
+                EnemyController.Instance.RelativityMaxModifier, Mathf.Pow(RelativityRatio, EnemyController.Instance.RelativitySkewing));//modifier based on relativity ratio
+            //Debug.Log("Relativity Modifier Score: " + val);
+            score *= val;
+            this.Score = score;
+            if (target.strength <= EnemyController.Instance.LowStrengthPriorityThreshold)
+                IsPriority = true;
+            else
+                IsPriority = false;
+        }
         else
+        {
+            this.score = 0;
             IsPriority = false;
+        }
+        //Debug.Log(" Score: " + this.score + " score/threshhold: " + Score);
     }
     private void CalculateReinforceDisconnectScore()
     {
+        //Debug.Log("Target:" + target.GetInstanceID() + " Origin: " + origin.GetInstanceID() + " Action: " + Action);
         float score = 0;
-        float strengthScore = 1 - Normalize01Parabole(0, ParamManager.Instance.StrengthCap, origin.strength, EnemyController.Instance.StrengthReinforceSkewing);
-        score += strengthScore * EnemyController.Instance.StrengthReinforceScore;//score for origin strength
-        float incomeScore = 1 - Normalize01Parabole(0, EnemyController.Instance.IncomeReinforceMax, origin.CalculateDeltaStrength(), EnemyController.Instance.IncomeReinforceSkewing);
-        score += incomeScore * EnemyController.Instance.IncomeReinforceScore;//score for origin income
-
-        float targetStrengthScore =  Normalize01Parabole(0, ParamManager.Instance.StrengthCap, target.strength, EnemyController.Instance.StrengthReinforceSkewing);
-        score += targetStrengthScore * EnemyController.Instance.StrengthReinforceScore;//score for target strength
-        float targetIncomeScore = Normalize01Parabole(0, EnemyController.Instance.IncomeReinforceMax, target.CalculateDeltaStrength(), EnemyController.Instance.IncomeReinforceSkewing);
-        score += targetIncomeScore * EnemyController.Instance.IncomeReinforceScore;//score for target income
-        this.Score = score;
-        score += Random.Range(-EnemyController.Instance.RandomDisconnectScore, EnemyController.Instance.RandomDisconnectScore);//add random noise
-        score *= Mathf.Lerp(EnemyController.Instance.RelativityMinModifier,
+        float val = 0;
+        float strengthScore = 1 - Normalize01Sigmoid(0, ParamManager.Instance.StrengthCap, origin.strength);
+        val= strengthScore * EnemyController.Instance.StrengthReinforceScore;//score for origin strength
+        //Debug.Log("Origin Strength Score: " + val);
+        score += val;
+        float incomeScore = Mathf.Pow( NormalizeNegative(-EnemyController.Instance.IncomeReinforceMax, EnemyController.Instance.IncomeReinforceMax, origin.CalculateDeltaStrength()),3);
+        val= incomeScore * EnemyController.Instance.IncomeReinforceScore;//score for origin income
+        //Debug.Log("Normalize(Min: " + -EnemyController.Instance.IncomeReinforceMax + ",Max: " + EnemyController.Instance.IncomeReinforceMax + ",Val: " + origin.CalculateDeltaStrength() + ")");
+        //Debug.Log("Normal: " + NormalizeNegative(-EnemyController.Instance.IncomeReinforceMax, EnemyController.Instance.IncomeReinforceMax, origin.CalculateDeltaStrength()) + " Value: " + incomeScore + ", Multiplier: " + EnemyController.Instance.IncomeReinforceScore);
+        //Debug.Log("Origin Income Score: " + val);
+        score += val;
+        float targetStrengthScore =  Normalize01Sigmoid(0, ParamManager.Instance.StrengthCap, target.strength);
+        val= targetStrengthScore * EnemyController.Instance.StrengthReinforceScore;//score for target strength
+        //Debug.Log("Target Strength Score: " + val);
+        score += val;
+        float targetIncomeScore = NormalizeNegativeSigmoid(-EnemyController.Instance.IncomeReinforceMax, EnemyController.Instance.IncomeReinforceMax, target.CalculateDeltaStrength());
+        val= targetIncomeScore * EnemyController.Instance.IncomeReinforceScore;//score for target income
+        //Debug.Log("Target Income Score: " + val);
+        score += val;
+        val = Random.Range(-EnemyController.Instance.RandomDisconnectScore, EnemyController.Instance.RandomDisconnectScore);//add random noise
+        //Debug.Log("Random Score: " + val);
+        score += val;
+        val = Mathf.Lerp(EnemyController.Instance.RelativityMinModifier,
             EnemyController.Instance.RelativityMaxModifier, Mathf.Pow(RelativityRatio, EnemyController.Instance.RelativitySkewing));//modifier based on relativity ratio
+        //Debug.Log("Relativity Modifier: " + val);
+        score *= val;
         this.Score = score;
         if (origin.strength <= EnemyController.Instance.LowStrengthPriorityThreshold)
             IsPriority = true;
         else
             IsPriority = false;
+        //Debug.Log(" Score: " + this.score + " score/threshhold: " + Score);
     }
-    
+
 
     //help
-    public static float NormalizeNegative(float min,float max, float value)// normalize number between -1 to 1
+    private static float NormalizeNegative(float min,float max, float value)// normalize number between -1 to 1
     {
         if (min == max)
         {
@@ -210,7 +258,7 @@ public class ActionProfile//information on planet and the time of interaction wi
             float normal = ((value - min) / (max - min)) * 2 - 1;
         return normal;
     }
-    public static float Normalize01(float min,float max, float value)// normalize number between 0 to 1
+    private static float Normalize01(float min,float max, float value)// normalize number between 0 to 1
     {
         if (min == max)
         {
@@ -227,20 +275,17 @@ public class ActionProfile//information on planet and the time of interaction wi
         float normal = ((value - min) / (max - min));
         return normal;
     }
-    public static float NormalizeNegativeParabole(float min,float max, float value,float curve)// normalize number between -1 to 1 in a parabole
+    private static float NormalizeNegativeSigmoid(float min,float max, float value)// normalize number between -1 to 1 in a parabole
     {
-
         float normal = NormalizeNegative(min, max, value);
-        if(curve>0)
-            normal = Mathf.Sign(normal) * Mathf.Abs(Mathf.Pow(normal, curve));
+        normal = 2 / (1 + Mathf.Pow(40, -normal))-1f;
         return normal;
     }
-    public static float Normalize01Parabole(float min,float max, float value,float curve)// normalize number between -1 to 1 in a parabole
+    private static float Normalize01Sigmoid(float min,float max, float value)// normalize number between -1 to 1 in a parabole
     {
-
         float normal = Normalize01(min, max, value);
-        if(curve>0)
-            normal = Mathf.Pow(normal, curve);
+        
+            normal = 1 / (1 + Mathf.Pow(4, (-5.5f * normal + 3)));
         return normal;
     }
 

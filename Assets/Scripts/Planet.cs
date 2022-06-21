@@ -20,7 +20,7 @@ public class Planet : MouseInteractable, IOrbitable
     private float strengthIncome = 2;
     private int maxActiveLinks = 2;
     private float orbitCycleTime = 5f;
-    public float captureRange { get; private set; } = 30;
+    public float captureRange { get; private set; } = 7;
     private float visibilityRange = 150;
 
     public int PlanetID { get; private set; } = 0;
@@ -51,6 +51,7 @@ public class Planet : MouseInteractable, IOrbitable
         }
         private set { }
     }
+
 
     void Start()
     {
@@ -96,6 +97,10 @@ public class Planet : MouseInteractable, IOrbitable
         this.orbitCycleTime = orbitCycleTime.orbitCycleTime;
         captureRange = orbitCycleTime.captureRange;
         visibilityRange = orbitCycleTime.visibilityRange;
+        if (transform.parent&&transform.parent.CompareTag(ParamManager.Instance.ORBITTAG))
+        {
+            transform.parent.GetComponent<OrbitalMovement>().SetCycleTime();
+        }
     }
     private void UpdateStrengthDisplay()// update text and pin to planet
     {
