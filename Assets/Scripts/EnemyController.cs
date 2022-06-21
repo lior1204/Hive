@@ -176,19 +176,35 @@ public class EnemyController : MonoBehaviour
     [Header("Reinforce")]
     [SerializeField] [Range(1f, 100)] private int strengthReinforceScore = 50;
     public float StrengthReinforceScore { get { return strengthReinforceScore; } }
-    [SerializeField] [Range(0.5f, 5f)] private float strengthReinforceSkewing = 2;
-    public float StrengthReinforceSkewing { get { return strengthReinforceSkewing; } }
+    [SerializeField] [Range(1f, 100)] private float strengthTargetReinforceScore = 80;
+    public float StrengthTargetReinforceScore { get { return strengthTargetReinforceScore; } }
     [SerializeField] [Range(1f, 100)] private float incomeReinforceScore = 50;
     public float IncomeReinforceScore { get { return incomeReinforceScore; } }
+    [SerializeField] [Range(1, 100f)] private float incomeTargetReinforceScore = 60;
+    public float IncomeTargetReinforceScore { get { return incomeTargetReinforceScore; } }
     [SerializeField] [Range(5f, 15f)] private float incomeReinforceMax = 10;
     public float IncomeReinforceMax { get { return incomeReinforceMax; } }
-    [SerializeField] [Range(0.5f, 5f)] private float incomeReinforceSkewing = 2;
-    public float IncomeReinforceSkewing { get { return incomeReinforceSkewing; } }
     [SerializeField] [Range(1f, 500)] private float randomReinforceScore = 100;
     public float RandomReinforceScore { get { return randomReinforceScore; } }
+    [SerializeField] [Range(1f, 100)] private float reinforceMinStrength = 20;
+    public float ReinforceMinStrength { get { return reinforceMinStrength; } }
+    [SerializeField] [Range(1f, 100)] private float getHelpMaxStrength = 40;
+    public float GetHelpMaxStrength { get { return getHelpMaxStrength; } }
 
 
     [Header("Disconnect")]
+    [SerializeField] [Range(1f, 100)] private int strengthDisconnectScore = 50;
+    public float StrengthDisconnectScore { get { return strengthReinforceScore; } }
+    [SerializeField] [Range(0.5f, 5f)] private float strengthDisconnectSkewing = 2;
+    public float StrengthDisconnectSkewing { get { return strengthDisconnectSkewing; } }
+    [SerializeField] [Range(1f, 100)] private float incomeDisconnectScore = 50;
+    public float IncomeDisconnectScore { get { return incomeDisconnectScore; } }
+    [SerializeField] [Range(5f, 15f)] private float incomeDisconnectMax = 10;
+    public float IncomeDisconnectMax { get { return incomeReinforceMax; } }
+    [SerializeField] [Range(0.5f, 5f)] private float incomeDisconnectSkewing = 2;
+    public float IncomeDisconnectSkewing { get { return incomeDisconnectSkewing; } }
+    [SerializeField] [Range(2f, 5f)] private float incomeRelevenceBasedStrengthDisconnect = 3;
+    public float IncomeRelevenceBasedStrengthDisconnect { get { return incomeRelevenceBasedStrengthDisconnect; } }
     [SerializeField] [Range(1f, 500)] private float randomDisconnectScore = 100;
     public float RandomDisconnectScore { get { return randomDisconnectScore; } }
 
