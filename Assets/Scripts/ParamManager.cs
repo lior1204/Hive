@@ -113,6 +113,15 @@ public class ParamManager : MonoBehaviour
     public PlanetSizeParameters[] planetSizeSet =new PlanetSizeParameters[3];
     
 
+    [Header("Planet Nnimations")]
+    [SerializeField][Range(0,1f)] private float animationSpeedRandomFactor = 0.3f;
+    public float AnimationSpeedRandomFactor { get { return animationSpeedRandomFactor; } }
+
+    [SerializeField] public List<RuntimeAnimatorController> planetAnimations;
+    
+
+
+
     private void Awake()
     {
         SetSingelton();

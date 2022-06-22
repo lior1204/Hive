@@ -255,7 +255,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &171289023
 GameObject:
@@ -332,7 +332,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 6.25, y: 6.25}
+  m_Size: {x: 25, y: 16}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 1
   m_WasSpriteAssigned: 1
@@ -3302,7 +3302,7 @@ Transform:
   - {fileID: 1805719059}
   - {fileID: 1781492394}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1636990880
 MonoBehaviour:
@@ -5058,7 +5058,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2058485063
 MonoBehaviour:
@@ -5127,6 +5127,12 @@ MonoBehaviour:
     captureRange: 9
     visibilityRange: 9
     planetScale: 1.2
+  animationSpeedRandomFactor: 0.3
+  planetAnimations:
+  - {fileID: 9100000, guid: 68c6666823f5e834184b8bbb919ae7e9, type: 2}
+  - {fileID: 9100000, guid: 9be8015fba171e647a40e1ed442e85de, type: 2}
+  - {fileID: 9100000, guid: 4ce3e11cbed0bff4ba04d5913b107afa, type: 2}
+  - {fileID: 9100000, guid: 2d178d7aad48c05458e041a32985e675, type: 2}
 --- !u!1001 &2066677671
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5480,6 +5486,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2127881686000975986, guid: 6d427bdb64eb93541acbb2a408b780ac,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 6312423920519682406, guid: 991bc36f5e321a347ad708baaaffa82c,
+        type: 3}
     - target: {fileID: 2127881686000975986, guid: 6d427bdb64eb93541acbb2a408b780ac,
         type: 3}
       propertyPath: m_Color.b

@@ -67,8 +67,12 @@ public class Planet : MouseInteractable, IOrbitable
             SetStartInHive();
             SetPlanetParametersBySize();
             SetMask();
+            RandomizeAnimation();
         }
     }
+
+    
+
     void Update()
     {
         if (Application.isPlaying)
@@ -82,6 +86,11 @@ public class Planet : MouseInteractable, IOrbitable
         }
     }
 
+    private void RandomizeAnimation()
+    {
+        int version = UnityEngine.Random.Range(0, ParamManager.Instance.planetAnimations.Count-1);
+        GetComponent<Animator>().runtimeAnimatorController = ParamManager.Instance.planetAnimations.ElementAt(version);
+    }
     private void SetStartInHive()//add to hive and set color
     {
         if (isQueen && HiveRef)
