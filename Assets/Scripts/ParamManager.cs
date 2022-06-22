@@ -44,12 +44,15 @@ public class ParamManager : MonoBehaviour
     [SerializeField] private string orbitTag = "Orbit";
     public string ORBITTAG { get { return orbitTag; } }
     
+    [SerializeField] private string hihghlightTag = "Highlight";
+    public string HIGHLIGHTTAG { get { return hihghlightTag; } }
+    
     [SerializeField] private string borderTopLeft = "Border_Top_Left";
     public string BORDERTOPLEFT { get { return borderTopLeft; } }
     
     [SerializeField] private string borderBottomRight = "Border_Bottom_Right";
     public string BORDERBOTTOMRIGHT { get { return borderBottomRight; } }
-    
+    [Header("Scene Names")]
     [SerializeField] private string levelSceneName = "Level";
     public string LEVELSCENENAME { get { return levelSceneName; } }
     
@@ -61,6 +64,12 @@ public class ParamManager : MonoBehaviour
     
     [SerializeField] private string mainMenuSceneName = "MainMenu";
     public string MAINMENUSCENENAME { get { return mainMenuSceneName; } }
+    
+    [Header("Animation Triggers")]
+    [SerializeField] private string planetReversseAnimationBool = "isReverse";
+    public string PlanetReversseAnimationBool { get { return planetReversseAnimationBool; } }
+    [SerializeField] private string highlightEnableBool = "isHighlight";
+    public string HighlightEnableBool { get { return highlightEnableBool; } }
 
     [Space(3)]
     [Header("Prefabs")]
@@ -112,6 +121,18 @@ public class ParamManager : MonoBehaviour
     [Header ("Planet Parameters")]
     public PlanetSizeParameters[] planetSizeSet =new PlanetSizeParameters[3];
     
+
+    [Header("Planet Animations")]
+    [SerializeField][Range(0,1f)] private float animationMinSpeed = 0.3f;
+    public float AnimationMinSpeed { get { return animationMinSpeed; } }
+     
+    [SerializeField][Range(0,1f)] private float animationMaxSpeed = 0.8f;
+    public float AnimationMaxSpeed { get { return animationMaxSpeed; } }
+
+    [SerializeField] public List<RuntimeAnimatorController> planetAnimations;
+    
+
+
 
     private void Awake()
     {

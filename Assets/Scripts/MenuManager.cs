@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using TMPro;
-using UnityEngine.SceneManagement;
+
 
 public class MenuManager : MonoBehaviour
 {
