@@ -39,6 +39,8 @@ public class Planet : MouseInteractable, IOrbitable
     //references
     private TextMeshPro _strengthDisplay = null;
     private SpriteRenderer _spriteRenderer = null;
+    private SpriteRenderer _highlight = null;
+    private Animator _highlightAnimator = null;
     private SpriteMask _fogMask=null;
     private Coroutine strenghtGrowthCoroutine;
     public HiveController HiveRef //dynamic HiveControllerReference based on controllingHive
@@ -52,7 +54,6 @@ public class Planet : MouseInteractable, IOrbitable
         private set { }
     }
 
-
     void Start()
     {
         if (Application.isPlaying)
@@ -61,6 +62,9 @@ public class Planet : MouseInteractable, IOrbitable
             IDCount++;//increase id count
             _strengthDisplay = Instantiate(ParamManager.Instance._StrengthDisplayPrefab);//create strength display
             _spriteRenderer = GetComponent<SpriteRenderer>();//sprite renderer reference
+            _highlight = GetComponentsInChildren<SpriteRenderer>().FirstOrDefault(kid=>kid.CompareTag(ParamManager.Instance.HIGHLIGHTTAG));//highlight reference
+            _highlightAnimator= _highlight.GetComponent<Animator>();
+            _highlight.enabled = false;
             _fogMask = GetComponentInChildren<SpriteMask>();
             strength = startingStrength;//st starting strength
             strenghtGrowthCoroutine = StartCoroutine(GenerateStrength());//start strength and save reference
@@ -70,8 +74,6 @@ public class Planet : MouseInteractable, IOrbitable
             RandomizeAnimation();
         }
     }
-
-    
 
     void Update()
     {
@@ -119,6 +121,17 @@ public class Planet : MouseInteractable, IOrbitable
             transform.parent.localScale =Vector2.one/ transform.parent.parent.localScale.x;
         }
         transform.localScale = Vector2.one * sizeParams.planetScale;
+    }
+    private void SetMask()//set mask visibility and size
+    {
+        if (_fogMask)
+        {
+            if (HiveType == HiveController.Hive.Player || ParamManager.Instance.nonPlayerMaskActive)
+                _fogMask.enabled = true;
+            else
+                _fogMask.enabled = false;
+            _fogMask.transform.localScale = new Vector3(visibilityRange, visibilityRange, 1);
+        }
     }
     private void UpdateStrengthDisplay()// update text and pin to planet
     {
@@ -324,14 +337,27 @@ public class Planet : MouseInteractable, IOrbitable
         if (isHovered || isClicked)
         {
             if (HiveRef)
+            {
                 _spriteRenderer.color = HiveRef.HiveHighlightColor;
+                if (HiveType == HiveController.Hive.Player)
+                {
+                    _highlight.enabled = true;
+                    _highlightAnimator.SetBool(ParamManager.Instance.HighlightEnableBool, true);
+                }
+            }
             else
                 _spriteRenderer.color = ParamManager.Instance.NeutralHighlightColor;
         }
         else
         {
             if (HiveRef)
+            {
                 _spriteRenderer.color = HiveRef.HiveColor;
+                if (HiveType == HiveController.Hive.Player)
+                {
+                    _highlightAnimator.SetBool(ParamManager.Instance.HighlightEnableBool, false);
+                }
+            }
             else
                 _spriteRenderer.color = ParamManager.Instance.NeutralColor;
         }
@@ -363,17 +389,6 @@ public class Planet : MouseInteractable, IOrbitable
         }
     }
 
-    private void SetMask()//set mask visibility and size
-    {
-        if (_fogMask)
-        {
-            if (HiveType == HiveController.Hive.Player||ParamManager.Instance.nonPlayerMaskActive)
-                _fogMask.enabled = true;
-            else
-                _fogMask.enabled = false;
-            _fogMask.transform.localScale = new Vector3(visibilityRange, visibilityRange, 1);
-        }
-    }
 
     //checks
     public bool IsCapturable(Planet captured)//check if target within capture range, not immune and of another hive
