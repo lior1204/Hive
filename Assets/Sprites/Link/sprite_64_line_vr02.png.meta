@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6661e91a65fe42642be1abc4a720cbd4
+guid: 06ee80884eb6f1b459b4d5ae37c15d47
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -52,7 +52,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
+    filterMode: 0
     aniso: -1
     mipBias: -100
     wrapU: 1
@@ -112,7 +112,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 384
+        y: 0
         width: 64
         height: 64
       alignment: 0
@@ -132,8 +132,8 @@ TextureImporter:
       name: sprite_64_line_vr02_1
       rect:
         serializedVersion: 2
-        x: 0
-        y: 320
+        x: 64
+        y: 0
         width: 64
         height: 64
       alignment: 0
@@ -153,8 +153,8 @@ TextureImporter:
       name: sprite_64_line_vr02_2
       rect:
         serializedVersion: 2
-        x: 0
-        y: 256
+        x: 128
+        y: 0
         width: 64
         height: 64
       alignment: 0
@@ -174,8 +174,8 @@ TextureImporter:
       name: sprite_64_line_vr02_3
       rect:
         serializedVersion: 2
-        x: 0
-        y: 192
+        x: 192
+        y: 0
         width: 64
         height: 64
       alignment: 0
@@ -195,8 +195,8 @@ TextureImporter:
       name: sprite_64_line_vr02_4
       rect:
         serializedVersion: 2
-        x: 0
-        y: 128
+        x: 256
+        y: 0
         width: 64
         height: 64
       alignment: 0
@@ -216,8 +216,8 @@ TextureImporter:
       name: sprite_64_line_vr02_5
       rect:
         serializedVersion: 2
-        x: 0
-        y: 64
+        x: 320
+        y: 0
         width: 64
         height: 64
       alignment: 0
@@ -237,7 +237,7 @@ TextureImporter:
       name: sprite_64_line_vr02_6
       rect:
         serializedVersion: 2
-        x: 0
+        x: 384
         y: 0
         width: 64
         height: 64
