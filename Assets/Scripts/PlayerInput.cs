@@ -8,7 +8,7 @@ public class PlayerInput : MonoBehaviour
 {
     private MouseInteractable currentHover;
     private Planet currentClickedPlanet;
-   
+
     private void CheckforMouseHover()
     {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());//get mouse position
@@ -43,7 +43,7 @@ public class PlayerInput : MonoBehaviour
     }
     public void OnClickObject(InputAction.CallbackContext context)//when left click on planet
     {
-        if (context.performed)
+        if (context.performed&& !GameManager.Instance.IsPaused)
         {
             if (currentClickedPlanet)//if already have clicked planet
             {
@@ -72,7 +72,7 @@ public class PlayerInput : MonoBehaviour
             }
             else //if not already clicked make hovered clicked
             {
-                if (currentHover && currentHover is Planet&&
+                if (currentHover && currentHover is Planet &&
                     ((Planet)currentHover).HiveType == HiveController.Hive.Player)//if click player planet set current hovered to clicked
                 {
                     currentClickedPlanet = (Planet)currentHover;
@@ -93,7 +93,7 @@ public class PlayerInput : MonoBehaviour
     }
     public void OnCancelLink(InputAction.CallbackContext context)//when right click on planet or link
     {
-        if (context.performed)
+        if (context.performed&&!GameManager.Instance.IsPaused)
         {
             if (currentHover)//if currently hovering something
             {
@@ -121,9 +121,13 @@ public class PlayerInput : MonoBehaviour
             }
         }
     }
-    
+
     void Update()
     {
-        CheckforMouseHover();
+        if (!GameManager.Instance.IsPaused)
+        {
+            CheckforMouseHover();
+        }
     }
 }
+

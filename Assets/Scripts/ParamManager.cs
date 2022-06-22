@@ -50,6 +50,9 @@ public class ParamManager : MonoBehaviour
     [SerializeField] private string borderBottomRight = "Border_Bottom_Right";
     public string BORDERBOTTOMRIGHT { get { return borderBottomRight; } }
     
+    [SerializeField] private string levelSceneName = "Level";
+    public string LEVELSCENENAME { get { return levelSceneName; } }
+    
     [SerializeField] private string level01SceneName = "Level1";
     public string LEVEL01SCENENAME { get { return level01SceneName; } }
     

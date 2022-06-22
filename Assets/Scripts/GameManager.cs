@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     //parameters
     [SerializeField] [Min(1)] private float gameTime = 180;//in seconds
     //state 
-    public bool IsPaused { get { return state == GameState.Paused; } }
+    public bool IsPaused { get { return state == GameState.Paused; }set { state = value ? GameState.Paused : GameState.Playing; } }
     private GameState state = GameState.Playing;
     public float endGameTimer { get; private set; }
     private bool IsTimeOver { get { return endGameTimer <=0; } }
