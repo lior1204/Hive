@@ -30,15 +30,18 @@ public class CameraController : MonoBehaviour
     Material _fogMat;
     [Header("Fog")]
     [SerializeField] private float fogParallaxSpeed = 0.2f;
+    [SerializeField] private float fogSinSpeed = 0.2f;
 
     //background
-    [Header("Background")]
+    
     SpriteRenderer _background;
     SpriteRenderer _stars;
+    [Header("Background")]
     [SerializeField] private float backgroundSpeed = 0.1f;
     [SerializeField] private Vector2 backgroundParallaxSpeed = new Vector2(0.05f, 0.05f);
     [SerializeField] private float starsSpeed = 0.2f;
     [SerializeField] private Vector2 starsParallaxSpeed = new Vector2(0.1f, 0.1f);
+
 
     private void Start()
     {
@@ -56,14 +59,15 @@ public class CameraController : MonoBehaviour
         {
             PanCamera();
             AutoMoveCamera();
-            ParallaxEffects();
         }
+        ParallaxEffects();
     }
 
     private void ParallaxEffects()
     {
+        
         if(_fogMat)
-        _fogMat.mainTextureOffset -= new Vector2( Time.deltaTime * fogParallaxSpeed,0);
+        _fogMat.mainTextureOffset -= new Vector2( Time.deltaTime * fogParallaxSpeed, Mathf.Sin(Time.time ) * fogSinSpeed);
         if(_background)
         _background.material.mainTextureOffset -= Time.deltaTime*(new Vector2(backgroundParallaxSpeed.x, backgroundParallaxSpeed.y));
        if(_stars)
@@ -72,23 +76,26 @@ public class CameraController : MonoBehaviour
 
     public void OnZoom(InputAction.CallbackContext context)//zoom in and out
     {
-        if (context.ReadValue<float>() > 0)//zoom in
+        if (!GameManager.Instance.IsPaused)//check if game is playing
         {
-            if (cam.orthographicSize > maxZoomIn)
+            if (context.ReadValue<float>() > 0)//zoom in
             {
-                cam.orthographicSize -= zoomIncrement;
+                if (cam.orthographicSize > maxZoomIn)
+                {
+                    cam.orthographicSize -= zoomIncrement;
+                }
             }
-        }
-        else if (context.ReadValue<float>() < 0)//zoom out
-        {
-            if (cam.orthographicSize < maxZoomOut)
+            else if (context.ReadValue<float>() < 0)//zoom out
             {
-                cam.orthographicSize += zoomIncrement;
+                if (cam.orthographicSize < maxZoomOut)
+                {
+                    cam.orthographicSize += zoomIncrement;
+                }
             }
+            cam.transform.localScale = Vector3.one * (cam.orthographicSize / camStartingZoom);
+
+            MoveCamera(Vector3.zero);
         }
-        cam.transform.localScale = Vector3.one * (cam.orthographicSize / camStartingZoom);
-       
-        MoveCamera(Vector3.zero);
     }
     public void OnHoldPan(InputAction.CallbackContext context)//turn on and off paning
     {

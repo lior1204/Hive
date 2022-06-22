@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private RectTransform mainMenu;
     [SerializeField] private RectTransform levelMenu;
     [SerializeField] private RectTransform optionslMenu;
+    [SerializeField] private RectTransform pauseMenu;
     [SerializeField] private RectTransform advantageProgressBar;
     [SerializeField] private TextMeshProUGUI timer;
     private Stack<RectTransform> menusSeries = new Stack<RectTransform>();
@@ -120,6 +122,30 @@ public class MenuManager : MonoBehaviour
     }
     public void PauseGame()
     {
-
+        if (SceneManager.GetActiveScene().name.Contains(ParamManager.Instance.LEVELSCENENAME))
+        {
+            if (!GameManager.Instance.IsPaused)
+            {
+                GameManager.Instance.IsPaused = true;
+                if (pauseMenu)
+                {
+                    if (menusSeries.Count>0)
+                        menusSeries.Peek().gameObject.SetActive(false);
+                    pauseMenu.gameObject.SetActive(true);
+                    menusSeries.Push(pauseMenu);
+                }
+            }
+            else
+            {
+                GameManager.Instance.IsPaused = false;
+                if (menusSeries.Count > 0)
+                    menusSeries.Peek().gameObject.SetActive(false);
+                menusSeries.Clear();
+            }
+        }
+    }
+    public void RestartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

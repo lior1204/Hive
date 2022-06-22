@@ -90,17 +90,23 @@ public class Planet : MouseInteractable, IOrbitable
     }
     private void SetPlanetParametersBySize()
     {
-        ParamManager.PlanetSizeParameters orbitCycleTime = null;
-        orbitCycleTime = ParamManager.Instance.planetSizeSet.FirstOrDefault(s => s.size == planetSize);
-        strengthIncome = orbitCycleTime.strengthIncome;
-        maxActiveLinks = orbitCycleTime.maxActiveLinks;
-        this.orbitCycleTime = orbitCycleTime.orbitCycleTime;
-        captureRange = orbitCycleTime.captureRange;
-        visibilityRange = orbitCycleTime.visibilityRange;
+        ParamManager.PlanetSizeParameters sizeParams = null;
+        sizeParams = ParamManager.Instance.planetSizeSet.FirstOrDefault(s => s.size == planetSize);
+        strengthIncome = sizeParams.strengthIncome;
+        maxActiveLinks = sizeParams.maxActiveLinks;
+        this.orbitCycleTime = sizeParams.orbitCycleTime;
+        captureRange = sizeParams.captureRange;
+        visibilityRange = sizeParams.visibilityRange;
         if (transform.parent&&transform.parent.CompareTag(ParamManager.Instance.ORBITTAG))
         {
             transform.parent.GetComponent<OrbitalMovement>().SetCycleTime();
         }
+        Transform child = GetComponentsInChildren<Transform>().FirstOrDefault(kid => kid != this.transform);
+        if (transform.parent && transform.parent.parent)
+        {
+            transform.parent.localScale =Vector2.one/ transform.parent.parent.localScale.x;
+        }
+        transform.localScale = Vector2.one * sizeParams.planetScale;
     }
     private void UpdateStrengthDisplay()// update text and pin to planet
     {
