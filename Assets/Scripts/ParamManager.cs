@@ -143,5 +143,6 @@ public class ParamManager : MonoBehaviour
         public float orbitCycleTime = 5f;
         public float captureRange = 30;
         public float visibilityRange = 150;
+        public float planetScale = 1;
     }
 }

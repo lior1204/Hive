@@ -91,6 +91,13 @@ public class PlayerInput : MonoBehaviour
             currentClickedPlanet = null;
         }
     }
+    public void UnclickLostPlanet(Planet planet)
+    {
+        if (currentClickedPlanet&&currentClickedPlanet==planet)
+        {
+            Unclick();
+        }
+    }
     public void OnCancelLink(InputAction.CallbackContext context)//when right click on planet or link
     {
         if (context.performed&&!GameManager.Instance.IsPaused)

@@ -30,15 +30,18 @@ public class CameraController : MonoBehaviour
     Material _fogMat;
     [Header("Fog")]
     [SerializeField] private float fogParallaxSpeed = 0.2f;
+    [SerializeField] private float fogSinSpeed = 0.2f;
 
     //background
-    [Header("Background")]
+    
     SpriteRenderer _background;
     SpriteRenderer _stars;
+    [Header("Background")]
     [SerializeField] private float backgroundSpeed = 0.1f;
     [SerializeField] private Vector2 backgroundParallaxSpeed = new Vector2(0.05f, 0.05f);
     [SerializeField] private float starsSpeed = 0.2f;
     [SerializeField] private Vector2 starsParallaxSpeed = new Vector2(0.1f, 0.1f);
+
 
     private void Start()
     {
@@ -62,8 +65,9 @@ public class CameraController : MonoBehaviour
 
     private void ParallaxEffects()
     {
+        
         if(_fogMat)
-        _fogMat.mainTextureOffset -= new Vector2( Time.deltaTime * fogParallaxSpeed,0);
+        _fogMat.mainTextureOffset -= new Vector2( Time.deltaTime * fogParallaxSpeed, Mathf.Sin(Time.time ) * fogSinSpeed);
         if(_background)
         _background.material.mainTextureOffset -= Time.deltaTime*(new Vector2(backgroundParallaxSpeed.x, backgroundParallaxSpeed.y));
        if(_stars)
