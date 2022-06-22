@@ -89,7 +89,10 @@ public class Planet : MouseInteractable, IOrbitable
     private void RandomizeAnimation()
     {
         int version = UnityEngine.Random.Range(0, ParamManager.Instance.planetAnimations.Count-1);
-        GetComponent<Animator>().runtimeAnimatorController = ParamManager.Instance.planetAnimations.ElementAt(version);
+        Animator animator = GetComponent<Animator>();
+        animator.runtimeAnimatorController = ParamManager.Instance.planetAnimations.ElementAt(version);//randomize animation version
+        animator.speed = UnityEngine.Random.Range(ParamManager.Instance.AnimationMinSpeed, ParamManager.Instance.AnimationMaxSpeed);//randomize speed 
+        animator.SetBool(ParamManager.Instance.PlanetReversseAnimationBool, UnityEngine.Random.value>0.5);//randomize direction
     }
     private void SetStartInHive()//add to hive and set color
     {

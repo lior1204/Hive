@@ -61,6 +61,9 @@ public class ParamManager : MonoBehaviour
     
     [SerializeField] private string mainMenuSceneName = "MainMenu";
     public string MAINMENUSCENENAME { get { return mainMenuSceneName; } }
+    
+    [SerializeField] private string planetReversseAnimationBool = "isReverse";
+    public string PlanetReversseAnimationBool { get { return planetReversseAnimationBool; } }
 
     [Space(3)]
     [Header("Prefabs")]
@@ -113,9 +116,12 @@ public class ParamManager : MonoBehaviour
     public PlanetSizeParameters[] planetSizeSet =new PlanetSizeParameters[3];
     
 
-    [Header("Planet Nnimations")]
-    [SerializeField][Range(0,1f)] private float animationSpeedRandomFactor = 0.3f;
-    public float AnimationSpeedRandomFactor { get { return animationSpeedRandomFactor; } }
+    [Header("Planet Animations")]
+    [SerializeField][Range(0,1f)] private float animationMinSpeed = 0.3f;
+    public float AnimationMinSpeed { get { return animationMinSpeed; } }
+     
+    [SerializeField][Range(0,1f)] private float animationMaxSpeed = 0.8f;
+    public float AnimationMaxSpeed { get { return animationMaxSpeed; } }
 
     [SerializeField] public List<RuntimeAnimatorController> planetAnimations;
     
