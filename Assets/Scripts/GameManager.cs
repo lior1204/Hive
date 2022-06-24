@@ -44,6 +44,8 @@ public class GameManager : MonoBehaviour
     {
         if (Instance != null && Instance != this)// implement singelton
         {
+            Instance.gameTime = this.gameTime;
+            Instance.endGameTimer = this.gameTime;
             Destroy(this);
         }
         else
