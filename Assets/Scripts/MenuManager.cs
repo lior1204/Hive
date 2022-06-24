@@ -16,8 +16,23 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private RectTransform pauseMenu;
     [SerializeField] private RectTransform advantageProgressBar;
     [SerializeField] private TextMeshProUGUI timer;
+    [SerializeField] private RectTransform winPanel;
+
     private Stack<RectTransform> menusSeries = new Stack<RectTransform>();
     private void Start()
+    {
+        DisablePanels();
+        if (SceneManager.GetActiveScene().name == ParamManager.Instance.MAINMENUSCENENAME)
+        {
+            SetStartMenu();
+        }
+        if (SceneManager.GetActiveScene().name == ParamManager.Instance.GAMEOVERSCENENAME)
+        {
+            SetGameOverScreen();
+        }
+    }
+
+    private void DisablePanels()
     {
         if (mainMenu)
             mainMenu.gameObject.SetActive(false);
@@ -25,27 +40,40 @@ public class MenuManager : MonoBehaviour
             levelMenu.gameObject.SetActive(false);
         if (optionslMenu)
             optionslMenu.gameObject.SetActive(false);
-        if (SceneManager.GetActiveScene().name == ParamManager.Instance.MAINMENUSCENENAME)
+         if (pauseMenu)
+            pauseMenu.gameObject.SetActive(false);
+         if (winPanel)
+            winPanel.gameObject.SetActive(false);
+
+    }
+
+    private void SetStartMenu()
+    {
+        if (mainMenu)
         {
-            if (mainMenu)
-            {
-                mainMenu.gameObject.SetActive(true);
-                menusSeries.Push(mainMenu);
-            }
-        }
-        if (SceneManager.GetActiveScene().name == ParamManager.Instance.GAMEOVERSCENENAME)
-        {
-            if (mainMenu)
-            {
-                mainMenu.gameObject.SetActive(true);
-                menusSeries.Push(mainMenu);
-            }
-            if (advantageProgressBar)
-            {
-                DrawAdvantageBar();
-            }
+            mainMenu.gameObject.SetActive(true);
+            menusSeries.Push(mainMenu);
         }
     }
+    private void SetGameOverScreen()
+    {
+        if (mainMenu)
+        {
+            mainMenu.gameObject.SetActive(true);
+            menusSeries.Push(mainMenu);
+        }
+        if (advantageProgressBar)
+        {
+            DrawAdvantageBar();
+        }
+        if (winPanel)
+        {
+            winPanel.gameObject.SetActive(true);
+            SetGaemeEndText(winPanel.GetComponentInChildren<TextMeshProUGUI>())
+;        }
+    }
+
+
     private void Update()
     {
         if (SceneManager.GetActiveScene().name.Contains("Level"))
@@ -77,6 +105,21 @@ public class MenuManager : MonoBehaviour
         if (timer)
         {
             timer.text = ((time / 60)).ToString("00") + ":" + (time % 60).ToString("00");
+        }
+    }
+    private void SetGaemeEndText(TextMeshProUGUI text)
+    {
+        if (text)
+        {
+            if(GameManager.Instance.playerPlanetsCount >= GameManager.Instance.enemyPlanetsCount)
+            {
+                text.text = ParamManager.Instance.WinText;
+            }
+            else
+            {
+                text.text = ParamManager.Instance.LooseText;
+            }
+
         }
     }
 

@@ -71,6 +71,12 @@ public class ParamManager : MonoBehaviour
     [SerializeField] private string highlightEnableBool = "isHighlight";
     public string HighlightEnableBool { get { return highlightEnableBool; } }
 
+    [Header("Texts")]
+    [SerializeField] private string winText = "Assimilation Comlete";
+    public string WinText { get { return winText; } }
+    [SerializeField] private string looseText = "Assimilation Failed";
+    public string LooseText { get { return looseText; } }
+
     [Space(3)]
     [Header("Prefabs")]
     [SerializeField] private TextMeshPro _strengthDisplayPrefab;
