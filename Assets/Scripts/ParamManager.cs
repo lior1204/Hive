@@ -142,7 +142,8 @@ public class ParamManager : MonoBehaviour
     {
         if (Instance != null && Instance != this)// implement singelton
         {
-            Destroy(this);
+            if (Application.isPlaying)
+                Destroy(this);
         }
         else
         {
