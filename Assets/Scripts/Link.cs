@@ -14,8 +14,8 @@ public abstract class Link : MouseInteractable
     public float TimeStemp { get; set; }
     //references
     private EdgeCollider2D _edgeCollider;
-    //private LineRenderer myLine;
     private SpriteRenderer _spriteRenderer;
+    private BoxCollider2D _boxCollider;
     public HiveController.Hive HiveType { get { return Origin ? Origin.HiveType : HiveController.Hive.Neutral; } }
 
     protected static void NewLink(Link link, Planet origin, Planet target)
@@ -28,56 +28,46 @@ public abstract class Link : MouseInteractable
             link.isActive = false;
             link.TimeStemp = Time.time;
             link.transform.parent = origin.transform;
-            link.transform.localPosition = Vector3.zero;
+            link.transform.localPosition = Vector3.forward;
             link._spriteRenderer = link.GetComponent<SpriteRenderer>();
             link._edgeCollider = link.GetComponent<EdgeCollider2D>();
-            //link.SetLine();
+            link._boxCollider = link.GetComponent<BoxCollider2D>();
         }
     }
 
     void Update()
     {
-        //SetLinePosition();
         SetLineTransform();
-        SetEdgeCollider();
+        //SetEdgeCollider();
+        SetBoxCollider();
     }
-    private void SetLineTransform()
+    private void SetLineTransform()//set the widht and angle of the link
     {
         float length = Vector2.Distance(Origin.transform.position, Target.transform.position);
         _spriteRenderer.size = new Vector2(length, _spriteRenderer.size.y);
-        transform.eulerAngles = Vector3.forward * Vector2.Angle(Origin.transform.position, Target.transform.position);
-        Debug.Log("Origin: " + Origin.transform.position + " Target: " + Target.transform.position + " Angel: " + Vector2.Angle(Origin.transform.position, Target.transform.position));
+        float angle = Mathf.Atan((Target.transform.position.y - Origin.transform.position.y)/(Target.transform.position.x - Origin.transform.position.x));
+        angle *= Mathf.Rad2Deg;
+        if (Target.transform.position.x < Origin.transform.position.x) angle += 180;
+        transform.eulerAngles = Vector3.forward * angle;
+
     }
 
-    private void SetEdgeCollider()
+    private void SetBoxCollider()//set box collider points acording to line
+    {
+        //Vector2 S = gameObject.GetComponent<SpriteRenderer>().sprite.bounds.size;
+        //_boxCollider.size = S;
+        //_boxCollider. .center = new Vector2((S.x / 2), 0);
+    }
+    private void SetEdgeCollider()//set edge collider points acording to line
     {
         Vector2[] edges = new Vector2[2];
 
-        edges[0] = Origin.transform.position;
+        edges[0] = Vector2.zero;
         edges[0].x += _edgeCollider.edgeRadius;
-        edges[1] = Target.transform.position;
+        edges[1] = Vector2.Distance(Origin.transform.position, Target.transform.position) * Vector2.right;
         edges[1].x -= 2*_edgeCollider.edgeRadius;
         _edgeCollider.points = edges;
     }
-
-    //private void SetLinePosition()
-    //{
-    //    Vector3[] pos = { Origin.transform.position, Target.transform.position };//set to origin and target positions
-    //    //draw line behind planet
-    //    pos[0] -= new Vector3(0f, 0f, 0.01f);
-    //    pos[1] -= new Vector3(0f, 0f, 0.01f);
-    //    myLine.SetPositions(pos);
-    //}
-    //private void SetLine()
-    //{
-    //    _edgeCollider = this.GetComponent<EdgeCollider2D>();
-    //    myLine = this.GetComponent<LineRenderer>();
-    //    myLine.startWidth = startWidth;
-    //    myLine.endWidth = endWidth;
-    //    UpdateColorAndHighlight();
-    //}
-
-
     protected override void UpdateColorAndHighlight()//update color based on hive and highlight
     {
         //SetLineColor();
