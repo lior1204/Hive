@@ -60,7 +60,7 @@ public class Planet : MouseInteractable, IOrbitable
         {
             PlanetID = IDCount;//set id
             IDCount++;//increase id count
-            _strengthDisplay = Instantiate(ParamManager.Instance._StrengthDisplayPrefab);//create strength display
+            _strengthDisplay = Instantiate(ParamManager.Instance.StrengthDisplayPrefab);//create strength display
             _spriteRenderer = GetComponent<SpriteRenderer>();//sprite renderer reference
             _highlight = GetComponentsInChildren<SpriteRenderer>().FirstOrDefault(kid=>kid.CompareTag(ParamManager.Instance.HIGHLIGHTTAG));//highlight reference
             _highlightAnimator= _highlight.GetComponent<Animator>();
@@ -171,8 +171,8 @@ public class Planet : MouseInteractable, IOrbitable
         if (HiveRef)//if this is in hive it has income if neutral no income
         {
             float income = strengthIncome;//add this planet base income
-            income += reinforceLinks.Count(r => r.isActive && r.Target == this) * ParamManager.Instance.ReinforceBonus;//add bonus from active reinforcements to this planet
-            income -= reinforceLinks.Count(r => r.isActive && r.Origin == this) * ParamManager.Instance.ReinforceCost;//dedact cost of this planet active reinfrociements
+            income += reinforceLinks.Count(r => r.IsActive && r.Target == this) * ParamManager.Instance.ReinforceBonus;//add bonus from active reinforcements to this planet
+            income -= reinforceLinks.Count(r => r.IsActive && r.Origin == this) * ParamManager.Instance.ReinforceCost;//dedact cost of this planet active reinfrociements
             return income;
             // Mathf.Max(income,0); if we want to make impossible to be negative
         }
@@ -181,7 +181,7 @@ public class Planet : MouseInteractable, IOrbitable
     private float CalculateStrengthOutcome()//capture cost for each capture interaction
     {
         float outcome = 0;
-        List<Capture> activeConnections = captureLinks.Where(capture => capture.isActive).ToList();//get active captures this planet is part of
+        List<Capture> activeConnections = captureLinks.Where(capture => capture.IsActive).ToList();//get active captures this planet is part of
         int zeroPlanets = activeConnections.Where(capture => capture.Target == this && capture.Origin.strength <= 0).Count();//count attacking planets with 0 strength
         outcome += zeroPlanets * ParamManager.Instance.ZeroStrengthReducedOutcome;//planets with 0 strength contribute less to outcome
         int captureLinkCount = 0;//count 2 sided connections wher this is both attacking and attacked by the same planet and both links are active
@@ -233,12 +233,12 @@ public class Planet : MouseInteractable, IOrbitable
     }
     private void GetCaptured()//get captured by the hive that captured for the most time.
     {
-        if (captureLinks.Where(c => c.isActive).Any(c => c.GetOther(this).HiveType != HiveController.Hive.Neutral))//if any ACTIVE non neutral capturer in link that this is the target
+        if (captureLinks.Where(c => c.IsActive).Any(c => c.GetOther(this).HiveType != HiveController.Hive.Neutral))//if any ACTIVE non neutral capturer in link that this is the target
         {
             //determine hive that captured this planet for the longest among active links
             float playerCaptureDuration = 0;
             float enemyCaptureDuration = 0;
-            List<Capture> activeCaptures = captureLinks.Where(c => c.isActive).ToList();
+            List<Capture> activeCaptures = captureLinks.Where(c => c.IsActive).ToList();
             foreach (Capture link in activeCaptures)//count active links
             {
                 if (link.GetOther(this).hiveType == HiveController.Hive.Player)//count strength taken by player
@@ -306,8 +306,8 @@ public class Planet : MouseInteractable, IOrbitable
         //set new actives equal to max active if capturable or reinforcable
         activeLinks.AddRange(myLinks.Where(l => l is Capture ?
             IsCapturable(l.Target) : IsReinforcable(l.Target)).Take(maxActiveLinks));
-        foreach (Link link in myLinks) link.isActive = false;//deactivate old links
-        foreach (Link link in activeLinks) link.isActive = true;//activate new links
+        foreach (Link link in myLinks) link.IsActive = false;//deactivate old links
+        foreach (Link link in activeLinks) link.IsActive = true;//activate new links
     }
 
 

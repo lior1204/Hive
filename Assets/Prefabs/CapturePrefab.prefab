@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6530749165370013176}
-  - component: {fileID: 1533623977}
   - component: {fileID: 8833700449665939819}
   - component: {fileID: 959000385727199675}
   - component: {fileID: -191881521568446165}
@@ -35,24 +34,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!68 &1533623977
-EdgeCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 539097037116262579}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.2, y: 0}
-  m_EdgeRadius: 0.2
-  m_Points:
-  - {x: 0, y: 0}
-  - {x: 0.6, y: 0}
 --- !u!212 &8833700449665939819
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -71,7 +52,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: e79deda27b432a24eb87f14f966190ec, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -136,7 +117,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startWidth: 0.25
   endWidth: 0.1
-  isActive: 0
   strengthCaptured: 0
 --- !u!61 &-5991450590722699018
 BoxCollider2D:

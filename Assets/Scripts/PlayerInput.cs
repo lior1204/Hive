@@ -17,12 +17,6 @@ public class PlayerInput : MonoBehaviour
         List<RaycastHit2D> hits = new List<RaycastHit2D>(Physics2D.GetRayIntersectionAll(ray));//raycast to hit planets
         if (hits.Any(hit => hit.collider.CompareTag(ParamManager.Instance.FOGMASKTAG)))//check if planet is inside visability fog mask
         {
-            Debug.Log("Hits: " + hits.Count);
-            foreach(RaycastHit2D hit in hits)
-            {
-                Debug.Log(hit.transform.GetInstanceID());
-            }
-
             RaycastHit2D hover = (hits.FirstOrDefault(hit => hit.collider.GetComponent<Planet>()));//check if hit Planet
             if(!hover)
                 hover = (hits.FirstOrDefault(hit => hit.collider.GetComponent<MouseInteractable>()));//check if hit IMouseHover
