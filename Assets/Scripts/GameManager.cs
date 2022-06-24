@@ -25,7 +25,6 @@ public class GameManager : MonoBehaviour
     }
     private void OnLevelWasLoaded(int level)
     {
-        
         screenRatio = Screen.width / Screen.height;
         if (SceneManager.GetActiveScene().name == ParamManager.Instance.MAINMENUSCENENAME)
         {
@@ -44,9 +43,12 @@ public class GameManager : MonoBehaviour
     {
         if (Instance != null && Instance != this)// implement singelton
         {
-            Instance.gameTime = this.gameTime;
-            Instance.endGameTimer = this.gameTime;
-            Destroy(this);
+            if (Application.isPlaying)
+            {
+                Instance.gameTime = this.gameTime;
+                Instance.endGameTimer = this.gameTime;
+                Destroy(this);
+            }
         }
         else
         {

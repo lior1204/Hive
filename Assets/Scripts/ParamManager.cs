@@ -77,10 +77,14 @@ public class ParamManager : MonoBehaviour
     [SerializeField] private string looseText = "Assimilation Failed";
     public string LooseText { get { return looseText; } }
 
-    [Space(3)]
     [Header("Prefabs")]
-    [SerializeField] private TextMeshPro _strengthDisplayPrefab;
-    public TextMeshPro _StrengthDisplayPrefab { get { return _strengthDisplayPrefab; } }
+    [SerializeField] private TextMeshPro strengthDisplayPrefab;
+    public TextMeshPro StrengthDisplayPrefab { get { return strengthDisplayPrefab; } }
+    [Header("Materials")]
+    [SerializeField] private Material linkActiveMaterial;
+    public Material LinkActiveMaterial { get { return linkActiveMaterial; } }
+     [SerializeField] private Material linkInactiveMaterial;
+    public Material LinkInactiveMaterial { get { return linkInactiveMaterial; } }
 
     [Space(3)]
     [Header ("Global Parameters")]

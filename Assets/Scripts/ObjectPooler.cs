@@ -30,6 +30,8 @@ public class ObjectPooler : MonoBehaviour
             for (int i = 0; i < pool.size; i++)//instantiate objects acording to pool size and store in queue
             {
                 GameObject obj = Instantiate(pool.prefab);
+
+                obj.transform.parent = this.transform;
                 objectPool.Enqueue(obj);
                 obj.SetActive(false);
             }
@@ -66,6 +68,7 @@ public class ObjectPooler : MonoBehaviour
     {
         if (poolDictionary.ContainsKey(objType))//check that pool exists
         {
+            obj.transform.parent = this.transform;
             obj.SetActive(false);
             poolDictionary[objType].Enqueue(obj);
         }

@@ -3,100 +3,106 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(EdgeCollider2D))]
 public abstract class Link : MouseInteractable
 {
     [SerializeField] private float startWidth = 0.25f;
     [SerializeField] private float endWidth = 0.1f;
     //parameters
-    public bool isActive = false;
+    private bool isActive = false;
+    public bool IsActive
+    {
+        get { return isActive; }
+        set { isActive = value; SetActiveMat(); }
+    }
     public Planet Origin { get; protected set; }
     public Planet Target { get; protected set; }
     public float TimeStemp { get; set; }
     //references
-    private EdgeCollider2D edgeCollider;
-    private LineRenderer myLine;
+    private SpriteRenderer _spriteRenderer;
+    private BoxCollider2D _boxCollider;
     public HiveController.Hive HiveType { get { return Origin ? Origin.HiveType : HiveController.Hive.Neutral; } }
-    void Update()
-    {
-        SetLinePosition();
-        SetEdgeCollider();
-    }
-    protected static void NewLink(Link link,Planet origin, Planet target)
+
+    protected static void NewLink(Link link, Planet origin, Planet target)
     {
         if (link)
         {
             //set the members, activity, timestamp, parent, position and color
             link.Origin = origin;
             link.Target = target;
-            link.isActive = false;
             link.TimeStemp = Time.time;
-            link.transform.parent = origin.transform.parent;
-            link.transform.position = Vector3.zero;
-            link.SetLine();
+            link.transform.parent = origin.transform;
+            link.transform.localPosition = Vector3.forward;
+            link._spriteRenderer = link.GetComponent<SpriteRenderer>();
+            link._boxCollider = link.GetComponent<BoxCollider2D>();
+            link.UpdateColorAndHighlight();
         }
     }
-    private void SetEdgeCollider()
-    {
-        List<Vector2> edges = new List<Vector2>();
 
-        for (int point = 0; point < myLine.positionCount; point++)
-        {
-            Vector3 lineRendererPoint = myLine.GetPosition(point);
-            edges.Add(new Vector2(lineRendererPoint.x, lineRendererPoint.y));
-        }
-
-        edgeCollider.points = edges.ToArray();
-    }
-    private void SetLinePosition()
+    void Update()
     {
-        Vector3[] pos = { Origin.transform.position, Target.transform.position };//set to origin and target positions
-        //draw line behind planet
-        pos[0]-= new Vector3(0f, 0f, 0.01f);
-        pos[1]-= new Vector3(0f, 0f, 0.01f);
-        myLine.SetPositions(pos);
+        SetLineTransform();
+        //SetEdgeCollider();
+        SetBoxCollider();
     }
-
-    private void SetLine()
+    private void SetLineTransform()//set the widht and angle of the link
     {
-        edgeCollider = this.GetComponent<EdgeCollider2D>();
-        myLine = this.GetComponent<LineRenderer>();
-        myLine.startWidth = startWidth;
-        myLine.endWidth = endWidth;
-        UpdateColorAndHighlight();
+        float length = Vector2.Distance(Origin.transform.position, Target.transform.position);
+        _spriteRenderer.size = new Vector2(length, _spriteRenderer.size.y);
+        float angle = Mathf.Atan((Target.transform.position.y - Origin.transform.position.y)/(Target.transform.position.x - Origin.transform.position.x));
+        angle *= Mathf.Rad2Deg;
+        if (Target.transform.position.x < Origin.transform.position.x) angle += 180;
+        transform.eulerAngles = Vector3.forward * angle;
+
     }
+    private void SetBoxCollider()//set box collider points acording to line
+    {
+        //Vector2 S = gameObject.GetComponent<SpriteRenderer>().sprite.bounds.size;
+        //_boxCollider.size = S;
+        //_boxCollider. .center = new Vector2((S.x / 2), 0);
+    }
+    
     protected override void UpdateColorAndHighlight()//update color based on hive and highlight
     {
-        
-        myLine.endColor = Target.GetComponent<SpriteRenderer>().color;
+        SetLinkColor();
+    }
+    private void SetLinkColor()
+    {
         if (isHovered || isClicked)//highlighted
         {
-            //start color
-            if (Origin.HiveRef)
-                myLine.startColor = Origin.HiveRef.HiveHighlightColor;
-            else
-                myLine.startColor = ParamManager.Instance.NeutralHighlightColor;
-            //end color
-            if (Target.HiveRef)
-                myLine.endColor = Target.HiveRef.HiveHighlightColor;
-            else
-                myLine.endColor = ParamManager.Instance.NeutralHighlightColor;
+            _spriteRenderer.color = Origin.HiveRef.HiveHighlightColor;
         }
-        else//not highlithed
-        {
-            //start color
-            if (Origin.HiveRef)
-                myLine.startColor = Origin.HiveRef.HiveColor;
-            else
-                myLine.startColor = ParamManager.Instance.NeutralColor;
-            //end color
-            if (Target.HiveRef)
-                myLine.endColor = Target.HiveRef.HiveColor;
-            else
-                myLine.endColor = ParamManager.Instance.NeutralColor;
+        else {
+            _spriteRenderer.color = Origin.HiveRef.HiveColor;
         }
     }
-
+    private void SetActiveMat()
+    {
+        if (isActive)
+        {
+            
+            if (HiveType == HiveController.Hive.Enemy)
+            {
+                _spriteRenderer.enabled = true;
+                _boxCollider.enabled = true;
+            }
+            else
+            {
+                _spriteRenderer.material = ParamManager.Instance.LinkActiveMaterial;
+            }
+        }
+        else
+        {
+            if (HiveType == HiveController.Hive.Enemy)
+            {
+                _spriteRenderer.enabled = false;
+                _boxCollider.enabled = false;
+            }
+            else
+            {
+                _spriteRenderer.material = ParamManager.Instance.LinkInactiveMaterial;
+            }
+        }
+    }
     public bool CompareExactTo(Link link)//is the same as another link
     {
         bool members = Origin == link.Origin && Target == link.Target;//check origin and target exactly the same
