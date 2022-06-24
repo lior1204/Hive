@@ -2743,7 +2743,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 110c40cbf6bf5164b8de911811f377b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameTime: 185
+  gameTime: 5
 --- !u!1 &1045714399
 GameObject:
   m_ObjectHideFlags: 0
@@ -3585,12 +3585,12 @@ PrefabInstance:
     - target: {fileID: 2127881686000975985, guid: 6d427bdb64eb93541acbb2a408b780ac,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.15
+      value: -1.31
       objectReference: {fileID: 0}
     - target: {fileID: 2127881686000975985, guid: 6d427bdb64eb93541acbb2a408b780ac,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.38
+      value: -1.32
       objectReference: {fileID: 0}
     - target: {fileID: 2127881686000975985, guid: 6d427bdb64eb93541acbb2a408b780ac,
         type: 3}
@@ -3650,6 +3650,11 @@ PrefabInstance:
     - target: {fileID: 2127881686000975987, guid: 6d427bdb64eb93541acbb2a408b780ac,
         type: 3}
       propertyPath: hiveType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2127881686000975987, guid: 6d427bdb64eb93541acbb2a408b780ac,
+        type: 3}
+      propertyPath: startingStrength
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2127881686000975996, guid: 6d427bdb64eb93541acbb2a408b780ac,
