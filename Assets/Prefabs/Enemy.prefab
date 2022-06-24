@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3578033196061348196
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3578033196061348202}
+  - component: {fileID: 3578033196061348197}
+  - component: {fileID: 3578033196061348203}
+  m_Layer: 0
+  m_Name: Enemy
+  m_TagString: Enemy
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3578033196061348202
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3578033196061348196}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3578033196061348197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3578033196061348196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4c82c178f812e34bb11feac8cbb2602, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hiveType: 2
+--- !u!114 &3578033196061348203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3578033196061348196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5c5fa1acba59e0498aaba65d78def54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyDecisionRate: 1
+  decisionsPerCycle: 3
+  enemyDelay: 0.1
+  planetSizeScore: 30
+  strengthCaptureScore: 60
+  strengthCaptureSkewing: 2
+  incomeCaptureScore: 65
+  incomeDifferenceMax: 10
+  incomeCaptureSkewing: 2
+  incomeRelevenceBasedStrength: 2.5
+  neutralScore: 30
+  playerCaptureScore: 20
+  randomCaptureScore: 25
+  strengthReinforceScore: 40
+  strengthTargetReinforceScore: 80
+  incomeReinforceScore: 70
+  incomeTargetReinforceScore: 60
+  incomeReinforceMax: 10
+  randomReinforceScore: 30
+  reinforceMinStrength: 20
+  getHelpMaxStrength: 30
+  strengthDisconnectScore: 80
+  strengthDisconnectSkewing: 1.5
+  incomeDisconnectScore: 25
+  incomeDisconnectMax: 10
+  incomeDisconnectSkewing: 1.5
+  incomeRelevenceBasedStrengthDisconnect: 2
+  randomDisconnectScore: 15
+  relativityMinModifier: 1
+  relativityMaxModifier: 2
+  relativitySkewing: 1.5
+  minimumProfileTime: 3
+  lowStrengthPriorityThreshold: 10
+  captureThreshold: 90
+  reinforceThreshold: 230
+  disconnectCaptureThreshold: 50
+  disconnectReinforceThreshold: 95
