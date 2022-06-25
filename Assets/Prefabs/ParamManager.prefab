@@ -89,22 +89,22 @@ MonoBehaviour:
     strengthIncome: 1.5
     maxActiveLinks: 2
     orbitCycleTime: 20
-    captureRange: 7
-    visibilityRange: 7
+    captureRange: 5
+    visibilityRange: 5
     planetScale: 0.5
   - size: 1
     strengthIncome: 2
     maxActiveLinks: 3
     orbitCycleTime: 30
-    captureRange: 8
-    visibilityRange: 8
+    captureRange: 7
+    visibilityRange: 7
     planetScale: 0.8
   - size: 2
     strengthIncome: 2.5
     maxActiveLinks: 4
     orbitCycleTime: 40
-    captureRange: 9
-    visibilityRange: 9
+    captureRange: 10
+    visibilityRange: 10
     planetScale: 1.2
   animationMinSpeed: 0.3
   animationMaxSpeed: 0.8
