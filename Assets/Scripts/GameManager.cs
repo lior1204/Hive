@@ -85,6 +85,7 @@ public class GameManager : MonoBehaviour
             
             if (playerPlanetsCount <= 0 || enemyPlanetsCount <= 0 || IsTimeOver)//game ends if player or enemy has no planets or if time over
             {
+                Debug.Log("Player: " + playerPlanetsCount + " Enemy: " + enemyPlanetsCount);
                 state = GameState.EndScreen;
                 UpdateHiveCount();
                 SceneManager.LoadScene(ParamManager.Instance.GAMEOVERSCENENAME); 

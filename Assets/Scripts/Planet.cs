@@ -58,6 +58,7 @@ public class Planet : MouseInteractable, IOrbitable
     {
         if (Application.isPlaying)
         {
+            
             PlanetID = IDCount;//set id
             IDCount++;//increase id count
             _strengthDisplay = Instantiate(ParamManager.Instance.StrengthDisplayPrefab);//create strength display
@@ -72,6 +73,8 @@ public class Planet : MouseInteractable, IOrbitable
             SetPlanetParametersBySize();
             SetMask();
             RandomizeAnimation();
+            if (hiveType == HiveController.Hive.Enemy && FindObjectOfType<TutorialManager>())
+                this.enabled = false;
         }
     }
 

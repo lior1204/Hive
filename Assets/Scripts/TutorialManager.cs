@@ -48,7 +48,7 @@ public class TutorialManager : MonoBehaviour
     private void Start()
     {
         DisablePanels();
-        DisablePlanets();
+        //DisablePlanets();
         SetCamera();
         tutorialCoroutine = StartCoroutine(TutorialSequence());
     }
@@ -66,9 +66,10 @@ public class TutorialManager : MonoBehaviour
     }
     private void DisablePlanets()
     {
-        planets[5].enabled = false;
-        planets[9].enabled = false;
-        planets[11].enabled = false;
+        Debug.Log("Disable Enemies");
+        //planets[5].enabled = false;
+        //planets[9].enabled = false;
+        //planets[11].enabled = false;
     }
     IEnumerator TutorialSequence()
     {
