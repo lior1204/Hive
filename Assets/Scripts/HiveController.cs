@@ -37,7 +37,7 @@ public class HiveController : MonoBehaviour
 
     [SerializeField] private Hive hiveType=Hive.Player;
 
-    PlayerInput player=null;
+    PlayerController player=null;
 
     private void Awake()
     {
@@ -66,7 +66,7 @@ public class HiveController : MonoBehaviour
     private void Start()
     {
         if (hiveType == Hive.Player)
-            player = FindObjectOfType<PlayerInput>();
+            player = FindObjectOfType<PlayerController>();
     }
     //actions
     public void CapturePlanet(Planet attacker, Planet captured)//crate new capture link between 2 planets

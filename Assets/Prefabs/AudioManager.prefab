@@ -44,6 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe94e9e225bd5fd4f8f8eaaa27dc98e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerConnectClip: {fileID: 0}
+  playerCaptureClip: {fileID: 0}
+  enemyConnectClip: {fileID: 0}
+  enemyCaptureClip: {fileID: 0}
 --- !u!82 &6113272018721489924
 AudioSource:
   m_ObjectHideFlags: 0
@@ -54,7 +58,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: d904c114e6dc8d34caf4552a4069638b, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 0.048
   m_Pitch: 1

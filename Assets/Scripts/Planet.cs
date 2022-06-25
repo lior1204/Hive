@@ -394,6 +394,16 @@ public class Planet : MouseInteractable, IOrbitable
         }
     }
 
+    private void OnDisable()
+    {
+        if(_strengthDisplay)
+        _strengthDisplay.gameObject.SetActive(false);
+    }
+    private void OnEnable()
+    {
+        if(_strengthDisplay)
+        _strengthDisplay.gameObject.SetActive(true);
+    }
 
     //checks
     public bool IsCapturable(Planet captured)//check if target within capture range, not immune and of another hive

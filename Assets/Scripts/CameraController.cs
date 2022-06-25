@@ -42,7 +42,8 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float starsSpeed = 0.2f;
     [SerializeField] private Vector2 starsParallaxSpeed = new Vector2(0.1f, 0.1f);
 
-
+    //state
+    public bool isCameraMovementDisabled = false;
     private void Start()
     {
         cam = Camera.main;
@@ -76,7 +77,7 @@ public class CameraController : MonoBehaviour
 
     public void OnZoom(InputAction.CallbackContext context)//zoom in and out
     {
-        if (!GameManager.Instance.IsPaused)//check if game is playing
+        if (!GameManager.Instance.IsPaused&&!isCameraMovementDisabled)//check if game is playing
         {
             if (context.ReadValue<float>() > 0)//zoom in
             {
@@ -112,7 +113,7 @@ public class CameraController : MonoBehaviour
 
     private void PanCamera()//id panning move camera equal to delta from starting pan
     {
-        if (isPanPressed)
+        if (isPanPressed&&!isCameraMovementDisabled)
         {
             Vector3 deltaMousePosition = mouseOrigin - (Vector2)cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());//caculate delta
             MoveCamera(deltaMousePosition);
@@ -120,7 +121,7 @@ public class CameraController : MonoBehaviour
     }
     private void AutoMoveCamera()//auto move the camera when the mouse is by the edge of the screen
     {
-        if (!isPanPressed)
+        if (!isPanPressed&&!isCameraMovementDisabled)
         {
             Vector2 mouseScreenPosition = cam.ScreenToViewportPoint(Mouse.current.position.ReadValue());//mouse position on screen
             Vector3 camDelta = Vector3.zero;//delta movment based on what edge
