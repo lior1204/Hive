@@ -326,8 +326,13 @@ public class Planet : MouseInteractable, IOrbitable
         if (HiveRef)//check if in hive
         {
             HiveRef.AddPlanet(this);
+            //play capture sound effect
+            if (HiveType == HiveController.Hive.Player)
+                AudioManager.Instance.OnPlayerCapture();
+            else if (HiveType == HiveController.Hive.Enemy)
+                AudioManager.Instance.OnEnemyCapture();
+
         }
-        //TODO remove being clicked
         captureImunity = ParamManager.Instance.CaptureImunityTime;
         UpdateColorAndHighlight();
         SetMask();

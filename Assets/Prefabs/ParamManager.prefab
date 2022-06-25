@@ -24,7 +24,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 807212788361728676}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -64,8 +64,13 @@ MonoBehaviour:
   mainMenuSceneName: MainMenu
   planetReversseAnimationBool: isReverse
   highlightEnableBool: isHighlight
-  _strengthDisplayPrefab: {fileID: 2453109628788081193, guid: 006626a6175674e4c8c0f6b5f58cda84,
+  winText: Assimilation Comlete
+  looseText: Assimilation Failed
+  strengthDisplayPrefab: {fileID: 2453109628788081193, guid: 006626a6175674e4c8c0f6b5f58cda84,
     type: 3}
+  linkActiveMaterial: {fileID: 2100000, guid: e79deda27b432a24eb87f14f966190ec, type: 2}
+  linkInactiveMaterial: {fileID: 2100000, guid: d083492711c49454499cc76e13890cd3,
+    type: 2}
   playerColor: {r: 0.44896674, g: 0.6603774, b: 0.44544324, a: 1}
   enemyColor: {r: 0.8962264, g: 0.34242615, b: 0.4004434, a: 1}
   neutralColor: {r: 0.4245283, g: 0.4245283, b: 0.4245283, a: 1}

@@ -76,9 +76,11 @@ public class EnemyController : MonoBehaviour
         {
             case ActionProfile.ActionType.Capture:
                 HiveController.Enemy.CapturePlanet(action.origin, action.target);
+                AudioManager.Instance.OnEnemyConnect();
                 break;
             case ActionProfile.ActionType.Reinforce:
                 HiveController.Enemy.ReinforcePlanet(action.origin, action.target);
+                AudioManager.Instance.OnEnemyConnect();
                 break;
             case ActionProfile.ActionType.DisconnectCapture:
             case ActionProfile.ActionType.DisconnectReinforcement:
