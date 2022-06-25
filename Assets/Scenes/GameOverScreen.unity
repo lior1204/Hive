@@ -2980,7 +2980,7 @@ MonoBehaviour:
   pauseMenu: {fileID: 0}
   advantageProgressBar: {fileID: 1447971445}
   timer: {fileID: 0}
-  winPanel: {fileID: 0}
+  winPanel: {fileID: 1361009629}
 --- !u!4 &1758404806
 Transform:
   m_ObjectHideFlags: 0
