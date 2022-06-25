@@ -36,11 +36,6 @@ public class AudioManager : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
         _audioSource.Play();
     }
-
-    private void Start()
-    {
-        Invoke("OnPlayerConnect",5);
-    }
     public void OnPlayerConnect()
     {
         if(playerConnectClip)
