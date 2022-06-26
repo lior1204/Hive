@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
             {
                 Instance.gameTime = this.gameTime;
                 Instance.endGameTimer = this.gameTime;
-                Destroy(this);
+                Destroy(this.gameObject);
             }
         }
         else

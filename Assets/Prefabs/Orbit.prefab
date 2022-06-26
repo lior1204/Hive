@@ -73,30 +73,30 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: -0.17, y: 5.88, z: 0}
-  - {x: 1.1240953, y: 5.709629, z: 0}
-  - {x: 2.33, y: 5.210127, z: 0}
-  - {x: 3.3655338, y: 4.415534, z: 0}
-  - {x: 4.160127, y: 3.3799996, z: 0}
-  - {x: 4.659629, y: 2.1740954, z: 0}
-  - {x: 4.83, y: 0.87999976, z: 0}
-  - {x: 4.659629, y: -0.41409528, z: 0}
-  - {x: 4.1601267, y: -1.6200002, z: 0}
-  - {x: 3.3655338, y: -2.6555338, z: 0}
-  - {x: 2.3300002, y: -3.4501266, z: 0}
-  - {x: 1.1240946, y: -3.9496293, z: 0}
-  - {x: -0.17000043, y: -4.12, z: 0}
-  - {x: -1.4640965, y: -3.9496288, z: 0}
-  - {x: -2.6699998, y: -3.4501266, z: 0}
-  - {x: -3.7055345, y: -2.6555333, z: 0}
-  - {x: -4.5001273, y: -1.6199995, z: 0}
-  - {x: -4.9996295, y: -0.41409492, z: 0}
-  - {x: -5.17, y: 0.88000005, z: 0}
-  - {x: -4.9996285, y: 2.1740973, z: 0}
-  - {x: -4.5001273, y: 3.3799996, z: 0}
-  - {x: -3.7055328, y: 4.415535, z: 0}
-  - {x: -2.669999, y: 5.210128, z: 0}
-  - {x: -1.4640942, y: 5.7096295, z: 0}
+  - {x: -0.17, y: 5.38, z: 0}
+  - {x: 0.9946857, y: 5.2266665, z: 0}
+  - {x: 2.08, y: 4.7771144, z: 0}
+  - {x: 3.0119803, y: 4.0619802, z: 0}
+  - {x: 3.7271144, y: 3.1299996, z: 0}
+  - {x: 4.1766663, y: 2.0446858, z: 0}
+  - {x: 4.33, y: 0.8799998, z: 0}
+  - {x: 4.1766663, y: -0.28468573, z: 0}
+  - {x: 3.7271142, y: -1.3700002, z: 0}
+  - {x: 3.0119803, y: -2.3019805, z: 0}
+  - {x: 2.0800002, y: -3.0171142, z: 0}
+  - {x: 0.9946851, y: -3.4666662, z: 0}
+  - {x: -0.17000039, y: -3.62, z: 0}
+  - {x: -1.3346869, y: -3.4666657, z: 0}
+  - {x: -2.4199998, y: -3.0171142, z: 0}
+  - {x: -3.3519812, y: -2.30198, z: 0}
+  - {x: -4.0671144, y: -1.3699995, z: 0}
+  - {x: -4.5166664, y: -0.2846855, z: 0}
+  - {x: -4.67, y: 0.88000005, z: 0}
+  - {x: -4.5166655, y: 2.0446877, z: 0}
+  - {x: -4.0671144, y: 3.1299996, z: 0}
+  - {x: -3.3519795, y: 4.0619817, z: 0}
+  - {x: -2.4199991, y: 4.777115, z: 0}
+  - {x: -1.3346847, y: 5.2266665, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -176,8 +176,8 @@ MonoBehaviour:
   _lineRenderer: {fileID: 2738706382663273321}
   orbitingObject: {fileID: 3580408730189242857}
   elipse:
-    xAxis: 5
-    yAxis: 5
+    xAxis: 4.5
+    yAxis: 4.5
   isActive: 1
   startingPosition: 0.19
   resolution: 24
@@ -188,6 +188,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 39488832823637081}
     m_Modifications:
+    - target: {fileID: 466661088, guid: 6d427bdb64eb93541acbb2a408b780ac, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 7.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 466661088, guid: 6d427bdb64eb93541acbb2a408b780ac, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 7.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 466661088, guid: 6d427bdb64eb93541acbb2a408b780ac, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 466661090, guid: 6d427bdb64eb93541acbb2a408b780ac, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2127881686000975985, guid: 6d427bdb64eb93541acbb2a408b780ac,
         type: 3}
       propertyPath: m_RootOrder
@@ -196,12 +212,12 @@ PrefabInstance:
     - target: {fileID: 2127881686000975985, guid: 6d427bdb64eb93541acbb2a408b780ac,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.6488824
+      value: 4.1839943
       objectReference: {fileID: 0}
     - target: {fileID: 2127881686000975985, guid: 6d427bdb64eb93541acbb2a408b780ac,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.8406227
+      value: 1.6565604
       objectReference: {fileID: 0}
     - target: {fileID: 2127881686000975985, guid: 6d427bdb64eb93541acbb2a408b780ac,
         type: 3}
@@ -243,15 +259,35 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2127881686000975986, guid: 6d427bdb64eb93541acbb2a408b780ac,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.4245283
+      objectReference: {fileID: 0}
+    - target: {fileID: 2127881686000975986, guid: 6d427bdb64eb93541acbb2a408b780ac,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.4245283
+      objectReference: {fileID: 0}
+    - target: {fileID: 2127881686000975986, guid: 6d427bdb64eb93541acbb2a408b780ac,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.4245283
+      objectReference: {fileID: 0}
     - target: {fileID: 2127881686000975987, guid: 6d427bdb64eb93541acbb2a408b780ac,
         type: 3}
       propertyPath: hiveType
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2127881686000975987, guid: 6d427bdb64eb93541acbb2a408b780ac,
+        type: 3}
+      propertyPath: planetSize
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2127881686000975987, guid: 6d427bdb64eb93541acbb2a408b780ac,
         type: 3}
       propertyPath: startingStrength
-      value: 25
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2127881686000975996, guid: 6d427bdb64eb93541acbb2a408b780ac,
         type: 3}
