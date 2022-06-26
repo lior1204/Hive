@@ -58,6 +58,7 @@ public class Planet : MouseInteractable, IOrbitable
     {
         if (Application.isPlaying)
         {
+            
             PlanetID = IDCount;//set id
             IDCount++;//increase id count
             _strengthDisplay = Instantiate(ParamManager.Instance.StrengthDisplayPrefab);//create strength display
@@ -72,6 +73,8 @@ public class Planet : MouseInteractable, IOrbitable
             SetPlanetParametersBySize();
             SetMask();
             RandomizeAnimation();
+            if (hiveType == HiveController.Hive.Enemy && FindObjectOfType<TutorialManager>())
+                this.enabled = false;
         }
     }
 
@@ -111,17 +114,23 @@ public class Planet : MouseInteractable, IOrbitable
         this.orbitCycleTime = sizeParams.orbitCycleTime;
         captureRange = sizeParams.captureRange;
         visibilityRange = sizeParams.visibilityRange;
-        if (transform.parent&&transform.parent.CompareTag(ParamManager.Instance.ORBITTAG))
+        ReSize(sizeParams);
+    }
+
+    private void ReSize(ParamManager.PlanetSizeParameters sizeParams)
+    {
+        if (transform.parent && transform.parent.CompareTag(ParamManager.Instance.ORBITTAG))
         {
             transform.parent.GetComponent<OrbitalMovement>().SetCycleTime();
         }
-        Transform child = GetComponentsInChildren<Transform>().FirstOrDefault(kid => kid != this.transform);
+        //Transform child = GetComponentsInChildren<Transform>().FirstOrDefault(kid => kid != this.transform);
         if (transform.parent && transform.parent.parent)
         {
-            transform.parent.localScale =Vector2.one/ transform.parent.parent.localScale.x;
+            transform.parent.localScale = Vector2.one / transform.parent.parent.localScale.x;
         }
         transform.localScale = Vector2.one * sizeParams.planetScale;
     }
+
     private void SetMask()//set mask visibility and size
     {
         if (_fogMask)
@@ -130,7 +139,7 @@ public class Planet : MouseInteractable, IOrbitable
                 _fogMask.enabled = true;
             else
                 _fogMask.enabled = false;
-            _fogMask.transform.localScale = new Vector3(visibilityRange, visibilityRange, 1);
+            _fogMask.transform.localScale = new Vector3(visibilityRange, visibilityRange, 1)/transform.localScale.x;
         }
     }
     private void UpdateStrengthDisplay()// update text and pin to planet
@@ -394,6 +403,16 @@ public class Planet : MouseInteractable, IOrbitable
         }
     }
 
+    private void OnDisable()
+    {
+        if(_strengthDisplay)
+        _strengthDisplay.gameObject.SetActive(false);
+    }
+    private void OnEnable()
+    {
+        if(_strengthDisplay)
+        _strengthDisplay.gameObject.SetActive(true);
+    }
 
     //checks
     public bool IsCapturable(Planet captured)//check if target within capture range, not immune and of another hive

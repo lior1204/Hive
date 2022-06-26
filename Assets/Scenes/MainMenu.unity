@@ -346,16 +346,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
-    - target: {fileID: 6113272018721489924, guid: 25f9554b15973ef4ab0d42a2ac305a0d,
-        type: 3}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6113272018721489925, guid: 25f9554b15973ef4ab0d42a2ac305a0d,
-        type: 3}
-      propertyPath: playerConnectClip
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 6113272018721489926, guid: 25f9554b15973ef4ab0d42a2ac305a0d,
         type: 3}
       propertyPath: m_RootOrder
@@ -931,17 +921,17 @@ PrefabInstance:
     - target: {fileID: 4399615575034762977, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: Level5
+      value: Level4
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575034762979, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_Name
-      value: Level5Button
+      value: Level4Button
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_text
-      value: Level5
+      value: Level4
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
@@ -1106,17 +1096,17 @@ PrefabInstance:
     - target: {fileID: 4399615575034762977, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: Level4
+      value: Level3
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575034762979, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_Name
-      value: Level4Button
+      value: Level3Button
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_text
-      value: Level4
+      value: Level3
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
@@ -1281,17 +1271,17 @@ PrefabInstance:
     - target: {fileID: 4399615575034762977, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: Level3
+      value: Level2
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575034762979, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_Name
-      value: Level3Button
+      value: Level2Button
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_text
-      value: Level3
+      value: Level2
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
@@ -1558,17 +1548,17 @@ PrefabInstance:
     - target: {fileID: 4399615575034762977, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: Level2
+      value: Level1
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575034762979, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_Name
-      value: Level2Button
+      value: Level1Button
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_text
-      value: Level2
+      value: Level1
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
@@ -1953,27 +1943,27 @@ PrefabInstance:
     - target: {fileID: 4399615575034762977, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: Level1
+      value: LevelTutorial
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575034762979, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_Name
-      value: Level1Button
+      value: TutorialButton
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_text
-      value: Level1
+      value: Tutorial
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_fontSize
-      value: 68
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_fontSizeBase
-      value: 68
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0b65f105dfa26e4dbed2884b9814c55, type: 3}

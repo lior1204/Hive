@@ -8,7 +8,7 @@ using UnityEngine;
 public abstract class MouseInteractable:MonoBehaviour
 {
     protected bool isHovered=false;
-    protected bool isClicked=false;
+    public bool isClicked { get; protected set; } = false;
     public virtual void HoverObject()//turn on hover
     {
         isHovered = true;
