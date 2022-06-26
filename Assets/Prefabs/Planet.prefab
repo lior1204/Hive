@@ -212,10 +212,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbc5e1536bb160245ac24975254a8613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hiveType: 1
+  hiveType: 0
   isQueen: 0
-  startingStrength: 10
-  planetSize: 1
+  startingStrength: 20
+  planetSize: 0
 --- !u!95 &-8751984088759547201
 Animator:
   serializedVersion: 3
