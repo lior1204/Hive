@@ -17,11 +17,14 @@ public class GameManager : MonoBehaviour
     public int playerPlanetsCount { get; private set; }
     public int enemyPlanetsCount { get; private set; }
     public float screenRatio { get; private set; }
+
+    TutorialManager _tutorialManager;
     private void Awake()
     {
         SetSingelton();
         screenRatio = Screen.width / Screen.height;
         endGameTimer = gameTime;
+        _tutorialManager = FindObjectOfType<TutorialManager>();
     }
     private void OnLevelWasLoaded(int level)
     {
@@ -68,7 +71,7 @@ public class GameManager : MonoBehaviour
     }
     private void UpdateGameClock()//up the clock if game is running
     {
-        if (state == GameState.Playing)
+        if (state == GameState.Playing&&!_tutorialManager)
         {
             endGameTimer -= Time.deltaTime;
         }
