@@ -41,7 +41,6 @@ public abstract class Link : MouseInteractable
     void Update()
     {
         SetLineTransform();
-        //SetEdgeCollider();
         SetBoxCollider();
     }
     private void SetLineTransform()//set the widht and angle of the link
@@ -74,6 +73,7 @@ public abstract class Link : MouseInteractable
         else {
             _spriteRenderer.color = Origin.HiveRef.HiveColor;
         }
+        SetActiveMat();
     }
     private void SetActiveMat()
     {
