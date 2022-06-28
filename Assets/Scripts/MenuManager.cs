@@ -148,6 +148,7 @@ public class MenuManager : MonoBehaviour
             menusSeries.Peek().gameObject.SetActive(false);
             levelMenu.gameObject.SetActive(true);
             menusSeries.Push(levelMenu);
+            GoToLevelPage();
         }
     }
     public void OptionsMenu()//go to option menu
@@ -266,13 +267,19 @@ public class MenuManager : MonoBehaviour
         int i = 0;
         if (SceneManager.GetActiveScene().name == ParamManager.Instance.MAINMENUSCENENAME)
         {
-            Debug.Log("Main");
             if (page == 0)
             {
                 buttons[0].onClick.RemoveAllListeners();
-                buttons[0].onClick.AddListener(() => GoToLevel("LevelTutorial"));
-                buttons[0].GetComponentInChildren<TextMeshProUGUI>().text = "LevelTutorial";
-                i++;
+                buttons[0].onClick.AddListener(() => GoToLevel(ParamManager.Instance.LevelTutorialSceneName+"1"));
+                buttons[0].GetComponentInChildren<TextMeshProUGUI>().text = ParamManager.Instance.LevelTutorialSceneName + "1";
+                buttons[1].onClick.RemoveAllListeners();
+                buttons[1].onClick.AddListener(() => GoToLevel(ParamManager.Instance.LevelTutorialSceneName + "2"));
+                buttons[1].GetComponentInChildren<TextMeshProUGUI>().text = ParamManager.Instance.LevelTutorialSceneName + "2";
+                buttons[2].onClick.RemoveAllListeners();
+                buttons[2].onClick.AddListener(() => GoToLevel(ParamManager.Instance.LevelTutorialSceneName + "3"));
+                buttons[2].GetComponentInChildren<TextMeshProUGUI>().text = ParamManager.Instance.LevelTutorialSceneName + "3";
+                
+                i=3;
             }
             for (; i < 5; i++)
             {

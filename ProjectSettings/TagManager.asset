@@ -15,6 +15,7 @@ TagManager:
   - Stars
   - Orbit
   - Highlight
+  - LevelButton
   layers:
   - Default
   - TransparentFX
