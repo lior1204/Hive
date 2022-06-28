@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     public int playerPlanetsCount { get; private set; }
     public int enemyPlanetsCount { get; private set; }
     public float screenRatio { get; private set; }
-
+    public string levelName { get; private set; }
     TutorialManager _tutorialManager;
     private void Awake()
     {
@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
         screenRatio = Screen.width / Screen.height;
         endGameTimer = gameTime;
         _tutorialManager = FindObjectOfType<TutorialManager>();
+        OnLevelWasLoaded(SceneManager.GetActiveScene().buildIndex);
     }
     private void OnLevelWasLoaded(int level)
     {
@@ -40,6 +41,7 @@ public class GameManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name.Contains("Level"))
         {
             state = GameState.Playing;
+            levelName = SceneManager.GetActiveScene().name;
         }
     }
     private void SetSingelton()
@@ -88,7 +90,6 @@ public class GameManager : MonoBehaviour
             
             if (playerPlanetsCount <= 0 || enemyPlanetsCount <= 0 || IsTimeOver)//game ends if player or enemy has no planets or if time over
             {
-                Debug.Log("Player: " + playerPlanetsCount + " Enemy: " + enemyPlanetsCount);
                 state = GameState.EndScreen;
                 UpdateHiveCount();
                 SceneManager.LoadScene(ParamManager.Instance.GAMEOVERSCENENAME); 
