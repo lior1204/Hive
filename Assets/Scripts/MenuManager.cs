@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using TMPro;
-
+using System.Linq;
+using System;
 
 public class MenuManager : MonoBehaviour
 {
@@ -19,6 +20,9 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private RectTransform winPanel;
 
     private Stack<RectTransform> menusSeries = new Stack<RectTransform>();
+    
+    private int page = 0;
+    [SerializeField] [Min(0)] int maxLevelPage = 0;
     private void Start()
     {
         DisablePanels();
@@ -59,8 +63,7 @@ public class MenuManager : MonoBehaviour
     {
         if (mainMenu)
         {
-            mainMenu.gameObject.SetActive(true);
-            menusSeries.Push(mainMenu);
+            SetGaeOverMainMenu();
         }
         if (advantageProgressBar)
         {
@@ -73,6 +76,21 @@ public class MenuManager : MonoBehaviour
 ;        }
     }
 
+    private void SetGaeOverMainMenu()
+    {
+        mainMenu.gameObject.SetActive(true);
+        menusSeries.Push(mainMenu);
+        if (GameManager.Instance.playerPlanetsCount >= GameManager.Instance.enemyPlanetsCount)
+        {
+            mainMenu.GetChild(0).gameObject.SetActive(true);
+            mainMenu.GetChild(1).gameObject.SetActive(false);
+        }
+        else
+        {
+            mainMenu.GetChild(0).gameObject.SetActive(false);
+            mainMenu.GetChild(1).gameObject.SetActive(true);
+        }
+    }
 
     private void Update()
     {
@@ -147,6 +165,7 @@ public class MenuManager : MonoBehaviour
     }
     public void GoToLevel(string level)
     {
+        Debug.Log("GoTOLevel "+level);
         Scene newScene = SceneManager.GetSceneByName(level);
         if (newScene != null)
             SceneManager.LoadScene(level);
@@ -190,5 +209,91 @@ public class MenuManager : MonoBehaviour
     public void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    public void ReplayLeve()
+    {
+        Debug.Log("Replay " + GameManager.Instance.levelName);
+        if (GameManager.Instance.levelName != "")
+        {
+            
+            SceneManager.LoadScene(GameManager.Instance.levelName);
+        }
+    }
+    public void NextLevel()
+    {
+        Debug.Log("Last Level: " + GameManager.Instance.levelName);
+        if (GameManager.Instance.levelName != "")
+        {
+            try {
+                int level = Int32.Parse(GameManager.Instance.levelName.Replace("Level", ""));
+                Debug.Log("Next Play " + "Level" + (level + 1));
+                SceneManager.LoadScene("Level"+(level+1));
+            }
+            catch (FormatException)
+            {
+                Debug.LogError("No such Level");
+            }
+            
+        }
+    }
+    public void NextLevelPage()
+    {
+        if (levelMenu && levelMenu.gameObject.activeInHierarchy)
+        {
+            
+            if (page < maxLevelPage)
+            {
+                page++;
+                GoToLevelPage();
+            }
+        }
+    }    
+    public void BackLevelPage()
+    {
+        if (levelMenu && levelMenu.gameObject.activeInHierarchy)
+        {
+            
+            if (page > 0)
+            {
+                page--;
+                GoToLevelPage();
+            }
+        }
+    }
+    private void GoToLevelPage()
+    {
+        List<Button> buttons = levelMenu.GetComponentsInChildren<Button>().Where(b => b.GetComponentInChildren<TextMeshProUGUI>()).OrderByDescending(b => b.transform.position.y).ThenBy(b => b.transform.position.x).ToList();
+        int i = 0;
+        if (SceneManager.GetActiveScene().name == ParamManager.Instance.MAINMENUSCENENAME)
+        {
+            Debug.Log("Main");
+            if (page == 0)
+            {
+                buttons[0].onClick.RemoveAllListeners();
+                buttons[0].onClick.AddListener(() => GoToLevel("LevelTutorial"));
+                buttons[0].GetComponentInChildren<TextMeshProUGUI>().text = "LevelTutorial";
+                i++;
+            }
+            for (; i < 5; i++)
+            {
+                buttons[i].onClick.RemoveAllListeners();
+                buttons[i].onClick.AddListener(() => GoToLevel("Level" + (page * 5 + i)));
+                buttons[i].GetComponentInChildren<TextMeshProUGUI>().text = "Level" + (page * 5 + i);
+            }
+        }
+
+        else
+        {
+            for (; i < 5; i++)
+            {
+                
+                int levNum = ((page * 5) + i + 1);
+                Debug.Log("Button: " +levNum);
+                buttons[i].onClick.RemoveAllListeners();
+                buttons[i].onClick.AddListener(() => GoToLevel("Level" + levNum));
+                buttons[i].GetComponentInChildren<TextMeshProUGUI>().text = "Level" + levNum;
+            }
+        }
+
     }
 }
