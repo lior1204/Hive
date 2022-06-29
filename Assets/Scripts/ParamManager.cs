@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using UnityEngine.UI;
 public class ParamManager : MonoBehaviour
 {
     public static ParamManager Instance;//singelton
@@ -87,8 +88,13 @@ public class ParamManager : MonoBehaviour
     [Header("Materials")]
     [SerializeField] private Material linkActiveMaterial;
     public Material LinkActiveMaterial { get { return linkActiveMaterial; } }
-     [SerializeField] private Material linkInactiveMaterial;
+    [SerializeField] private Material linkInactiveMaterial;
     public Material LinkInactiveMaterial { get { return linkInactiveMaterial; } }
+    [Header("Images")]
+    [SerializeField] private Sprite pauseButtonSprite;
+    public Sprite PauseButtonSprite { get { return pauseButtonSprite; } }
+    [SerializeField] private Sprite unpauseButtonSprite;
+    public Sprite UnpauseButtonSprite { get { return unpauseButtonSprite; } }
 
     [Space(3)]
     [Header ("Global Parameters")]

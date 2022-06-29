@@ -18,6 +18,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private RectTransform advantageBar;
     [SerializeField] private TextMeshProUGUI timer;
     [SerializeField] private RectTransform titlePanel;
+    [SerializeField] private Button pauseButton;
 
     private Stack<RectTransform> menusSeries = new Stack<RectTransform>();
     
@@ -58,6 +59,8 @@ public class MenuManager : MonoBehaviour
             mainMenu.gameObject.SetActive(true);
             menusSeries.Push(mainMenu);
         }
+        if (titlePanel)
+            titlePanel.gameObject.SetActive(true);
     }
     private void SetGameOverScreen()
     {
@@ -200,6 +203,8 @@ public class MenuManager : MonoBehaviour
                     pauseMenu.gameObject.SetActive(true);
                     menusSeries.Push(pauseMenu);
                 }
+                if (pauseButton)
+                    pauseButton.image.sprite = ParamManager.Instance.UnpauseButtonSprite;
             }
             else
             {
@@ -207,6 +212,8 @@ public class MenuManager : MonoBehaviour
                 if (menusSeries.Count > 0)
                     menusSeries.Peek().gameObject.SetActive(false);
                 menusSeries.Clear();
+                if (pauseButton)
+                    pauseButton.image.sprite = ParamManager.Instance.PauseButtonSprite;
             }
         }
     }
@@ -244,7 +251,6 @@ public class MenuManager : MonoBehaviour
     {
         if (levelMenu && levelMenu.gameObject.activeInHierarchy)
         {
-            
             if (page < maxLevelPage)
             {
                 page++;
@@ -256,7 +262,6 @@ public class MenuManager : MonoBehaviour
     {
         if (levelMenu && levelMenu.gameObject.activeInHierarchy)
         {
-            
             if (page > 0)
             {
                 page--;
@@ -296,7 +301,6 @@ public class MenuManager : MonoBehaviour
         {
             for (; i < buttons.Count; i++)
             {
-                
                 int levelNum = ((page * buttons.Count) + i + 1);
                 buttons[i].onClick.RemoveAllListeners();
                 buttons[i].onClick.AddListener(() => GoToLevel(ParamManager.Instance.LEVELSCENENAME + levelNum));
