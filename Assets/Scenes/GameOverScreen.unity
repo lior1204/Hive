@@ -4772,9 +4772,9 @@ MonoBehaviour:
   levelMenu: {fileID: 872040391}
   optionslMenu: {fileID: 2124146695}
   pauseMenu: {fileID: 0}
-  advantageProgressBar: {fileID: 1447971445}
+  advantageBar: {fileID: 814456015}
   timer: {fileID: 0}
-  winPanel: {fileID: 1361009629}
+  titlePanel: {fileID: 0}
   maxLevelPage: 0
 --- !u!4 &1758404806
 Transform:

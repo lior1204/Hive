@@ -11,13 +11,21 @@ using System;
 public class MenuManager : MonoBehaviour
 {
     //references
+    [Header("Menus")]
     [SerializeField] private RectTransform mainMenu;
     [SerializeField] private RectTransform levelMenu;
     [SerializeField] private RectTransform optionslMenu;
     [SerializeField] private RectTransform pauseMenu;
-    [SerializeField] private RectTransform advantageProgressBar;
+    [Header("Options")]
+    [SerializeField] private RectTransform volumePanel;
+    [SerializeField] private RectTransform colorsPanel;
+    [SerializeField] private RectTransform controlsPanel;
+    [Header("Components")]
+    [SerializeField] private RectTransform advantageBar;
     [SerializeField] private TextMeshProUGUI timer;
-    [SerializeField] private RectTransform winPanel;
+    [SerializeField] private RectTransform titlePanel;
+    [SerializeField] private Button pauseButton;
+
 
     private Stack<RectTransform> menusSeries = new Stack<RectTransform>();
     
@@ -46,8 +54,8 @@ public class MenuManager : MonoBehaviour
             optionslMenu.gameObject.SetActive(false);
          if (pauseMenu)
             pauseMenu.gameObject.SetActive(false);
-         if (winPanel)
-            winPanel.gameObject.SetActive(false);
+         if (titlePanel)
+            titlePanel.gameObject.SetActive(false);
 
     }
 
@@ -58,6 +66,8 @@ public class MenuManager : MonoBehaviour
             mainMenu.gameObject.SetActive(true);
             menusSeries.Push(mainMenu);
         }
+        if (titlePanel)
+            titlePanel.gameObject.SetActive(true);
     }
     private void SetGameOverScreen()
     {
@@ -65,14 +75,14 @@ public class MenuManager : MonoBehaviour
         {
             SetGaeOverMainMenu();
         }
-        if (advantageProgressBar)
+        if (advantageBar)
         {
             DrawAdvantageBar();
         }
-        if (winPanel)
+        if (titlePanel)
         {
-            winPanel.gameObject.SetActive(true);
-            SetGaemeEndText(winPanel.GetComponentInChildren<TextMeshProUGUI>())
+            titlePanel.gameObject.SetActive(true);
+            SetGaemeEndText(titlePanel.GetComponentInChildren<TextMeshProUGUI>())
 ;        }
     }
 
@@ -104,7 +114,7 @@ public class MenuManager : MonoBehaviour
     private void DrawAdvantageBar()//change the scale of the progress
     {
 
-        Vector3 newScale = advantageProgressBar.localScale;
+        Vector3 newScale = advantageBar.GetChild(0).localScale;
         if (GameManager.Instance.enemyPlanetsCount <= 0)//if enemy is zero dont devide by 0
         {
             newScale.x = 1;
@@ -114,7 +124,7 @@ public class MenuManager : MonoBehaviour
             //scale is playercount divided by sum of player and enemy count
             newScale.x = (float)GameManager.Instance.playerPlanetsCount /(GameManager.Instance.playerPlanetsCount+ GameManager.Instance.enemyPlanetsCount);
         }
-        advantageProgressBar.localScale = newScale;
+        advantageBar.GetChild(0).localScale = newScale;
     }
 
     private void DrawTimer()//update the timer text
@@ -145,6 +155,7 @@ public class MenuManager : MonoBehaviour
     {
         if (levelMenu)
         {
+            HideTitle();
             menusSeries.Peek().gameObject.SetActive(false);
             levelMenu.gameObject.SetActive(true);
             menusSeries.Push(levelMenu);
@@ -155,9 +166,11 @@ public class MenuManager : MonoBehaviour
     {
         if (optionslMenu)
         {
+            HideTitle();
             menusSeries.Peek().gameObject.SetActive(false);
             optionslMenu.gameObject.SetActive(true);
             menusSeries.Push(optionslMenu);
+            ControlsOptions();
         }
     }
     public void QuitGame()//exit game
@@ -175,14 +188,12 @@ public class MenuManager : MonoBehaviour
     {
         if (menusSeries.Count > 1)
         {
+            UnHideTitle();
             menusSeries.Pop().gameObject.SetActive(false);
             menusSeries.Peek().gameObject.SetActive(true);
         }
     }
-    public void CahngeVolume()
-    {
-
-    }
+    
     public void PauseGame()
     {
         if (SceneManager.GetActiveScene().name.Contains(ParamManager.Instance.LEVELSCENENAME))
@@ -197,6 +208,8 @@ public class MenuManager : MonoBehaviour
                     pauseMenu.gameObject.SetActive(true);
                     menusSeries.Push(pauseMenu);
                 }
+                if (pauseButton)
+                    pauseButton.image.sprite = ParamManager.Instance.UnpauseButtonSprite;
             }
             else
             {
@@ -204,6 +217,8 @@ public class MenuManager : MonoBehaviour
                 if (menusSeries.Count > 0)
                     menusSeries.Peek().gameObject.SetActive(false);
                 menusSeries.Clear();
+                if (pauseButton)
+                    pauseButton.image.sprite = ParamManager.Instance.PauseButtonSprite;
             }
         }
     }
@@ -241,7 +256,6 @@ public class MenuManager : MonoBehaviour
     {
         if (levelMenu && levelMenu.gameObject.activeInHierarchy)
         {
-            
             if (page < maxLevelPage)
             {
                 page++;
@@ -253,12 +267,70 @@ public class MenuManager : MonoBehaviour
     {
         if (levelMenu && levelMenu.gameObject.activeInHierarchy)
         {
-            
             if (page > 0)
             {
                 page--;
                 GoToLevelPage();
             }
+        }
+    }
+    public void ColorOptions()
+    {
+        if (menusSeries.Peek() == optionslMenu)
+        {
+            DisableAllOptions();
+            if (colorsPanel)
+                colorsPanel.gameObject.SetActive(true);
+        }
+    }
+    public void VolumeOptions()
+    {
+        if (menusSeries.Peek() == optionslMenu)
+        {
+            DisableAllOptions();
+            if (volumePanel)
+                volumePanel.gameObject.SetActive(true);
+        }
+    }
+    public void ControlsOptions()
+    {
+        if (menusSeries.Peek() == optionslMenu)
+        {
+            DisableAllOptions();
+            if (controlsPanel)
+                controlsPanel.gameObject.SetActive(true);
+        }
+    }
+    public void CahngeVolume(float value)
+    {
+
+    }
+    public void ChangePlayerColor(float value)
+    {
+        //float h = value * 360;
+        //Color newColor 
+        //ParamManager.Instance.PlayerColor = ParamManager.Instance.PlayerColor
+    }
+    public void ChangeEnemyColor(float value)
+    {
+
+    }
+    public void ChangeNeutralColor(float value)
+    {
+
+    }
+
+
+    private void DisableAllOptions()
+    {
+        if (menusSeries.Peek() == optionslMenu)
+        {
+            if (colorsPanel)
+                colorsPanel.gameObject.SetActive(false);
+            if (volumePanel)
+                volumePanel.gameObject.SetActive(false);
+            if (controlsPanel)
+                controlsPanel.gameObject.SetActive(false);
         }
     }
     private void GoToLevelPage()
@@ -293,7 +365,6 @@ public class MenuManager : MonoBehaviour
         {
             for (; i < buttons.Count; i++)
             {
-                
                 int levelNum = ((page * buttons.Count) + i + 1);
                 buttons[i].onClick.RemoveAllListeners();
                 buttons[i].onClick.AddListener(() => GoToLevel(ParamManager.Instance.LEVELSCENENAME + levelNum));
@@ -301,5 +372,30 @@ public class MenuManager : MonoBehaviour
             }
         }
 
+    }
+    private void HideTitle()
+    {
+        if (SceneManager.GetActiveScene().name == ParamManager.Instance.MAINMENUSCENENAME ||
+                SceneManager.GetActiveScene().name == ParamManager.Instance.GAMEOVERSCENENAME)
+        {
+            if (titlePanel)
+                titlePanel.gameObject.SetActive(false);
+            if (advantageBar)
+                advantageBar.gameObject.SetActive(false);
+        }
+    }
+    private void UnHideTitle()
+    {
+        if (SceneManager.GetActiveScene().name == ParamManager.Instance.MAINMENUSCENENAME ||
+                SceneManager.GetActiveScene().name == ParamManager.Instance.GAMEOVERSCENENAME)
+        {
+            if (menusSeries.Peek() == levelMenu || menusSeries.Peek() == optionslMenu)
+            {
+                if (titlePanel)
+                    titlePanel.gameObject.SetActive(true);
+                if (advantageBar)
+                    advantageBar.gameObject.SetActive(true);
+            }
+        }
     }
 }

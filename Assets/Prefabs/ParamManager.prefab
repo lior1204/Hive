@@ -58,8 +58,9 @@ MonoBehaviour:
   hihghlightTag: Highlight
   borderTopLeft: Border_Top_Left
   borderBottomRight: Border_Bottom_Right
+  levelButtonTag: LevelButton
   levelSceneName: Level
-  level01SceneName: Level1
+  levelTutorialSceneName: LevelTutorial
   gameOverSceneName: GameOverScreen
   mainMenuSceneName: MainMenu
   planetReversseAnimationBool: isReverse
@@ -71,6 +72,9 @@ MonoBehaviour:
   linkActiveMaterial: {fileID: 2100000, guid: e79deda27b432a24eb87f14f966190ec, type: 2}
   linkInactiveMaterial: {fileID: 2100000, guid: d083492711c49454499cc76e13890cd3,
     type: 2}
+  pauseButtonSprite: {fileID: 21300000, guid: 4f23d692c2e38ff47b9632ee1a79e5ec, type: 3}
+  unpauseButtonSprite: {fileID: 21300000, guid: 467808a450f950147aa9965ece1a3aed,
+    type: 3}
   playerColor: {r: 0.44896674, g: 0.6603774, b: 0.44544324, a: 1}
   enemyColor: {r: 0.8962264, g: 0.34242615, b: 0.4004434, a: 1}
   neutralColor: {r: 0.4245283, g: 0.4245283, b: 0.4245283, a: 1}
@@ -88,21 +92,21 @@ MonoBehaviour:
   - size: 0
     strengthIncome: 1.5
     maxActiveLinks: 2
-    orbitCycleTime: 17.2
+    orbitCycleTime: 15.2
     captureRange: 4.5
     visibilityRange: 4.5
     planetScale: 0.5
   - size: 1
     strengthIncome: 2
     maxActiveLinks: 3
-    orbitCycleTime: 23.5
+    orbitCycleTime: 20.6
     captureRange: 6
     visibilityRange: 6
     planetScale: 0.8
   - size: 2
     strengthIncome: 2.5
     maxActiveLinks: 4
-    orbitCycleTime: 29.7
+    orbitCycleTime: 27.36
     captureRange: 7.5
     visibilityRange: 7.5
     planetScale: 1.2
