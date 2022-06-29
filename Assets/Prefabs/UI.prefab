@@ -282,8 +282,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3327160290609227555}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.7604134, y: -1.4678594, z: 12.489343}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8310549405705869261}
@@ -305,9 +305,9 @@ MonoBehaviour:
   levelMenu: {fileID: 3327160291954136990}
   optionslMenu: {fileID: 3327160291926263587}
   pauseMenu: {fileID: 3327160291733241943}
-  advantageProgressBar: {fileID: 3327160291068401079}
+  advantageBar: {fileID: 3327160292204103117}
   timer: {fileID: 3327160290756686463}
-  winPanel: {fileID: 0}
+  titlePanel: {fileID: 0}
   maxLevelPage: 1
 --- !u!1 &3327160290674145452
 GameObject:

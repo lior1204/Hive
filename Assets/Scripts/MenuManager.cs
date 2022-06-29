@@ -15,9 +15,9 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private RectTransform levelMenu;
     [SerializeField] private RectTransform optionslMenu;
     [SerializeField] private RectTransform pauseMenu;
-    [SerializeField] private RectTransform advantageProgressBar;
+    [SerializeField] private RectTransform advantageBar;
     [SerializeField] private TextMeshProUGUI timer;
-    [SerializeField] private RectTransform winPanel;
+    [SerializeField] private RectTransform titlePanel;
 
     private Stack<RectTransform> menusSeries = new Stack<RectTransform>();
     
@@ -46,8 +46,8 @@ public class MenuManager : MonoBehaviour
             optionslMenu.gameObject.SetActive(false);
          if (pauseMenu)
             pauseMenu.gameObject.SetActive(false);
-         if (winPanel)
-            winPanel.gameObject.SetActive(false);
+         if (titlePanel)
+            titlePanel.gameObject.SetActive(false);
 
     }
 
@@ -65,14 +65,14 @@ public class MenuManager : MonoBehaviour
         {
             SetGaeOverMainMenu();
         }
-        if (advantageProgressBar)
+        if (advantageBar)
         {
             DrawAdvantageBar();
         }
-        if (winPanel)
+        if (titlePanel)
         {
-            winPanel.gameObject.SetActive(true);
-            SetGaemeEndText(winPanel.GetComponentInChildren<TextMeshProUGUI>())
+            titlePanel.gameObject.SetActive(true);
+            SetGaemeEndText(titlePanel.GetComponentInChildren<TextMeshProUGUI>())
 ;        }
     }
 
@@ -104,7 +104,7 @@ public class MenuManager : MonoBehaviour
     private void DrawAdvantageBar()//change the scale of the progress
     {
 
-        Vector3 newScale = advantageProgressBar.localScale;
+        Vector3 newScale = advantageBar.GetChild(0).localScale;
         if (GameManager.Instance.enemyPlanetsCount <= 0)//if enemy is zero dont devide by 0
         {
             newScale.x = 1;
@@ -114,7 +114,7 @@ public class MenuManager : MonoBehaviour
             //scale is playercount divided by sum of player and enemy count
             newScale.x = (float)GameManager.Instance.playerPlanetsCount /(GameManager.Instance.playerPlanetsCount+ GameManager.Instance.enemyPlanetsCount);
         }
-        advantageProgressBar.localScale = newScale;
+        advantageBar.GetChild(0).localScale = newScale;
     }
 
     private void DrawTimer()//update the timer text
@@ -145,6 +145,7 @@ public class MenuManager : MonoBehaviour
     {
         if (levelMenu)
         {
+            HideTitle();
             menusSeries.Peek().gameObject.SetActive(false);
             levelMenu.gameObject.SetActive(true);
             menusSeries.Push(levelMenu);
@@ -155,6 +156,7 @@ public class MenuManager : MonoBehaviour
     {
         if (optionslMenu)
         {
+            HideTitle();
             menusSeries.Peek().gameObject.SetActive(false);
             optionslMenu.gameObject.SetActive(true);
             menusSeries.Push(optionslMenu);
@@ -175,6 +177,7 @@ public class MenuManager : MonoBehaviour
     {
         if (menusSeries.Count > 1)
         {
+            UnHideTitle();
             menusSeries.Pop().gameObject.SetActive(false);
             menusSeries.Peek().gameObject.SetActive(true);
         }
@@ -301,5 +304,30 @@ public class MenuManager : MonoBehaviour
             }
         }
 
+    }
+    private void HideTitle()
+    {
+        if (SceneManager.GetActiveScene().name == ParamManager.Instance.MAINMENUSCENENAME ||
+                SceneManager.GetActiveScene().name == ParamManager.Instance.GAMEOVERSCENENAME)
+        {
+            if (titlePanel)
+                titlePanel.gameObject.SetActive(false);
+            if (advantageBar)
+                advantageBar.gameObject.SetActive(false);
+        }
+    }
+    private void UnHideTitle()
+    {
+        if (SceneManager.GetActiveScene().name == ParamManager.Instance.MAINMENUSCENENAME ||
+                SceneManager.GetActiveScene().name == ParamManager.Instance.GAMEOVERSCENENAME)
+        {
+            if (menusSeries.Peek() == levelMenu || menusSeries.Peek() == optionslMenu)
+            {
+                if (titlePanel)
+                    titlePanel.gameObject.SetActive(true);
+                if (advantageBar)
+                    advantageBar.gameObject.SetActive(true);
+            }
+        }
     }
 }
