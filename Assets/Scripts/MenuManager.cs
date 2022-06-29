@@ -280,7 +280,18 @@ public class MenuManager : MonoBehaviour
         {
             DisableAllOptions();
             if (colorsPanel)
+            {
                 colorsPanel.gameObject.SetActive(true);
+                float h;
+                float s;
+                float v;
+                Color.RGBToHSV(ParamManager.Instance.PlayerColor, out h, out s, out v);
+                colorsPanel.GetComponentsInChildren<Scrollbar>().ElementAt(0).value = h / 360;
+                Color.RGBToHSV(ParamManager.Instance.EnemyColor, out h, out s, out v);
+                colorsPanel.GetComponentsInChildren<Scrollbar>().ElementAt(1).value = h / 360;
+                Color.RGBToHSV(ParamManager.Instance.NeutralColor, out h, out s, out v);
+                colorsPanel.GetComponentsInChildren<Scrollbar>().ElementAt(2).value = h / 360;
+            }
         }
     }
     public void VolumeOptions()
@@ -307,17 +318,42 @@ public class MenuManager : MonoBehaviour
     }
     public void ChangePlayerColor(float value)
     {
-        //float h = value * 360;
-        //Color newColor 
-        //ParamManager.Instance.PlayerColor = ParamManager.Instance.PlayerColor
+        float h;
+        float s;
+        float v;
+        Color.RGBToHSV(ParamManager.Instance.PlayerColor, out h, out s, out v);
+        h = value * 360;
+        ParamManager.Instance.PlayerColor= Color.HSVToRGB(h, s, v);
+        Color.RGBToHSV(ParamManager.Instance.PlayerHighlightColor, out h, out s, out v);
+        h = value * 360;
+        ParamManager.Instance.PlayerHighlightColor = Color.HSVToRGB(h, s, v);
+        colorsPanel.GetComponentsInChildren<Image>().Where(i=>i.CompareTag(ParamManager.Instance.COLORSAMPLETAG)).ElementAt(0).color = ParamManager.Instance.PlayerColor;
     }
     public void ChangeEnemyColor(float value)
     {
-
+        float h;
+        float s;
+        float v;
+        Color.RGBToHSV(ParamManager.Instance.EnemyColor, out h, out s, out v);
+        h = value * 360;
+        ParamManager.Instance.EnemyColor = Color.HSVToRGB(h, s, v);
+        Color.RGBToHSV(ParamManager.Instance.EnemyHighlightColor, out h, out s, out v);
+        h = value * 360;
+        ParamManager.Instance.EnemyHighlightColor = Color.HSVToRGB(h, s, v);
+        colorsPanel.GetComponentsInChildren<Image>().Where(i => i.CompareTag(ParamManager.Instance.COLORSAMPLETAG)).ElementAt(1).color = ParamManager.Instance.EnemyColor;
     }
     public void ChangeNeutralColor(float value)
     {
-
+        float h;
+        float s;
+        float v;
+        Color.RGBToHSV(ParamManager.Instance.NeutralColor, out h, out s, out v);
+        h = value * 360;
+        ParamManager.Instance.NeutralColor = Color.HSVToRGB(h, s, v);
+        Color.RGBToHSV(ParamManager.Instance.NeutralHighlightColor, out h, out s, out v);
+        h = value * 360;
+        ParamManager.Instance.NeutralHighlightColor = Color.HSVToRGB(h, s, v);
+        colorsPanel.GetComponentsInChildren<Image>().Where(i => i.CompareTag(ParamManager.Instance.COLORSAMPLETAG)).ElementAt(2).color = ParamManager.Instance.NeutralColor;
     }
 
 

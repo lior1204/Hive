@@ -2187,7 +2187,7 @@ GameObject:
   - component: {fileID: 3923788300295706982}
   m_Layer: 5
   m_Name: NeutralSample
-  m_TagString: Untagged
+  m_TagString: ColorSample
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2336,7 +2336,7 @@ GameObject:
   - component: {fileID: 5545280715905854456}
   m_Layer: 5
   m_Name: EnemySample
-  m_TagString: Untagged
+  m_TagString: ColorSample
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3088,7 +3088,7 @@ GameObject:
   - component: {fileID: 4878278658148211654}
   m_Layer: 5
   m_Name: PlayerSample
-  m_TagString: Untagged
+  m_TagString: ColorSample
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
