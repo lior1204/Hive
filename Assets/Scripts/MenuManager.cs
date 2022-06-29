@@ -11,14 +11,21 @@ using System;
 public class MenuManager : MonoBehaviour
 {
     //references
+    [Header("Menus")]
     [SerializeField] private RectTransform mainMenu;
     [SerializeField] private RectTransform levelMenu;
     [SerializeField] private RectTransform optionslMenu;
     [SerializeField] private RectTransform pauseMenu;
+    [Header("Options")]
+    [SerializeField] private RectTransform volumePanel;
+    [SerializeField] private RectTransform colorsPanel;
+    [SerializeField] private RectTransform controlsPanel;
+    [Header("Components")]
     [SerializeField] private RectTransform advantageBar;
     [SerializeField] private TextMeshProUGUI timer;
     [SerializeField] private RectTransform titlePanel;
     [SerializeField] private Button pauseButton;
+
 
     private Stack<RectTransform> menusSeries = new Stack<RectTransform>();
     
@@ -163,6 +170,7 @@ public class MenuManager : MonoBehaviour
             menusSeries.Peek().gameObject.SetActive(false);
             optionslMenu.gameObject.SetActive(true);
             menusSeries.Push(optionslMenu);
+            ControlsOptions();
         }
     }
     public void QuitGame()//exit game
@@ -185,10 +193,7 @@ public class MenuManager : MonoBehaviour
             menusSeries.Peek().gameObject.SetActive(true);
         }
     }
-    public void CahngeVolume()
-    {
-
-    }
+    
     public void PauseGame()
     {
         if (SceneManager.GetActiveScene().name.Contains(ParamManager.Instance.LEVELSCENENAME))
@@ -267,6 +272,65 @@ public class MenuManager : MonoBehaviour
                 page--;
                 GoToLevelPage();
             }
+        }
+    }
+    public void ColorOptions()
+    {
+        if (menusSeries.Peek() == optionslMenu)
+        {
+            DisableAllOptions();
+            if (colorsPanel)
+                colorsPanel.gameObject.SetActive(true);
+        }
+    }
+    public void VolumeOptions()
+    {
+        if (menusSeries.Peek() == optionslMenu)
+        {
+            DisableAllOptions();
+            if (volumePanel)
+                volumePanel.gameObject.SetActive(true);
+        }
+    }
+    public void ControlsOptions()
+    {
+        if (menusSeries.Peek() == optionslMenu)
+        {
+            DisableAllOptions();
+            if (controlsPanel)
+                controlsPanel.gameObject.SetActive(true);
+        }
+    }
+    public void CahngeVolume(float value)
+    {
+
+    }
+    public void ChangePlayerColor(float value)
+    {
+        //float h = value * 360;
+        //Color newColor 
+        //ParamManager.Instance.PlayerColor = ParamManager.Instance.PlayerColor
+    }
+    public void ChangeEnemyColor(float value)
+    {
+
+    }
+    public void ChangeNeutralColor(float value)
+    {
+
+    }
+
+
+    private void DisableAllOptions()
+    {
+        if (menusSeries.Peek() == optionslMenu)
+        {
+            if (colorsPanel)
+                colorsPanel.gameObject.SetActive(false);
+            if (volumePanel)
+                volumePanel.gameObject.SetActive(false);
+            if (controlsPanel)
+                controlsPanel.gameObject.SetActive(false);
         }
     }
     private void GoToLevelPage()

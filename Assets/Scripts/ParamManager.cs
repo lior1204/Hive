@@ -100,22 +100,22 @@ public class ParamManager : MonoBehaviour
     [Header ("Global Parameters")]
 
     [SerializeField] private Color playerColor = new Color(0x76, 0xAD, 0x75);
-    public Color PlayerColor { get { return playerColor; } }
+    public Color PlayerColor { get { return playerColor; }set { playerColor = value; } }
 
     [SerializeField] private Color enemyColor = new Color(0xB7, 0x52, 0x5C);
-    public Color EnemyColor { get { return enemyColor; } }
+    public Color EnemyColor { get { return enemyColor; } set { enemyColor = value; } }
 
     [SerializeField] private Color neutralColor = new Color(0x44, 0x37, 0x38);
-    public Color NeutralColor { get { return neutralColor; } }
+    public Color NeutralColor { get { return neutralColor; } set { neutralColor = value; } }
 
     [SerializeField] private Color playerHighlightColor = new Color(0x76, 0xAD, 0x75);
-    public Color PlayerHighlightColor { get { return playerHighlightColor; } }
+    public Color PlayerHighlightColor { get { return playerHighlightColor; } set { playerHighlightColor = value; } }
 
     [SerializeField] private Color enemyHighlightColor = new Color(0xB7, 0x52, 0x5C);
-    public Color EnemyHighlightColor { get { return enemyHighlightColor; } }
+    public Color EnemyHighlightColor { get { return enemyHighlightColor; } set { enemyHighlightColor = value; } }
 
     [SerializeField] private Color neutralHighlightColor = new Color(0x44, 0x37, 0x38);
-    public Color NeutralHighlightColor { get { return neutralHighlightColor; } }
+    public Color NeutralHighlightColor { get { return neutralHighlightColor; } set { neutralHighlightColor = value; } }
 
     [Header ("Capture Parameters")]
     [SerializeField] private float strengthUpdateRate = 0.8f;
