@@ -114,7 +114,6 @@ public class TutorialManager : MonoBehaviour
         tutorialPanels[1].gameObject.SetActive(true);
         yield return new WaitUntil(() => planets[0].IsCapturingTarget(planets[1]));
         tutorialPanels[1].gameObject.SetActive(false);
-
     }
     //IEnumerator TutorialSequence()
     //{
