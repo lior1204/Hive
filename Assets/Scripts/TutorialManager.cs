@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class TutorialManager : MonoBehaviour
 {
@@ -48,9 +50,18 @@ public class TutorialManager : MonoBehaviour
     private void Start()
     {
         DisablePanels();
-        //DisablePlanets();
         SetCamera();
-        tutorialCoroutine = StartCoroutine(TutorialSequence());
+        if (SceneManager.GetActiveScene().name.Contains("1")){
+            DisableEnemyPlanets();
+            tutorialCoroutine = StartCoroutine(Tutorial1Sequence());
+        }
+        if (SceneManager.GetActiveScene().name.Contains("2")){
+            tutorialCoroutine = StartCoroutine(Tutorial2Sequence());
+        }
+        if (SceneManager.GetActiveScene().name.Contains("3")){
+            DisableEnemyPlanets();
+            tutorialCoroutine = StartCoroutine(Tutorial3Sequence());
+        }
     }
 
     private void SetCamera()
@@ -58,65 +69,92 @@ public class TutorialManager : MonoBehaviour
         cameraInput.isCameraMovementDisabled = true;
         camStartingPos = Camera.main.transform.position.x;
     }
-
     private void DisablePanels()
     {
         foreach (RectTransform rec in tutorialPanels)
             rec.gameObject.SetActive(false);
     }
-    private void DisablePlanets()
+    private void DisableEnemyPlanets()
     {
-        Debug.Log("Disable Enemies");
-        //planets[5].enabled = false;
-        //planets[9].enabled = false;
-        //planets[11].enabled = false;
+        foreach (Planet p in planets.Where(planet => planet.HiveType == HiveController.Hive.Enemy))
+            p.enabled = false;
     }
-    IEnumerator TutorialSequence()
+    IEnumerator Tutorial1Sequence()
     {
         tutorialPanels[0].gameObject.SetActive(true);
-        yield return new WaitForSeconds(panel1Time);
+        yield return new WaitUntil(() => planets[0].isClicked);
+        planets[1].enabled = true;
         tutorialPanels[0].gameObject.SetActive(false);
         tutorialPanels[1].gameObject.SetActive(true);
-        yield return new WaitUntil(() => isClickPlanet0);
+        yield return new WaitUntil(() => planets[0].IsCapturingTarget(planets[1]));
         tutorialPanels[1].gameObject.SetActive(false);
-        tutorialPanels[2].gameObject.SetActive(true);
-        yield return new WaitUntil(() => istAttackPlanet1);
-        tutorialPanels[2].gameObject.SetActive(false);
-        tutorialPanels[3].gameObject.SetActive(true);
-        yield return new WaitUntil(() => isPlanet1Captured); 
-        tutorialPanels[3].gameObject.SetActive(false);
-        tutorialPanels[4].gameObject.SetActive(true);
-        yield return new WaitForSeconds(panel5Time);
-        tutorialPanels[4].gameObject.SetActive(false);
-        tutorialPanels[5].gameObject.SetActive(true);
-        yield return new WaitUntil(() => isPlanet2Captured);
-        tutorialPanels[5].gameObject.SetActive(false);
-        tutorialPanels[6].gameObject.SetActive(true);
-        yield return new WaitUntil(() => isPlanet2Reinforced||isPlanet4Captured);
-        tutorialPanels[6].gameObject.SetActive(false);
-        if (isPlanet2Reinforced && !isPlanet4Captured)
-        {
-            tutorialPanels[7].gameObject.SetActive(true);
-            yield return new WaitUntil(() => isPlanet4Captured);
-        }
-        tutorialPanels[7].gameObject.SetActive(false);
-        tutorialPanels[8].gameObject.SetActive(true);
-        cameraInput.isCameraMovementDisabled = false;
-        yield return new WaitUntil(() => isMoveCamera);
-        tutorialPanels[8].gameObject.SetActive(false);
-        tutorialPanels[9].gameObject.SetActive(true);
-        planets[5].enabled = true;
-        yield return new WaitForSeconds(panel9Time);
-        tutorialPanels[9].gameObject.SetActive(false);
-        tutorialPanels[10].gameObject.SetActive(true);
-        yield return new WaitUntil(() => isPlanet5Captured);
-        tutorialPanels[10].gameObject.SetActive(false);
-        tutorialPanels[11].gameObject.SetActive(true);
-        yield return new WaitUntil(() => isPlanet678Captured);
-        planets[9].enabled = true;
-        planets[11].enabled = true;
-        tutorialPanels[11].gameObject.SetActive(false);
-        tutorialPanels[12].gameObject.SetActive(true);
     }
-    
+
+    IEnumerator Tutorial2Sequence()
+    {
+        tutorialPanels[0].gameObject.SetActive(true);
+        yield return new WaitUntil(() => planets[0].isClicked);
+        tutorialPanels[0].gameObject.SetActive(false);
+        tutorialPanels[1].gameObject.SetActive(true);
+        yield return new WaitUntil(() => planets[0].IsCapturingTarget(planets[1]));
+        tutorialPanels[1].gameObject.SetActive(false);
+    }
+    IEnumerator Tutorial3Sequence()
+    {
+        tutorialPanels[0].gameObject.SetActive(true);
+        yield return new WaitUntil(() => planets[0].isClicked);
+        planets[1].enabled = true;
+        tutorialPanels[0].gameObject.SetActive(false);
+        tutorialPanels[1].gameObject.SetActive(true);
+        yield return new WaitUntil(() => planets[0].IsCapturingTarget(planets[1]));
+        tutorialPanels[1].gameObject.SetActive(false);
+    }
+    //IEnumerator TutorialSequence()
+    //{
+    //    tutorialPanels[0].gameObject.SetActive(true);
+    //    yield return new WaitForSeconds(panel1Time);
+    //    tutorialPanels[0].gameObject.SetActive(false);
+    //    tutorialPanels[1].gameObject.SetActive(true);
+    //    yield return new WaitUntil(() => isClickPlanet0);
+    //    tutorialPanels[1].gameObject.SetActive(false);
+    //    tutorialPanels[2].gameObject.SetActive(true);
+    //    yield return new WaitUntil(() => istAttackPlanet1);
+    //    tutorialPanels[2].gameObject.SetActive(false);
+    //    tutorialPanels[3].gameObject.SetActive(true);
+    //    yield return new WaitUntil(() => isPlanet1Captured);
+    //    tutorialPanels[3].gameObject.SetActive(false);
+    //    tutorialPanels[4].gameObject.SetActive(true);
+    //    yield return new WaitForSeconds(panel5Time);
+    //    tutorialPanels[4].gameObject.SetActive(false);
+    //    tutorialPanels[5].gameObject.SetActive(true);
+    //    yield return new WaitUntil(() => isPlanet2Captured);
+    //    tutorialPanels[5].gameObject.SetActive(false);
+    //    tutorialPanels[6].gameObject.SetActive(true);
+    //    yield return new WaitUntil(() => isPlanet2Reinforced || isPlanet4Captured);
+    //    tutorialPanels[6].gameObject.SetActive(false);
+    //    if (isPlanet2Reinforced && !isPlanet4Captured)
+    //    {
+    //        tutorialPanels[7].gameObject.SetActive(true);
+    //        yield return new WaitUntil(() => isPlanet4Captured);
+    //    }
+    //    tutorialPanels[7].gameObject.SetActive(false);
+    //    tutorialPanels[8].gameObject.SetActive(true);
+    //    cameraInput.isCameraMovementDisabled = false;
+    //    yield return new WaitUntil(() => isMoveCamera);
+    //    tutorialPanels[8].gameObject.SetActive(false);
+    //    tutorialPanels[9].gameObject.SetActive(true);
+    //    planets[5].enabled = true;
+    //    yield return new WaitForSeconds(panel9Time);
+    //    tutorialPanels[9].gameObject.SetActive(false);
+    //    tutorialPanels[10].gameObject.SetActive(true);
+    //    yield return new WaitUntil(() => isPlanet5Captured);
+    //    tutorialPanels[10].gameObject.SetActive(false);
+    //    tutorialPanels[11].gameObject.SetActive(true);
+    //    yield return new WaitUntil(() => isPlanet678Captured);
+    //    planets[9].enabled = true;
+    //    planets[11].enabled = true;
+    //    tutorialPanels[11].gameObject.SetActive(false);
+    //    tutorialPanels[12].gameObject.SetActive(true);
+    //}
+
 }
