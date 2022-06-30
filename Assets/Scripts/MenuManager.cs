@@ -42,6 +42,10 @@ public class MenuManager : MonoBehaviour
         {
             SetGameOverScreen();
         }
+        if (SceneManager.GetActiveScene().name.Contains(ParamManager.Instance.LEVELSCENENAME))
+        {
+            //UpdateColors();
+        }
     }
 
     private void DisablePanels()
@@ -73,7 +77,7 @@ public class MenuManager : MonoBehaviour
     {
         if (mainMenu)
         {
-            SetGaeOverMainMenu();
+            SetGameOverMainMenu();
         }
         if (advantageBar)
         {
@@ -82,11 +86,11 @@ public class MenuManager : MonoBehaviour
         if (titlePanel)
         {
             titlePanel.gameObject.SetActive(true);
-            SetGaemeEndText(titlePanel.GetComponentInChildren<TextMeshProUGUI>())
+            SetGameEndText(titlePanel.GetComponentInChildren<TextMeshProUGUI>())
 ;        }
     }
 
-    private void SetGaeOverMainMenu()
+    private void SetGameOverMainMenu()
     {
         mainMenu.gameObject.SetActive(true);
         menusSeries.Push(mainMenu);
@@ -100,6 +104,7 @@ public class MenuManager : MonoBehaviour
             mainMenu.GetChild(0).gameObject.SetActive(false);
             mainMenu.GetChild(1).gameObject.SetActive(true);
         }
+        UpdateColors();
     }
 
     private void Update()
@@ -135,7 +140,7 @@ public class MenuManager : MonoBehaviour
             timer.text = ((time / 60)).ToString("00") + ":" + (time % 60).ToString("00");
         }
     }
-    private void SetGaemeEndText(TextMeshProUGUI text)
+    private void SetGameEndText(TextMeshProUGUI text)
     {
         if (text)
         {
@@ -228,29 +233,12 @@ public class MenuManager : MonoBehaviour
     }
     public void ReplayLeve()
     {
-        Debug.Log("Replay " + GameManager.Instance.levelName);
-        if (GameManager.Instance.levelName != "")
-        {
-            
-            SceneManager.LoadScene(GameManager.Instance.levelName);
-        }
+        SceneManager.LoadScene(GameManager.Instance.levelNumber);
     }
+    
     public void NextLevel()
     {
-        Debug.Log("Last Level: " + GameManager.Instance.levelName);
-        if (GameManager.Instance.levelName != "")
-        {
-            try {
-                int level = Int32.Parse(GameManager.Instance.levelName.Replace("Level", ""));
-                Debug.Log("Next Play " + "Level" + (level + 1));
-                SceneManager.LoadScene("Level"+(level+1));
-            }
-            catch (FormatException)
-            {
-                Debug.LogError("No such Level");
-            }
-            
-        }
+        SceneManager.LoadScene(GameManager.Instance.levelNumber+1);
     }
     public void NextLevelPage()
     {
@@ -280,7 +268,18 @@ public class MenuManager : MonoBehaviour
         {
             DisableAllOptions();
             if (colorsPanel)
+            {
                 colorsPanel.gameObject.SetActive(true);
+                float h;
+                float s;
+                float v;
+                Color.RGBToHSV(ParamManager.Instance.PlayerColor, out h, out s, out v);
+                colorsPanel.GetComponentsInChildren<Scrollbar>().ElementAt(0).value = h;
+                Color.RGBToHSV(ParamManager.Instance.EnemyColor, out h, out s, out v);
+                colorsPanel.GetComponentsInChildren<Scrollbar>().ElementAt(1).value = h;
+                Color.RGBToHSV(ParamManager.Instance.NeutralColor, out h, out s, out v);
+                colorsPanel.GetComponentsInChildren<Scrollbar>().ElementAt(2).value = h;
+            }
         }
     }
     public void VolumeOptions()
@@ -307,19 +306,49 @@ public class MenuManager : MonoBehaviour
     }
     public void ChangePlayerColor(float value)
     {
-        //float h = value * 360;
-        //Color newColor 
-        //ParamManager.Instance.PlayerColor = ParamManager.Instance.PlayerColor
+        float h;
+        float s;
+        float v;
+        Color.RGBToHSV(ParamManager.Instance.PlayerColor, out h, out s, out v);
+        ParamManager.Instance.PlayerColor= Color.HSVToRGB(value, s, v);
+        Color.RGBToHSV(ParamManager.Instance.PlayerHighlightColor, out h, out s, out v);
+        ParamManager.Instance.PlayerHighlightColor = Color.HSVToRGB(value, s, v);
+        colorsPanel.GetComponentsInChildren<Image>().Where(i=>i.CompareTag(ParamManager.Instance.COLORSAMPLETAG)).ElementAt(0).color = ParamManager.Instance.PlayerColor;
+        UpdateColors();
     }
     public void ChangeEnemyColor(float value)
     {
-
+        float h;
+        float s;
+        float v;
+        Color.RGBToHSV(ParamManager.Instance.EnemyColor, out h, out s, out v);
+        ParamManager.Instance.EnemyColor = Color.HSVToRGB(value, s, v);
+        Color.RGBToHSV(ParamManager.Instance.EnemyHighlightColor, out h, out s, out v);
+        ParamManager.Instance.EnemyHighlightColor = Color.HSVToRGB(value, s, v);
+        colorsPanel.GetComponentsInChildren<Image>().Where(i => i.CompareTag(ParamManager.Instance.COLORSAMPLETAG)).ElementAt(1).color = ParamManager.Instance.EnemyColor;
+        UpdateColors();
     }
     public void ChangeNeutralColor(float value)
     {
-
+        float h;
+        float s;
+        float v;
+        Color.RGBToHSV(ParamManager.Instance.NeutralColor, out h, out s, out v);
+        ParamManager.Instance.NeutralColor = Color.HSVToRGB(value, s, v);
+        Color.RGBToHSV(ParamManager.Instance.NeutralHighlightColor, out h, out s, out v);
+        ParamManager.Instance.NeutralHighlightColor = Color.HSVToRGB(value, s, v);
+        colorsPanel.GetComponentsInChildren<Image>().Where(i => i.CompareTag(ParamManager.Instance.COLORSAMPLETAG)).ElementAt(2).color = ParamManager.Instance.NeutralColor;
+        UpdateColors();
     }
-
+    private void UpdateColors()
+    {
+        foreach(MouseInteractable obj in FindObjectsOfType<MouseInteractable>())
+        {
+            obj.UpdateColorAndHighlight();
+        }
+        advantageBar.GetComponent<Image>().color = ParamManager.Instance.EnemyColor;
+        advantageBar.GetChild(0).GetComponent<Image>().color = ParamManager.Instance.PlayerColor;
+    }
 
     private void DisableAllOptions()
     {

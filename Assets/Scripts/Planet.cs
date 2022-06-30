@@ -58,7 +58,6 @@ public class Planet : MouseInteractable, IOrbitable
     {
         if (Application.isPlaying)
         {
-            
             PlanetID = IDCount;//set id
             IDCount++;//increase id count
             _strengthDisplay = Instantiate(ParamManager.Instance.StrengthDisplayPrefab);//create strength display
@@ -346,7 +345,7 @@ public class Planet : MouseInteractable, IOrbitable
         UpdateColorAndHighlight();
         SetMask();
     }
-    protected override void UpdateColorAndHighlight()//update color based on hive and highlight
+    public override void UpdateColorAndHighlight()//update color based on hive and highlight
     {
         if (isHovered || isClicked)
         {
@@ -411,7 +410,18 @@ public class Planet : MouseInteractable, IOrbitable
     private void OnEnable()
     {
         if(_strengthDisplay)
-        _strengthDisplay.gameObject.SetActive(true);
+            _strengthDisplay.gameObject.SetActive(true);
+    }
+    public void DisablePlanet()
+    {
+        _strengthDisplay.enabled = false;
+        this.enabled = false;
+    }
+    public void EnablePlanet()
+    {
+        _strengthDisplay.enabled = true;
+        this.enabled = true;
+        strength = startingStrength;
     }
 
     //checks
@@ -445,6 +455,7 @@ public class Planet : MouseInteractable, IOrbitable
     {
         return GetMyLinks().FirstOrDefault(link => link.Target == target);
     }
+    
     public enum PlanetSize
     {
         Small = 0,

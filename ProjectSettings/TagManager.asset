@@ -16,6 +16,7 @@ TagManager:
   - Orbit
   - Highlight
   - LevelButton
+  - ColorSample
   layers:
   - Default
   - TransparentFX

@@ -56,6 +56,9 @@ public class ParamManager : MonoBehaviour
     
     [SerializeField] private string levelButtonTag = "LevelButton";
     public string LEVELBUTTONTAG { get { return levelButtonTag; } }
+    
+    [SerializeField] private string colorSampleTag = "ColorSample";
+    public string COLORSAMPLETAG { get { return colorSampleTag; } }
 
     [Header("Scene Names")]
     [SerializeField] private string levelSceneName = "Level";

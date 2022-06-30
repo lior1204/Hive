@@ -29,7 +29,7 @@ public abstract class MouseInteractable:MonoBehaviour
         isClicked = false;
         UpdateColorAndHighlight();
     }
-    protected abstract void UpdateColorAndHighlight();//update planet collor based on hive and hishlight
+    public abstract void UpdateColorAndHighlight();//update planet collor based on hive and hishlight
     
 }
 
