@@ -346,7 +346,7 @@ public class Planet : MouseInteractable, IOrbitable
         UpdateColorAndHighlight();
         SetMask();
     }
-    protected override void UpdateColorAndHighlight()//update color based on hive and highlight
+    public override void UpdateColorAndHighlight()//update color based on hive and highlight
     {
         if (isHovered || isClicked)
         {

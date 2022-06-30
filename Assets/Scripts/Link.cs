@@ -60,7 +60,7 @@ public abstract class Link : MouseInteractable
         //_boxCollider. .center = new Vector2((S.x / 2), 0);
     }
     
-    protected override void UpdateColorAndHighlight()//update color based on hive and highlight
+    public override void UpdateColorAndHighlight()//update color based on hive and highlight
     {
         SetLinkColor();
     }
