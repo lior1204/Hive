@@ -44,7 +44,7 @@ public class MenuManager : MonoBehaviour
         }
         if (SceneManager.GetActiveScene().name.Contains(ParamManager.Instance.LEVELSCENENAME))
         {
-            UpdateColors();
+            //UpdateColors();
         }
     }
 
@@ -233,29 +233,12 @@ public class MenuManager : MonoBehaviour
     }
     public void ReplayLeve()
     {
-        Debug.Log("Replay " + GameManager.Instance.levelName);
-        if (GameManager.Instance.levelName != "")
-        {
-            
-            SceneManager.LoadScene(GameManager.Instance.levelName);
-        }
+        SceneManager.LoadScene(GameManager.Instance.levelNumber);
     }
+    
     public void NextLevel()
     {
-        Debug.Log("Last Level: " + GameManager.Instance.levelName);
-        if (GameManager.Instance.levelName != "")
-        {
-            try {
-                int level = Int32.Parse(GameManager.Instance.levelName.Replace("Level", ""));
-                Debug.Log("Next Play " + "Level" + (level + 1));
-                SceneManager.LoadScene("Level"+(level+1));
-            }
-            catch (FormatException)
-            {
-                Debug.LogError("No such Level");
-            }
-            
-        }
+        SceneManager.LoadScene(GameManager.Instance.levelNumber+1);
     }
     public void NextLevelPage()
     {

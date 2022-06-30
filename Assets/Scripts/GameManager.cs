@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     public int playerPlanetsCount { get; private set; }
     public int enemyPlanetsCount { get; private set; }
     public float screenRatio { get; private set; }
-    public string levelName { get; private set; }
+    public int levelNumber { get; private set; }
     TutorialManager _tutorialManager;
     private void Awake()
     {
@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name.Contains("Level"))
         {
             state = GameState.Playing;
-            levelName = SceneManager.GetActiveScene().name;
+            levelNumber = level;
         }
     }
     private void SetSingelton()

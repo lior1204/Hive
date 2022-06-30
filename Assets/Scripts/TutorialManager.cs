@@ -52,14 +52,14 @@ public class TutorialManager : MonoBehaviour
         DisablePanels();
         SetCamera();
         if (SceneManager.GetActiveScene().name.Contains("1")){
-            DisableEnemyPlanets();
+            
             tutorialCoroutine = StartCoroutine(Tutorial1Sequence());
         }
         if (SceneManager.GetActiveScene().name.Contains("2")){
             tutorialCoroutine = StartCoroutine(Tutorial2Sequence());
         }
         if (SceneManager.GetActiveScene().name.Contains("3")){
-            DisableEnemyPlanets();
+            
             tutorialCoroutine = StartCoroutine(Tutorial3Sequence());
         }
     }
@@ -77,13 +77,17 @@ public class TutorialManager : MonoBehaviour
     private void DisableEnemyPlanets()
     {
         foreach (Planet p in planets.Where(planet => planet.HiveType == HiveController.Hive.Enemy))
-            p.enabled = false;
+        {
+            p.DisablePlanet();
+        }
     }
     IEnumerator Tutorial1Sequence()
     {
+        yield return new WaitForSeconds(0.01f);
+        DisableEnemyPlanets();
         tutorialPanels[0].gameObject.SetActive(true);
         yield return new WaitUntil(() => planets[0].isClicked);
-        planets[1].enabled = true;
+        planets[1].EnablePlanet();
         tutorialPanels[0].gameObject.SetActive(false);
         tutorialPanels[1].gameObject.SetActive(true);
         yield return new WaitUntil(() => planets[0].IsCapturingTarget(planets[1]));
@@ -101,13 +105,16 @@ public class TutorialManager : MonoBehaviour
     }
     IEnumerator Tutorial3Sequence()
     {
+        yield return new WaitForSeconds(0.01f);
+        DisableEnemyPlanets();
         tutorialPanels[0].gameObject.SetActive(true);
         yield return new WaitUntil(() => planets[0].isClicked);
-        planets[1].enabled = true;
+        planets[1].EnablePlanet();
         tutorialPanels[0].gameObject.SetActive(false);
         tutorialPanels[1].gameObject.SetActive(true);
         yield return new WaitUntil(() => planets[0].IsCapturingTarget(planets[1]));
         tutorialPanels[1].gameObject.SetActive(false);
+
     }
     //IEnumerator TutorialSequence()
     //{
