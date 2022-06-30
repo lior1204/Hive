@@ -414,13 +414,13 @@ public class Planet : MouseInteractable, IOrbitable
     }
     public void DisablePlanet()
     {
-        _strengthDisplay.enabled = false;
-        this.enabled = false;
+        _strengthDisplay.GetComponent<Renderer>().enabled = false;
+        _spriteRenderer.enabled = false;
     }
     public void EnablePlanet()
     {
-        _strengthDisplay.enabled = true;
-        this.enabled = true;
+        _strengthDisplay.GetComponent<Renderer>().enabled = true;
+        _spriteRenderer.enabled = true;
         strength = startingStrength;
     }
 

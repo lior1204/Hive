@@ -15,7 +15,7 @@ public class CameraController : MonoBehaviour
     private Camera cam;
     
     //pan
-    private bool isPanPressed = false;
+    public bool isPanPressed { get; private set; } = false;
     private Vector2 mouseOrigin;
 
     //Auto Move
