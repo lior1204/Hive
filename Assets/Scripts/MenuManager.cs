@@ -288,7 +288,10 @@ public class MenuManager : MonoBehaviour
         {
             DisableAllOptions();
             if (volumePanel)
+            {
                 volumePanel.gameObject.SetActive(true);
+                volumePanel.GetComponentInChildren<Scrollbar>().value = AudioManager.Instance.GetVolume();
+            }
         }
     }
     public void ControlsOptions()
@@ -303,6 +306,7 @@ public class MenuManager : MonoBehaviour
     public void CahngeVolume(float value)
     {
         AudioManager.Instance.OnChangeVolume(value);
+        Debug.Log(AudioManager.Instance.GetVolume());
     }
     public void ChangePlayerColor(float value)
     {

@@ -83,7 +83,6 @@ public class AudioManager : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(Random.Range(scaryClipRandomIntervals.x, scaryClipRandomIntervals.y));
-            Debug.Log("PlaySpooky");
             float steps = scaryClipStartTime / scaryClipIncrementIntervals;
             float volumeIncrement = scaryClipMaxVolume / steps;
             float volume = 0.0001f;
@@ -100,7 +99,6 @@ public class AudioManager : MonoBehaviour
                 mixer.SetFloat(ParamManager.Instance.ScarySoundName, Mathf.Log10(volume) * 20);
                 yield return new WaitForSeconds(scaryClipIncrementIntervals);
             }
-            Debug.Log("StopSpooky");
         }
     }
     public void OnChangeVolume(float value)
@@ -108,5 +106,12 @@ public class AudioManager : MonoBehaviour
         if (value <= 0)
             value = 0.0001f;
         mixer.SetFloat(ParamManager.Instance.GameVolumeName, Mathf.Log10(value) * 20);
+    }
+    public float GetVolume()
+    {
+        float value;
+        mixer.GetFloat(ParamManager.Instance.GameVolumeName, out value);
+        //return value;
+        return Mathf.Pow(value, 10);
     }
 }
