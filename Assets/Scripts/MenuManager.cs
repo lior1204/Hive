@@ -302,7 +302,7 @@ public class MenuManager : MonoBehaviour
     }
     public void CahngeVolume(float value)
     {
-
+        AudioManager.Instance.OnChangeVolume(value);
     }
     public void ChangePlayerColor(float value)
     {
