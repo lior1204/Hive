@@ -78,6 +78,11 @@ public class ParamManager : MonoBehaviour
     public string PlanetReversseAnimationBool { get { return planetReversseAnimationBool; } }
     [SerializeField] private string highlightEnableBool = "isHighlight";
     public string HighlightEnableBool { get { return highlightEnableBool; } }
+    [Header("Mixer Parameters")]
+    [SerializeField] private string gameVolumeName = "GameVolume";
+    public string GameVolumeName { get { return gameVolumeName; } }
+    [SerializeField] private string scarySoundName = "ScarySoundVolume";
+    public string ScarySoundName { get { return scarySoundName; } }
 
     [Header("Texts")]
     [SerializeField] private string winText = "Assimilation Comlete";

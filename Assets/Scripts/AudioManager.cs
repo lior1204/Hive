@@ -13,7 +13,12 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip playerCaptureClip;
     [SerializeField] private AudioClip enemyConnectClip;
     [SerializeField] private AudioClip enemyCaptureClip;
-    [SerializeField] private AudioClip ScaySoundClip;
+    [SerializeField] private AudioMixer mixer;
+    [SerializeField] private Vector2 scaryClipRandomLength = new Vector2(1f, 5f);
+    [SerializeField] private Vector2 scaryClipRandomIntervals = new Vector2(10f, 20f);
+    [SerializeField] [Range(0.0001f, 0.9999f)] private float scaryClipMaxVolume = 0.9999f;
+    [SerializeField] private float scaryClipStartTime = 1.5f;
+    [SerializeField] private float scaryClipIncrementIntervals = 0.01f;
     private void Awake()
     {
         SetSingelton();
@@ -33,6 +38,7 @@ public class AudioManager : MonoBehaviour
                 DontDestroyOnLoad(this.gameObject);
                 SetMusic();
                 StartCoroutine( SwitchBackgroundMusic());
+                StartCoroutine(PlayClipAtRandom());
         }
         }
     }
@@ -41,6 +47,7 @@ public class AudioManager : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
         _audioSource.loop = false;
         _audioSource.Play();
+        transform.GetChild(0).GetComponent<AudioSource>().Play();
     }
     public void OnPlayerConnect()
     {
@@ -71,5 +78,35 @@ public class AudioManager : MonoBehaviour
         _audioSource.Play();
     }
 
-
+    IEnumerator PlayClipAtRandom()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(Random.Range(scaryClipRandomIntervals.x, scaryClipRandomIntervals.y));
+            Debug.Log("PlaySpooky");
+            float steps = scaryClipStartTime / scaryClipIncrementIntervals;
+            float volumeIncrement = scaryClipMaxVolume / steps;
+            float volume = 0.0001f;
+            for ( int i = 0; i < steps; i++)
+            {
+                volume+= volumeIncrement;
+                mixer.SetFloat(ParamManager.Instance.ScarySoundName, Mathf.Log10(volume) * 20);
+                yield return new WaitForSeconds(scaryClipIncrementIntervals);
+            }
+            yield return new WaitForSeconds(Random.Range(scaryClipRandomLength.x, scaryClipRandomLength.y));
+            for (int i = 1; i < steps; i++)
+            {
+                volume -= volumeIncrement;
+                mixer.SetFloat(ParamManager.Instance.ScarySoundName, Mathf.Log10(volume) * 20);
+                yield return new WaitForSeconds(scaryClipIncrementIntervals);
+            }
+            Debug.Log("StopSpooky");
+        }
+    }
+    public void OnChangeVolume(float value)
+    {
+        if (value <= 0)
+            value = 0.0001f;
+        mixer.SetFloat(ParamManager.Instance.GameVolumeName, Mathf.Log10(value) * 20);
+    }
 }

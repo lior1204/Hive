@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -833,6 +833,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: AudioManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 6113272018721489924, guid: 25f9554b15973ef4ab0d42a2ac305a0d,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6113272018721489925, guid: 25f9554b15973ef4ab0d42a2ac305a0d,
+        type: 3}
+      propertyPath: ScaySoundClip
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6113272018721489925, guid: 25f9554b15973ef4ab0d42a2ac305a0d,
+        type: 3}
+      propertyPath: scaryClipRandomLength.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6113272018721489925, guid: 25f9554b15973ef4ab0d42a2ac305a0d,
+        type: 3}
+      propertyPath: scaryClipRandomLength.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6113272018721489925, guid: 25f9554b15973ef4ab0d42a2ac305a0d,
+        type: 3}
+      propertyPath: scaryClipRandomIntervals.x
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6113272018721489925, guid: 25f9554b15973ef4ab0d42a2ac305a0d,
+        type: 3}
+      propertyPath: scaryClipRandomIntervals.y
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6113272018721489926, guid: 25f9554b15973ef4ab0d42a2ac305a0d,
         type: 3}

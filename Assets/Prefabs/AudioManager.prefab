@@ -42,11 +42,11 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -5686788548330661702, guid: 88a86fdc387464742bd93a71e7b6f51a,
     type: 2}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: d904c114e6dc8d34caf4552a4069638b, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -178,6 +178,13 @@ MonoBehaviour:
   playerCaptureClip: {fileID: 0}
   enemyConnectClip: {fileID: 0}
   enemyCaptureClip: {fileID: 0}
+  ScaySoundClip: {fileID: 0}
+  mixer: {fileID: 24100000, guid: 88a86fdc387464742bd93a71e7b6f51a, type: 2}
+  scaryClipRandomLength: {x: 1, y: 5}
+  scaryClipRandomIntervals: {x: 10, y: 20}
+  scaryClipMaxVolume: 0.9999
+  scaryClipStartTime: 1.5
+  scaryClipIncrementIntervals: 0.01
 --- !u!82 &6113272018721489924
 AudioSource:
   m_ObjectHideFlags: 0
@@ -187,8 +194,9 @@ AudioSource:
   m_GameObject: {fileID: 6113272018721489923}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 3991529631924612888, guid: 88a86fdc387464742bd93a71e7b6f51a,
+    type: 2}
+  m_audioClip: {fileID: 8300000, guid: d904c114e6dc8d34caf4552a4069638b, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.048
   m_Pitch: 1
