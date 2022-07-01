@@ -6910,6 +6910,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
+    - target: {fileID: 6113272018721489924, guid: 25f9554b15973ef4ab0d42a2ac305a0d,
+        type: 3}
+      propertyPath: Mute
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6113272018721489924, guid: 25f9554b15973ef4ab0d42a2ac305a0d,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 3991529631924612888, guid: 88a86fdc387464742bd93a71e7b6f51a,
+        type: 2}
     - target: {fileID: 6113272018721489926, guid: 25f9554b15973ef4ab0d42a2ac305a0d,
         type: 3}
       propertyPath: m_RootOrder

@@ -19,7 +19,7 @@ public class Capture : Link
         Reinforcement newLink= Origin.AttemptReinforccing(Target);
         if (newLink)
         {
-            newLink.TimeStemp = this.TimeStemp;//keep the old connection timestamp
+            newLink.TimeStamp = this.TimeStamp;//keep the old connection timestamp
         }
         DestroyLink();
     }

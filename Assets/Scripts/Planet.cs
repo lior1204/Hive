@@ -309,7 +309,7 @@ public class Planet : MouseInteractable, IOrbitable
     private void UpdateActiveLinks()//check and update for active links in range choose based on time stemps
     {
         List<Link> myLinks = GetMyLinks();
-        myLinks = myLinks.OrderBy(c => c.TimeStemp).ToList();//order by timestemp
+        myLinks = myLinks.OrderBy(c => c.TimeStamp).ToList();//order by timestemp
         activeLinks.Clear();//clear old active links
         //set new actives equal to max active if capturable or reinforcable
         activeLinks.AddRange(myLinks.Where(l => l is Capture ?

@@ -5,8 +5,6 @@ using UnityEngine;
 
 public abstract class Link : MouseInteractable
 {
-    [SerializeField] private float startWidth = 0.25f;
-    [SerializeField] private float endWidth = 0.1f;
     //parameters
     private bool isActive = false;
     public bool IsActive
@@ -16,7 +14,7 @@ public abstract class Link : MouseInteractable
     }
     public Planet Origin { get; protected set; }
     public Planet Target { get; protected set; }
-    public float TimeStemp { get; set; }
+    public float TimeStamp { get; set; }
     //references
     private SpriteRenderer _spriteRenderer;
     private BoxCollider2D _boxCollider;
@@ -29,7 +27,7 @@ public abstract class Link : MouseInteractable
             //set the members, activity, timestamp, parent, position and color
             link.Origin = origin;
             link.Target = target;
-            link.TimeStemp = Time.time;
+            link.TimeStamp = Time.time;
             link.transform.parent = origin.transform;
             link.transform.localPosition = Vector3.forward;
             link._spriteRenderer = link.GetComponent<SpriteRenderer>();
@@ -41,7 +39,6 @@ public abstract class Link : MouseInteractable
     void Update()
     {
         SetLineTransform();
-        SetBoxCollider();
     }
     private void SetLineTransform()//set the widht and angle of the link
     {
@@ -53,13 +50,6 @@ public abstract class Link : MouseInteractable
         transform.eulerAngles = Vector3.forward * angle;
 
     }
-    private void SetBoxCollider()//set box collider points acording to line
-    {
-        //Vector2 S = gameObject.GetComponent<SpriteRenderer>().sprite.bounds.size;
-        //_boxCollider.size = S;
-        //_boxCollider. .center = new Vector2((S.x / 2), 0);
-    }
-    
     public override void UpdateColorAndHighlight()//update color based on hive and highlight
     {
         SetLinkColor();
@@ -77,18 +67,13 @@ public abstract class Link : MouseInteractable
     }
     private void SetActiveMat()
     {
+        if(TimeStamp>=Time.time)
+        Debug.Log("Link: "+GetInstanceID()+" Set Mat, active: " + IsActive + " Hive: " + HiveType);
         if (isActive)
         {
-            
-            if (HiveType == HiveController.Hive.Enemy)
-            {
-                _spriteRenderer.enabled = true;
-                _boxCollider.enabled = true;
-            }
-            else
-            {
-                _spriteRenderer.material = ParamManager.Instance.LinkActiveMaterial;
-            }
+            _spriteRenderer.enabled = true;
+            _boxCollider.enabled = true;
+            _spriteRenderer.material = ParamManager.Instance.LinkActiveMaterial;
         }
         else
         {
