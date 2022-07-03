@@ -2021,6 +2021,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelsButton
       objectReference: {fileID: 0}
+    - target: {fileID: 4399615575034762990, guid: a0b65f105dfa26e4dbed2884b9814c55,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399615575034762990, guid: a0b65f105dfa26e4dbed2884b9814c55,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399615575034762990, guid: a0b65f105dfa26e4dbed2884b9814c55,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_text
@@ -2379,17 +2394,17 @@ PrefabInstance:
     - target: {fileID: 4399615575034762990, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_Color.b
-      value: 0.7647059
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575034762990, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_Color.g
-      value: 0.7029248
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575034762990, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_Color.r
-      value: 0.3294118
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
@@ -2559,17 +2574,17 @@ PrefabInstance:
     - target: {fileID: 4399615575034762990, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_Color.b
-      value: 0.6131349
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575034762990, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_Color.g
-      value: 0.3294118
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575034762990, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_Color.r
-      value: 0.7647059
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
@@ -3863,17 +3878,17 @@ PrefabInstance:
     - target: {fileID: 4399615575034762990, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_Color.b
-      value: 0.19999999
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575034762990, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_Color.g
-      value: 0.80185646
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575034762990, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_Color.r
-      value: 0.83137256
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
@@ -4252,22 +4267,22 @@ PrefabInstance:
     - target: {fileID: 4399615575034762979, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575034762990, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_Color.b
-      value: 0.7647059
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575034762990, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_Color.g
-      value: 0.7029248
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575034762990, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_Color.r
-      value: 0.3294118
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
@@ -4535,7 +4550,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 707.06, y: -92}
+  m_AnchoredPosition: {x: -0.00012207, y: -92}
   m_SizeDelta: {x: 572.9418, y: 229.77393}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1361009630
