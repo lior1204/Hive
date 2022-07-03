@@ -72,8 +72,6 @@ public class Planet : MouseInteractable, IOrbitable
             SetPlanetParametersBySize();
             SetMask();
             RandomizeAnimation();
-            if (hiveType == HiveController.Hive.Enemy && FindObjectOfType<TutorialManager>())
-                this.enabled = false;
         }
     }
 
