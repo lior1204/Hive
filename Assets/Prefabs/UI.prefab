@@ -1677,7 +1677,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3327160291954136990
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2018,8 +2018,8 @@ RectTransform:
   m_Father: {fileID: 3327160292179976754}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.4374, y: 0}
-  m_AnchorMax: {x: 0.5374, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2413,8 +2413,8 @@ RectTransform:
   m_Father: {fileID: 2983185529009140775}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.4374, y: 0}
-  m_AnchorMax: {x: 0.5374, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2729,8 +2729,8 @@ RectTransform:
   m_Father: {fileID: 6893139499692345613}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.4374, y: 0}
-  m_AnchorMax: {x: 0.5374, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2922,8 +2922,8 @@ RectTransform:
   m_Father: {fileID: 2846115110482426234}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.4374, y: 0}
-  m_AnchorMax: {x: 0.5374, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -5269,6 +5269,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4399615575034762977, guid: a0b65f105dfa26e4dbed2884b9814c55,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3327160290609227554}
+    - target: {fileID: 4399615575034762977, guid: a0b65f105dfa26e4dbed2884b9814c55,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: RestartLevel
+      objectReference: {fileID: 0}
     - target: {fileID: 4399615575034762979, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_Name
@@ -6457,7 +6467,7 @@ PrefabInstance:
     - target: {fileID: 4399615575034762977, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ColorOptions
+      value: ControlsOptions
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575034762977, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
