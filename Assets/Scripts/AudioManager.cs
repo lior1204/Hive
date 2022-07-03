@@ -124,6 +124,6 @@ public class AudioManager : MonoBehaviour
         float value;
         mixer.GetFloat(ParamManager.Instance.GameVolumeName, out value);
         //return value;
-        return Mathf.Pow(value, 10);
+        return Mathf.Pow(10.0f, value / 20.0f);
     }
 }
