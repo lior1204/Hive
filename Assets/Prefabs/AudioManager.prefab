@@ -178,6 +178,8 @@ MonoBehaviour:
   playerCaptureClip: {fileID: 8300000, guid: fffe104a73bdd834e9b34076a4aa94f1, type: 3}
   enemyConnectClip: {fileID: 8300000, guid: 3a4e0e2c2f639e447b9ffd00615aed11, type: 3}
   enemyCaptureClip: {fileID: 8300000, guid: ef1fb9173d1ba8e4aa70fa4cc92b5bbd, type: 3}
+  clickPlanetClip: {fileID: 8300000, guid: 25100ea23e502dd4d85f1cbf54f00f69, type: 3}
+  pressButtonClip: {fileID: 8300000, guid: 2de2ce6f59759ea4c8793c167eac35ae, type: 3}
   mixer: {fileID: 24100000, guid: 88a86fdc387464742bd93a71e7b6f51a, type: 2}
   scaryClipRandomLength: {x: 1.5, y: 4}
   scaryClipRandomIntervals: {x: 7, y: 15}
