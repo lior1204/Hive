@@ -1362,12 +1362,12 @@ PrefabInstance:
     - target: {fileID: 2127881686000975986, guid: 6d427bdb64eb93541acbb2a408b780ac,
         type: 3}
       propertyPath: m_Color.b
-      value: 0.4004434
+      value: 0.34242618
       objectReference: {fileID: 0}
     - target: {fileID: 2127881686000975986, guid: 6d427bdb64eb93541acbb2a408b780ac,
         type: 3}
       propertyPath: m_Color.g
-      value: 0.34242615
+      value: 0.34242618
       objectReference: {fileID: 0}
     - target: {fileID: 2127881686000975986, guid: 6d427bdb64eb93541acbb2a408b780ac,
         type: 3}
@@ -2873,7 +2873,7 @@ PrefabInstance:
     - target: {fileID: 2127881686000975986, guid: 6d427bdb64eb93541acbb2a408b780ac,
         type: 3}
       propertyPath: m_Color.r
-      value: 0.44896674
+      value: 0.4905003
       objectReference: {fileID: 0}
     - target: {fileID: 2127881686000975987, guid: 6d427bdb64eb93541acbb2a408b780ac,
         type: 3}
@@ -3047,76 +3047,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1378912539598995738, guid: 04691bb9d99aa7a4581c0f85d9c488a6,
-        type: 3}
-      propertyPath: m_TagString
-      value: LevelButton
-      objectReference: {fileID: 0}
-    - target: {fileID: 1378912539820319072, guid: 04691bb9d99aa7a4581c0f85d9c488a6,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1378912539820319072, guid: 04691bb9d99aa7a4581c0f85d9c488a6,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1378912539820319072, guid: 04691bb9d99aa7a4581c0f85d9c488a6,
-        type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1378912539820319072, guid: 04691bb9d99aa7a4581c0f85d9c488a6,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1378912539820319072, guid: 04691bb9d99aa7a4581c0f85d9c488a6,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 216.96649
-      objectReference: {fileID: 0}
-    - target: {fileID: 1378912539820319072, guid: 04691bb9d99aa7a4581c0f85d9c488a6,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 109.620636
-      objectReference: {fileID: 0}
-    - target: {fileID: 1378912539820319072, guid: 04691bb9d99aa7a4581c0f85d9c488a6,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 202
-      objectReference: {fileID: 0}
-    - target: {fileID: 1378912539820319072, guid: 04691bb9d99aa7a4581c0f85d9c488a6,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -111
-      objectReference: {fileID: 0}
-    - target: {fileID: 1378912539820319075, guid: 04691bb9d99aa7a4581c0f85d9c488a6,
-        type: 3}
-      propertyPath: m_TagString
-      value: LevelButton
-      objectReference: {fileID: 0}
-    - target: {fileID: 1378912540130353861, guid: 04691bb9d99aa7a4581c0f85d9c488a6,
-        type: 3}
-      propertyPath: m_TagString
-      value: LevelButton
-      objectReference: {fileID: 0}
-    - target: {fileID: 1378912540468794573, guid: 04691bb9d99aa7a4581c0f85d9c488a6,
-        type: 3}
-      propertyPath: m_TagString
-      value: LevelButton
-      objectReference: {fileID: 0}
-    - target: {fileID: 1378912541075005188, guid: 04691bb9d99aa7a4581c0f85d9c488a6,
-        type: 3}
-      propertyPath: m_TagString
-      value: LevelButton
-      objectReference: {fileID: 0}
-    - target: {fileID: 3327160291139145609, guid: 04691bb9d99aa7a4581c0f85d9c488a6,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5763193916997312870, guid: 04691bb9d99aa7a4581c0f85d9c488a6,
         type: 3}
       propertyPath: m_Name

@@ -57,9 +57,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5c5fa1acba59e0498aaba65d78def54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyDecisionRate: 1
+  enemyDecisionRate: 1.3
   decisionsPerCycle: 3
-  enemyDelay: 0.1
+  enemyDelay: 3
   planetSizeScore: 30
   strengthCaptureScore: 60
   strengthCaptureSkewing: 2
