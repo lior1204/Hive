@@ -176,7 +176,7 @@ MonoBehaviour:
   backgroundLoop: {fileID: 8300000, guid: a9029cbad6c0b434fa4d1ca268c40489, type: 3}
   playerConnectClip: {fileID: 8300000, guid: 611e6fa7e1c89d34a88eaa5de55c316f, type: 3}
   playerCaptureClip: {fileID: 8300000, guid: fffe104a73bdd834e9b34076a4aa94f1, type: 3}
-  enemyConnectClip: {fileID: 8300000, guid: 3a4e0e2c2f639e447b9ffd00615aed11, type: 3}
+  enemyConnectClip: {fileID: 0}
   enemyCaptureClip: {fileID: 8300000, guid: ef1fb9173d1ba8e4aa70fa4cc92b5bbd, type: 3}
   clickPlanetClip: {fileID: 8300000, guid: 25100ea23e502dd4d85f1cbf54f00f69, type: 3}
   pressButtonClip: {fileID: 8300000, guid: 2de2ce6f59759ea4c8793c167eac35ae, type: 3}
