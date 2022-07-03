@@ -1841,12 +1841,12 @@ PrefabInstance:
     - target: {fileID: 2127881686000975986, guid: 6d427bdb64eb93541acbb2a408b780ac,
         type: 3}
       propertyPath: m_Color.b
-      value: 0.34242618
+      value: 0.4004434
       objectReference: {fileID: 0}
     - target: {fileID: 2127881686000975986, guid: 6d427bdb64eb93541acbb2a408b780ac,
         type: 3}
       propertyPath: m_Color.g
-      value: 0.34242618
+      value: 0.34242615
       objectReference: {fileID: 0}
     - target: {fileID: 2127881686000975986, guid: 6d427bdb64eb93541acbb2a408b780ac,
         type: 3}
@@ -4078,17 +4078,17 @@ PrefabInstance:
     - target: {fileID: 2127881686000975986, guid: 6d427bdb64eb93541acbb2a408b780ac,
         type: 3}
       propertyPath: m_Color.b
-      value: 0.44544324
+      value: 0.25035295
       objectReference: {fileID: 0}
     - target: {fileID: 2127881686000975986, guid: 6d427bdb64eb93541acbb2a408b780ac,
         type: 3}
       propertyPath: m_Color.g
-      value: 0.6603774
+      value: 0.65882355
       objectReference: {fileID: 0}
     - target: {fileID: 2127881686000975986, guid: 6d427bdb64eb93541acbb2a408b780ac,
         type: 3}
       propertyPath: m_Color.r
-      value: 0.4905003
+      value: 0.25035295
       objectReference: {fileID: 0}
     - target: {fileID: 2127881686000975987, guid: 6d427bdb64eb93541acbb2a408b780ac,
         type: 3}
@@ -4198,21 +4198,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ParamManager
       objectReference: {fileID: 0}
-    - target: {fileID: 807212788361728678, guid: 5a511aca13ad5f0469981ae591eb4751,
-        type: 3}
-      propertyPath: planetSizeSet.Array.data[0].orbitCycleTime
-      value: 15.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 807212788361728678, guid: 5a511aca13ad5f0469981ae591eb4751,
-        type: 3}
-      propertyPath: planetSizeSet.Array.data[1].orbitCycleTime
-      value: 20.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 807212788361728678, guid: 5a511aca13ad5f0469981ae591eb4751,
-        type: 3}
-      propertyPath: planetSizeSet.Array.data[2].orbitCycleTime
-      value: 27.36
-      objectReference: {fileID: 0}
     - target: {fileID: 807212788361728679, guid: 5a511aca13ad5f0469981ae591eb4751,
         type: 3}
       propertyPath: m_RootOrder
@@ -4277,11 +4262,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3327160291139145609, guid: 04691bb9d99aa7a4581c0f85d9c488a6,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5763193916997312870, guid: 04691bb9d99aa7a4581c0f85d9c488a6,
         type: 3}
       propertyPath: m_Name
