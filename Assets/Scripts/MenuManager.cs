@@ -160,6 +160,7 @@ public class MenuManager : MonoBehaviour
     {
         if (levelMenu)
         {
+            AudioManager.Instance.OnPressButton();
             HideTitle();
             menusSeries.Peek().gameObject.SetActive(false);
             levelMenu.gameObject.SetActive(true);
@@ -171,6 +172,7 @@ public class MenuManager : MonoBehaviour
     {
         if (optionslMenu)
         {
+            AudioManager.Instance.OnPressButton();
             HideTitle();
             menusSeries.Peek().gameObject.SetActive(false);
             optionslMenu.gameObject.SetActive(true);
@@ -180,18 +182,23 @@ public class MenuManager : MonoBehaviour
     }
     public void QuitGame()//exit game
     {
+        AudioManager.Instance.OnPressButton();
         Application.Quit();
     }
     public void GoToLevel(string level)
     {
         Scene newScene = SceneManager.GetSceneByName(level);
         if (newScene != null)
+        {
+            AudioManager.Instance.OnPressButton();
             SceneManager.LoadScene(level);
+        }
     }
     public void GoBack()
     {
         if (menusSeries.Count > 1)
         {
+            AudioManager.Instance.OnPressButton();
             UnHideTitle();
             menusSeries.Pop().gameObject.SetActive(false);
             menusSeries.Peek().gameObject.SetActive(true);
@@ -202,6 +209,7 @@ public class MenuManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name.Contains(ParamManager.Instance.LEVELSCENENAME))
         {
+            AudioManager.Instance.OnPressButton();
             if (!GameManager.Instance.IsPaused)
             {
                 GameManager.Instance.IsPaused = true;
@@ -228,21 +236,25 @@ public class MenuManager : MonoBehaviour
     }
     public void RestartLevel()
     {
+        AudioManager.Instance.OnPressButton();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public void ReplayLeve()
     {
+        AudioManager.Instance.OnPressButton();
         SceneManager.LoadScene(GameManager.Instance.levelNumber);
     }
     
     public void NextLevel()
     {
+        AudioManager.Instance.OnPressButton();
         SceneManager.LoadScene(GameManager.Instance.levelNumber+1);
     }
     public void NextLevelPage()
     {
         if (levelMenu && levelMenu.gameObject.activeInHierarchy)
         {
+            AudioManager.Instance.OnPressButton();
             if (page < maxLevelPage)
             {
                 page++;
@@ -254,6 +266,7 @@ public class MenuManager : MonoBehaviour
     {
         if (levelMenu && levelMenu.gameObject.activeInHierarchy)
         {
+            AudioManager.Instance.OnPressButton();
             if (page > 0)
             {
                 page--;
@@ -265,6 +278,7 @@ public class MenuManager : MonoBehaviour
     {
         if (menusSeries.Peek() == optionslMenu)
         {
+            AudioManager.Instance.OnPressButton();
             DisableAllOptions();
             if (colorsPanel)
             {
@@ -285,6 +299,7 @@ public class MenuManager : MonoBehaviour
     {
         if (menusSeries.Peek() == optionslMenu)
         {
+            AudioManager.Instance.OnPressButton();
             DisableAllOptions();
             if (volumePanel)
             {
@@ -297,6 +312,7 @@ public class MenuManager : MonoBehaviour
     {
         if (menusSeries.Peek() == optionslMenu)
         {
+            AudioManager.Instance.OnPressButton();
             DisableAllOptions();
             if (controlsPanel)
                 controlsPanel.gameObject.SetActive(true);

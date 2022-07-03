@@ -76,6 +76,7 @@ public class PlayerController : MonoBehaviour
                 {
                     currentClickedPlanet = (Planet)currentHover;
                     currentClickedPlanet.ClickObject();
+                    AudioManager.Instance.OnClickPlanet();
                 }
                 else
                     currentClickedPlanet = null;

@@ -13,6 +13,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip playerCaptureClip;
     [SerializeField] private AudioClip enemyConnectClip;
     [SerializeField] private AudioClip enemyCaptureClip;
+    [SerializeField] private AudioClip clickPlanetClip;
+    [SerializeField] private AudioClip pressButtonClip;
     [SerializeField] private AudioMixer mixer;
     [SerializeField] private Vector2 scaryClipRandomLength = new Vector2(1f, 5f);
     [SerializeField] private Vector2 scaryClipRandomIntervals = new Vector2(10f, 20f);
@@ -79,6 +81,22 @@ public class AudioManager : MonoBehaviour
         {
             //Debug.Log("Enemy Capture");
             _audioSource.PlayOneShot(enemyCaptureClip);
+        }
+    }
+    public void OnClickPlanet()
+    {
+        if (clickPlanetClip)
+        {
+            //Debug.Log("Enemy Capture");
+            _audioSource.PlayOneShot(clickPlanetClip);
+        }
+    }
+     public void OnPressButton()
+    {
+        if (pressButtonClip)
+        {
+            //Debug.Log("Enemy Capture");
+            _audioSource.PlayOneShot(pressButtonClip);
         }
     }
 
