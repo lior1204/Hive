@@ -90,7 +90,7 @@ MonoBehaviour:
   captureImunityTime: 3
   reinforceBonus: 1
   reinforceCost: 0.5
-  strengthCap: 100
+  strengthCap: 60
   planetSizeSet:
   - size: 0
     strengthIncome: 1.5
