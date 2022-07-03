@@ -68,7 +68,7 @@ public abstract class Link : MouseInteractable
     private void SetActiveMat()
     {
         if(TimeStamp>=Time.time)
-        Debug.Log("Link: "+GetInstanceID()+" Set Mat, active: " + IsActive + " Hive: " + HiveType);
+        //Debug.Log("Link: "+GetInstanceID()+" Set Mat, active: " + IsActive + " Hive: " + HiveType);
         if (isActive)
         {
             _spriteRenderer.enabled = true;

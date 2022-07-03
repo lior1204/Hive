@@ -76,7 +76,10 @@ public class HiveController : MonoBehaviour
             if (attacker.HiveType!=captured.HiveType)//check if captured is not in hive
             {
                 attacker.AttemptCapture(captured);
-                AudioManager.Instance.OnPlayerConnect();
+                if (attacker.HiveType == Hive.Player)
+                    AudioManager.Instance.OnPlayerConnect();
+                else;
+                    //AudioManager.Instance.OnEnemyConnect();
             }
         }
     }
@@ -85,7 +88,10 @@ public class HiveController : MonoBehaviour
         if (hivePlanets.Contains(provider)&&hivePlanets.Contains(reinforced))//check if both provider and reinforced in this hive
         {
             provider.AttemptReinforccing(reinforced);
-            AudioManager.Instance.OnPlayerConnect();
+            if (provider.HiveType == Hive.Player)
+                AudioManager.Instance.OnPlayerConnect();
+            else;
+                //AudioManager.Instance.OnEnemyConnect();
         }
     }
     public void RemoveLink(Link link)//end a spesific link belonging to this hive

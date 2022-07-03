@@ -51,23 +51,35 @@ public class AudioManager : MonoBehaviour
     }
     public void OnPlayerConnect()
     {
-        if(playerConnectClip)
-        _audioSource.PlayOneShot(playerConnectClip);
+        if (playerConnectClip)
+        {
+            //Debug.Log("Player Connect");
+            _audioSource.PlayOneShot(playerConnectClip);
+        }
     }
     public void OnPlayerCapture()
     {
-        if(playerCaptureClip)
-        _audioSource.PlayOneShot(playerCaptureClip);
+        if (playerCaptureClip)
+        {
+            //Debug.Log("Player Capture");
+            _audioSource.PlayOneShot(playerCaptureClip);
+        }
     }
     public void OnEnemyConnect()
     {
-        if(enemyConnectClip)
-        _audioSource.PlayOneShot(enemyConnectClip);
+        if (enemyConnectClip)
+        {
+            //Debug.Log("Enemy Connect");
+            _audioSource.PlayOneShot(enemyConnectClip);
+        }
     }
     public void OnEnemyCapture()
     {
-        if(enemyCaptureClip)
-        _audioSource.PlayOneShot(enemyCaptureClip);
+        if (enemyCaptureClip)
+        {
+            //Debug.Log("Enemy Capture");
+            _audioSource.PlayOneShot(enemyCaptureClip);
+        }
     }
 
     IEnumerator SwitchBackgroundMusic()
