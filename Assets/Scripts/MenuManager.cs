@@ -304,7 +304,8 @@ public class MenuManager : MonoBehaviour
             if (volumePanel)
             {
                 volumePanel.gameObject.SetActive(true);
-                volumePanel.GetComponentInChildren<Scrollbar>().value = AudioManager.Instance.GetVolume();
+                volumePanel.GetComponentsInChildren<Scrollbar>().ElementAt(0).value = AudioManager.Instance.GetMusicVolume();
+                volumePanel.GetComponentsInChildren<Scrollbar>().ElementAt(1).value = AudioManager.Instance.GetSFXVolume();
             }
         }
     }
@@ -318,11 +319,15 @@ public class MenuManager : MonoBehaviour
                 controlsPanel.gameObject.SetActive(true);
         }
     }
-    public void CahngeVolume(float value)
+    public void CahngeMusicVolume(float value)
     {
-        AudioManager.Instance.OnChangeVolume(value);
-        Debug.Log(AudioManager.Instance.GetVolume());
+        AudioManager.Instance.OnChangeMusicVolume(value);
     }
+    public void CahngeSFXVolume(float value)
+    {
+        AudioManager.Instance.OnChangeSFXVolume(value);
+    }
+
     public void ChangePlayerColor(float value)
     {
         float h;

@@ -83,6 +83,8 @@ public class ParamManager : MonoBehaviour
     public string GameVolumeName { get { return gameVolumeName; } }
     [SerializeField] private string scarySoundName = "ScarySoundVolume";
     public string ScarySoundName { get { return scarySoundName; } }
+     [SerializeField] private string sfxSoundName = "SFXVolume";
+    public string SfxSoundName { get { return sfxSoundName; } }
 
     [Header("Texts")]
     [SerializeField] private string winText = "Assimilation Comlete";

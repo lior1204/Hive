@@ -8,6 +8,9 @@ public class AudioManager : MonoBehaviour
     public static AudioManager Instance;
 
     private AudioSource _audioSource;
+    [SerializeField] private AudioSource _SFXSource;
+    [SerializeField] private AudioMixer mixer;
+    [Header("Clips")]
     [SerializeField] private AudioClip backgroundLoop;
     [SerializeField] private AudioClip playerConnectClip;
     [SerializeField] private AudioClip playerCaptureClip;
@@ -15,7 +18,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip enemyCaptureClip;
     [SerializeField] private AudioClip clickPlanetClip;
     [SerializeField] private AudioClip pressButtonClip;
-    [SerializeField] private AudioMixer mixer;
+    [Header("Parameters")]
     [SerializeField] private Vector2 scaryClipRandomLength = new Vector2(1f, 5f);
     [SerializeField] private Vector2 scaryClipRandomIntervals = new Vector2(10f, 20f);
     [SerializeField] [Range(0.0001f, 0.9999f)] private float scaryClipMaxVolume = 0.9999f;
@@ -55,48 +58,42 @@ public class AudioManager : MonoBehaviour
     {
         if (playerConnectClip)
         {
-            //Debug.Log("Player Connect");
-            _audioSource.PlayOneShot(playerConnectClip);
+            _SFXSource.PlayOneShot(playerConnectClip);
         }
     }
     public void OnPlayerCapture()
     {
         if (playerCaptureClip)
         {
-            //Debug.Log("Player Capture");
-            _audioSource.PlayOneShot(playerCaptureClip);
+            _SFXSource.PlayOneShot(playerCaptureClip);
         }
     }
     public void OnEnemyConnect()
     {
         if (enemyConnectClip)
         {
-            //Debug.Log("Enemy Connect");
-            _audioSource.PlayOneShot(enemyConnectClip);
+            _SFXSource.PlayOneShot(enemyConnectClip);
         }
     }
     public void OnEnemyCapture()
     {
         if (enemyCaptureClip)
         {
-            //Debug.Log("Enemy Capture");
-            _audioSource.PlayOneShot(enemyCaptureClip);
+            _SFXSource.PlayOneShot(enemyCaptureClip);
         }
     }
     public void OnClickPlanet()
     {
         if (clickPlanetClip)
         {
-            //Debug.Log("Enemy Capture");
-            _audioSource.PlayOneShot(clickPlanetClip);
+            _SFXSource.PlayOneShot(clickPlanetClip);
         }
     }
      public void OnPressButton()
     {
         if (pressButtonClip)
         {
-            //Debug.Log("Enemy Capture");
-            _audioSource.PlayOneShot(pressButtonClip);
+            _SFXSource.PlayOneShot(pressButtonClip);
         }
     }
 
@@ -131,17 +128,32 @@ public class AudioManager : MonoBehaviour
             }
         }
     }
-    public void OnChangeVolume(float value)
+    public void OnChangeMusicVolume(float value)
     {
         if (value <= 0)
             value = 0.0001f;
         mixer.SetFloat(ParamManager.Instance.GameVolumeName, Mathf.Log10(value) * 20);
     }
-    public float GetVolume()
+    public void OnChangeSFXVolume(float value)
+    {
+        if (value <= 0)
+            value = 0.0001f;
+        mixer.SetFloat(ParamManager.Instance.SfxSoundName, Mathf.Log10(value) * 20);
+    }
+
+    public float GetMusicVolume()
     {
         float value;
         mixer.GetFloat(ParamManager.Instance.GameVolumeName, out value);
         //return value;
         return Mathf.Pow(10.0f, value / 20.0f);
     }
+    public float GetSFXVolume()
+    {
+        float value;
+        mixer.GetFloat(ParamManager.Instance.SfxSoundName, out value);
+        //return value;
+        return Mathf.Pow(10.0f, value / 20.0f);
+    }
+
 }
