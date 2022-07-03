@@ -419,7 +419,7 @@ public class MenuManager : MonoBehaviour
                 int levelNum = ((page * buttons.Count) + i + 1);
                 buttons[i].onClick.RemoveAllListeners();
                 buttons[i].onClick.AddListener(() => GoToLevel(ParamManager.Instance.LEVELSCENENAME + levelNum));
-                buttons[i].GetComponentInChildren<TextMeshProUGUI>().text = ParamManager.Instance.LEVELSCENENAME + levelNum;
+                buttons[i].GetComponentInChildren<TextMeshProUGUI>().text = ParamManager.Instance.LEVELSCENENAME + " " + levelNum;
             }
         }
 
