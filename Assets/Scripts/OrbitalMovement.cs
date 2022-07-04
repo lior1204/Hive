@@ -15,7 +15,7 @@ public class OrbitalMovement : MonoBehaviour
     [SerializeField] bool overrideSpeed = false;
     [SerializeField] float cycleTime = 5f;
     private float cycleProgress = 0;
-    private float cycleFrequency;
+    private float cycleFrequency { get { return 1 / (overrideSpeed ? cycleTime : GetDefaultCycleTime()); } }
     private void Start()
     {
         if (Application.isPlaying)
@@ -23,32 +23,21 @@ public class OrbitalMovement : MonoBehaviour
             orbitingObject = GetComponentInChildren<Planet>();
             if (transform.parent)//if parent then set the orbit position to the parent
                 transform.localPosition = Vector3.zero;
-            SetCycleTime();
             cycleProgress = startingPosition;//set starting position
             SetIntoOrbitPosition();
         }
     }
-    public void SetCycleTime()
+    public float GetDefaultCycleTime()
     {
-        if (overrideSpeed)
-        {
-            cycleFrequency = 1 / cycleTime;
-        }
-        else if (orbitingObject != null)//set cycle frequency for the planet
+        if (orbitingObject != null)//set cycle frequency for the planet
         {
             if (Mathf.Abs(orbitingObject.GetOrbitCycleTime()) > 0.5)
             {
-                cycleFrequency = 1 / orbitingObject.GetOrbitCycleTime();
+                return orbitingObject.GetOrbitCycleTime();
             }
-            else
-            {
-                cycleFrequency = 1 / 0.5f;
-            }
+            
         }
-        else
-        {
-            cycleFrequency = 0.2f;
-        }
+        return 0.5f;
     }
     private void Update()
     {

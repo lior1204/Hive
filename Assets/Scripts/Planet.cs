@@ -118,7 +118,7 @@ public class Planet : MouseInteractable, IOrbitable
     {
         if (transform.parent && transform.parent.CompareTag(ParamManager.Instance.ORBITTAG))
         {
-            transform.parent.GetComponent<OrbitalMovement>().SetCycleTime();
+            //transform.parent.GetComponent<OrbitalMovement>().SetCycleTime();
         }
         //Transform child = GetComponentsInChildren<Transform>().FirstOrDefault(kid => kid != this.transform);
         if (transform.parent && transform.parent.parent)

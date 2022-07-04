@@ -1542,6 +1542,51 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelsMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 1958808430206990637, guid: e48394c8baef20141a8c7354fc01f5a4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2747625602428011735, guid: e48394c8baef20141a8c7354fc01f5a4,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4285316817
+      objectReference: {fileID: 0}
+    - target: {fileID: 2747625602549933708, guid: e48394c8baef20141a8c7354fc01f5a4,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4285316817
+      objectReference: {fileID: 0}
+    - target: {fileID: 2747625602767046389, guid: e48394c8baef20141a8c7354fc01f5a4,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4285316817
+      objectReference: {fileID: 0}
+    - target: {fileID: 2747625602868700906, guid: e48394c8baef20141a8c7354fc01f5a4,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4285316817
+      objectReference: {fileID: 0}
+    - target: {fileID: 2747625602880788908, guid: e48394c8baef20141a8c7354fc01f5a4,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4285316817
+      objectReference: {fileID: 0}
+    - target: {fileID: 2747625604081822165, guid: e48394c8baef20141a8c7354fc01f5a4,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4285316817
+      objectReference: {fileID: 0}
+    - target: {fileID: 2747625604134045011, guid: e48394c8baef20141a8c7354fc01f5a4,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4285316817
+      objectReference: {fileID: 0}
+    - target: {fileID: 2747625604334089051, guid: e48394c8baef20141a8c7354fc01f5a4,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4285316817
+      objectReference: {fileID: 0}
     - target: {fileID: 3820010483651680469, guid: e48394c8baef20141a8c7354fc01f5a4,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
