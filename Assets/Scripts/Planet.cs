@@ -33,7 +33,7 @@ public class Planet : MouseInteractable, IOrbitable
 
 
     private float captureImunity = 0;
-    public bool IsImune { get { return captureImunity <= 0; } }
+    public bool IsImune { get { return captureImunity >= 0; } }
 
 
     //references
@@ -80,7 +80,7 @@ public class Planet : MouseInteractable, IOrbitable
         if (Application.isPlaying)
         {
             UpdateStrengthDisplay();
-            if (captureImunity >= 0) captureImunity--;//reduce immunity timer 
+            if (captureImunity >= 0) captureImunity-=Time.deltaTime;//reduce immunity timer 
         }
         else
         {
@@ -428,7 +428,7 @@ public class Planet : MouseInteractable, IOrbitable
         bool controller = HiveType != captured.HiveType;//check hive
         bool range = (Vector2.Distance(transform.position, captured.transform.position) <= captureRange);//check range
         bool immunity = captured.IsImune;//check immunity
-        return controller && range && immunity;
+        return controller && range && !immunity;
     }
     public bool IsReinforcable(Planet reinforced)//check if target within capture range, and of hive
     {

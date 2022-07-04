@@ -57,13 +57,13 @@ public class PlayerController : MonoBehaviour
                     }
                     else if (((Planet)currentHover).HiveType != HiveController.Hive.Player)// if hovering non-player planet start capture
                     {
-                        Debug.Log("Capture---Origin: " + currentClickedPlanet.GetInstanceID()+"--> Target:"+currentHover.GetInstanceID());
+                        //Debug.Log("Capture---Origin: " + currentClickedPlanet.GetInstanceID()+"--> Target:"+currentHover.GetInstanceID());
                         HiveController.Player.CapturePlanet(currentClickedPlanet, ((Planet)currentHover));
                         Unclick();
                     }
                     else// if hovering player planet start reinforce
                     {
-                        Debug.Log("Reinforce---Origin: " + currentClickedPlanet.GetInstanceID() + "--> Target:" + currentHover.GetInstanceID());
+                        //Debug.Log("Reinforce---Origin: " + currentClickedPlanet.GetInstanceID() + "--> Target:" + currentHover.GetInstanceID());
                         HiveController.Player.ReinforcePlanet(currentClickedPlanet, ((Planet)currentHover));
                         Unclick();
                     }
