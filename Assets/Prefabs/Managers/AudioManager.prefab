@@ -310,7 +310,7 @@ MonoBehaviour:
   enemyConnectClip: {fileID: 0}
   enemyCaptureClip: {fileID: 8300000, guid: ef1fb9173d1ba8e4aa70fa4cc92b5bbd, type: 3}
   clickPlanetClip: {fileID: 8300000, guid: 25100ea23e502dd4d85f1cbf54f00f69, type: 3}
-  pressButtonClip: {fileID: 8300000, guid: 2de2ce6f59759ea4c8793c167eac35ae, type: 3}
+  pressButtonClip: {fileID: 8300000, guid: ed01f806cb3f7534e8379a4cfbee7dc7, type: 3}
   scaryClipRandomLength: {x: 1.5, y: 4}
   scaryClipRandomIntervals: {x: 7, y: 15}
   scaryClipMaxVolume: 0.9999
