@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6612b1afc88e40a48b1708211e17940d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nonPlayerMaskActive: 0
+  nonPlayerMaskActive: 1
   playerTag: Player
   enemyTag: Enemy
   planetTag: Planet
@@ -79,16 +79,16 @@ MonoBehaviour:
   pauseButtonSprite: {fileID: 21300000, guid: 83a77dfefdc4bc0409767a16ed8911ae, type: 3}
   unpauseButtonSprite: {fileID: 21300000, guid: dcfa03da3c475be4dbdbeb56159e028b,
     type: 3}
-  playerColor: {r: 0.25035295, g: 0.65882355, b: 0.25035295, a: 1}
-  enemyColor: {r: 0.8962264, g: 0.34242615, b: 0.4004434, a: 1}
+  playerColor: {r: 0.5249801, g: 0.65882355, b: 0.25035295, a: 1}
+  enemyColor: {r: 0.8962264, g: 0.34242618, b: 0.34242618, a: 1}
   neutralColor: {r: 0.4245283, g: 0.4245283, b: 0.4245283, a: 1}
-  playerHighlightColor: {r: 0.8368068, g: 0.9056604, b: 0.61089355, a: 1}
-  enemyHighlightColor: {r: 0.9150943, g: 0.71825856, b: 0.58272517, a: 1}
-  neutralHighlightColor: {r: 0.754717, g: 0.6799573, b: 0.73602706, a: 1}
+  playerHighlightColor: {r: 0.8090742, g: 0.9056604, b: 0.61089355, a: 1}
+  enemyHighlightColor: {r: 0.9150943, g: 0.58272517, b: 0.58272517, a: 1}
+  neutralHighlightColor: {r: 0.754717, g: 0.6799573, b: 0.6799573, a: 1}
   strengthUpdateRate: 0.8
   captureStrengthOutcome: 3
   zeroStrengthReducedOutcome: 1
-  captureImunityTime: 3
+  captureImunityTime: 0
   reinforceBonus: 1
   reinforceCost: 0.5
   strengthCap: 60

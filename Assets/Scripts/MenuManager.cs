@@ -219,7 +219,8 @@ public class MenuManager : MonoBehaviour
                         menusSeries.Peek().gameObject.SetActive(false);
                     pauseMenu.gameObject.SetActive(true);
                     menusSeries.Push(pauseMenu);
-                    TutorialManager.Instance.DisableTutorialPanels();
+                    if(TutorialManager.Instance)
+                        TutorialManager.Instance.DisableTutorialPanels();
                     if (pauseButton)
                         pauseButton.image.sprite = ParamManager.Instance.UnpauseButtonSprite;
                 }
@@ -231,7 +232,8 @@ public class MenuManager : MonoBehaviour
                 if (menusSeries.Count > 0)
                     menusSeries.Peek().gameObject.SetActive(false);
                 menusSeries.Clear();
-                TutorialManager.Instance.EnableTutorialPanels();
+                if (TutorialManager.Instance)
+                    TutorialManager.Instance.EnableTutorialPanels();
                 if (pauseButton)
                     pauseButton.image.sprite = ParamManager.Instance.PauseButtonSprite;
             }
