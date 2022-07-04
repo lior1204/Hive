@@ -1617,6 +1617,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3327160291139145609}
     m_Modifications:
+    - target: {fileID: 162288056615345224, guid: a82a89715ed4e3e41bf7f81454308a9f,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.98039216
+      objectReference: {fileID: 0}
+    - target: {fileID: 162288056615345224, guid: a82a89715ed4e3e41bf7f81454308a9f,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.033018887
+      objectReference: {fileID: 0}
+    - target: {fileID: 162288056615345224, guid: a82a89715ed4e3e41bf7f81454308a9f,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.033018887
+      objectReference: {fileID: 0}
     - target: {fileID: 165028615705132210, guid: a82a89715ed4e3e41bf7f81454308a9f,
         type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1652,6 +1667,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 3327160290609227554}
+    - target: {fileID: 2754887562831119038, guid: a82a89715ed4e3e41bf7f81454308a9f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4233872467640364259, guid: a82a89715ed4e3e41bf7f81454308a9f,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -1717,6 +1737,46 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 3327160290609227554}
+    - target: {fileID: 6512569994897699094, guid: a82a89715ed4e3e41bf7f81454308a9f,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6512569994897699094, guid: a82a89715ed4e3e41bf7f81454308a9f,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6512569994897699094, guid: a82a89715ed4e3e41bf7f81454308a9f,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6512569994897699094, guid: a82a89715ed4e3e41bf7f81454308a9f,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6512569994897699094, guid: a82a89715ed4e3e41bf7f81454308a9f,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 920
+      objectReference: {fileID: 0}
+    - target: {fileID: 6512569994897699094, guid: a82a89715ed4e3e41bf7f81454308a9f,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 450
+      objectReference: {fileID: 0}
+    - target: {fileID: 6512569994897699094, guid: a82a89715ed4e3e41bf7f81454308a9f,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 148.93
+      objectReference: {fileID: 0}
+    - target: {fileID: 6512569994897699094, guid: a82a89715ed4e3e41bf7f81454308a9f,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -107.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7166457868459676338, guid: a82a89715ed4e3e41bf7f81454308a9f,
         type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1835,7 +1895,7 @@ PrefabInstance:
     - target: {fileID: 7166457868775208342, guid: a82a89715ed4e3e41bf7f81454308a9f,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7166457869606771999, guid: a82a89715ed4e3e41bf7f81454308a9f,
         type: 3}
@@ -1851,6 +1911,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMin.x
       value: 0.4374
+      objectReference: {fileID: 0}
+    - target: {fileID: 8983635176825748406, guid: a82a89715ed4e3e41bf7f81454308a9f,
+        type: 3}
+      propertyPath: m_CullTransparentMesh
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9035422554278395109, guid: a82a89715ed4e3e41bf7f81454308a9f,
         type: 3}
