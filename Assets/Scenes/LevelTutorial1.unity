@@ -243,6 +243,16 @@ PrefabInstance:
       propertyPath: m_text
       value: Left click on your planet to select it.
       objectReference: {fileID: 0}
+    - target: {fileID: 1707882629057157335, guid: 0c9051998c233ed42be7c071ad0bc3cc,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 1707882629057157335, guid: 0c9051998c233ed42be7c071ad0bc3cc,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4285316817
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c9051998c233ed42be7c071ad0bc3cc, type: 3}
 --- !u!224 &4289461 stripped
@@ -1716,7 +1726,7 @@ PrefabInstance:
     - target: {fileID: 1707882628683785442, guid: 0c9051998c233ed42be7c071ad0bc3cc,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1707882628683785442, guid: 0c9051998c233ed42be7c071ad0bc3cc,
         type: 3}

@@ -109,4 +109,13 @@ public class TutorialManager : MonoBehaviour
                 planets[7].HiveType == HiveController.Hive.Player || planets[8].HiveType == HiveController.Hive.Player;
         return false;
     }
+    
+    public void DisableTutorialPanels()
+    {
+        tutorialPanels.ElementAt(0).parent.gameObject.SetActive(false);
+    }
+    public void EnableTutorialPanels()
+    {
+        tutorialPanels.ElementAt(0).parent.gameObject.SetActive(true);
+    }
 }
