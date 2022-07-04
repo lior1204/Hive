@@ -12,7 +12,8 @@ public class OrbitalMovement : MonoBehaviour
     [SerializeField] private bool isActive = true;
     [SerializeField][Range(0,1f)] private float startingPosition = 0;
     [SerializeField] [Range(12, 36)] private int resolution = 24;
-
+    [SerializeField] bool overrideSpeed = false;
+    [SerializeField] float cycleTime = 5f;
     private float cycleProgress = 0;
     private float cycleFrequency;
     private void Start()
@@ -29,7 +30,11 @@ public class OrbitalMovement : MonoBehaviour
     }
     public void SetCycleTime()
     {
-        if (orbitingObject != null)//set cycle frequency for the planet
+        if (overrideSpeed)
+        {
+            cycleFrequency = 1 / cycleTime;
+        }
+        else if (orbitingObject != null)//set cycle frequency for the planet
         {
             if (Mathf.Abs(orbitingObject.GetOrbitCycleTime()) > 0.5)
             {
