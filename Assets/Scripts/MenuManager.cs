@@ -46,6 +46,11 @@ public class MenuManager : MonoBehaviour
         {
             //UpdateColors();
         }
+        if (TutorialManager.Instance)
+        {
+            DisableTimer();
+        }
+
     }
 
     private void DisablePanels()
