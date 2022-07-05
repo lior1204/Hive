@@ -385,6 +385,10 @@ public class MenuManager : MonoBehaviour
         }
     }
 
+    public void DisableTimer()
+    {
+        timer.gameObject.SetActive(false);
+    }
     private void DisableAllOptions()
     {
         if (menusSeries.Peek() == optionslMenu)
