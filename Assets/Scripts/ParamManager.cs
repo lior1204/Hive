@@ -179,7 +179,7 @@ public class ParamManager : MonoBehaviour
         {
             Instance = this;
             if(Application.isPlaying)
-            DontDestroyOnLoad(this.gameObject);
+                DontDestroyOnLoad(this.gameObject);
         }
     }
     private void OnValidate()

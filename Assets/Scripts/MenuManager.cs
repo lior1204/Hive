@@ -130,6 +130,9 @@ public class MenuManager : MonoBehaviour
             newScale.x = (float)GameManager.Instance.playerPlanetsCount /(GameManager.Instance.playerPlanetsCount+ GameManager.Instance.enemyPlanetsCount);
         }
         advantageBar.GetChild(0).localScale = newScale;
+        advantageBar.GetComponent<Image>().color = ParamManager.Instance.EnemyColor;
+        advantageBar.GetChild(0).GetComponent<Image>().color = ParamManager.Instance.PlayerColor;
+
     }
 
     private void DrawTimer()//update the timer text

@@ -85,9 +85,7 @@ public class TutorialManager : MonoBehaviour
         tutorialPanels[0].gameObject.SetActive(true);
         yield return new WaitUntil(() => planets[0].isClicked);
         tutorialPanels[0].gameObject.SetActive(false);
-        tutorialPanels[1].gameObject.SetActive(true);
-        yield return new WaitUntil(() => planets[0].IsCapturingTarget(planets[1]));
-        tutorialPanels[1].gameObject.SetActive(false);
+        
     }
     IEnumerator Tutorial3Sequence()
     {

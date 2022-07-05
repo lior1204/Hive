@@ -603,12 +603,22 @@ PrefabInstance:
     - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_fontSize
-      value: 60
+      value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
+        type: 3}
+      propertyPath: m_lineSpacing
+      value: -35
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
+        type: 3}
+      propertyPath: m_wordSpacing
+      value: -25
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_fontSizeBase
-      value: 60
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
@@ -753,12 +763,22 @@ PrefabInstance:
     - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_fontSize
-      value: 60
+      value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
+        type: 3}
+      propertyPath: m_lineSpacing
+      value: -35
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
+        type: 3}
+      propertyPath: m_wordSpacing
+      value: -25
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_fontSizeBase
-      value: 60
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
@@ -903,12 +923,22 @@ PrefabInstance:
     - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_fontSize
-      value: 60
+      value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
+        type: 3}
+      propertyPath: m_lineSpacing
+      value: -35
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
+        type: 3}
+      propertyPath: m_wordSpacing
+      value: -25
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_fontSizeBase
-      value: 60
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
@@ -1053,12 +1083,22 @@ PrefabInstance:
     - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_fontSize
-      value: 60
+      value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
+        type: 3}
+      propertyPath: m_lineSpacing
+      value: -35
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
+        type: 3}
+      propertyPath: m_wordSpacing
+      value: -25
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_fontSizeBase
-      value: 60
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
@@ -1203,12 +1243,22 @@ PrefabInstance:
     - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_fontSize
-      value: 60
+      value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
+        type: 3}
+      propertyPath: m_lineSpacing
+      value: -35
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
+        type: 3}
+      propertyPath: m_wordSpacing
+      value: -25
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_fontSizeBase
-      value: 60
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
@@ -1353,12 +1403,22 @@ PrefabInstance:
     - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_fontSize
-      value: 60
+      value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
+        type: 3}
+      propertyPath: m_lineSpacing
+      value: -35
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
+        type: 3}
+      propertyPath: m_wordSpacing
+      value: -25
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_fontSizeBase
-      value: 60
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
@@ -1498,17 +1558,27 @@ PrefabInstance:
     - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_text
-      value: Level1
+      value: Tutorial Level 1
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_fontSize
-      value: 60
+      value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
+        type: 3}
+      propertyPath: m_lineSpacing
+      value: -35
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
+        type: 3}
+      propertyPath: m_wordSpacing
+      value: -25
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_fontSizeBase
-      value: 60
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
@@ -1653,12 +1723,22 @@ PrefabInstance:
     - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_fontSize
-      value: 60
+      value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
+        type: 3}
+      propertyPath: m_lineSpacing
+      value: -35
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
+        type: 3}
+      propertyPath: m_wordSpacing
+      value: -25
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_fontSizeBase
-      value: 60
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
@@ -1803,12 +1883,22 @@ PrefabInstance:
     - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_fontSize
-      value: 60
+      value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
+        type: 3}
+      propertyPath: m_lineSpacing
+      value: -35
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
+        type: 3}
+      propertyPath: m_wordSpacing
+      value: -25
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
       propertyPath: m_fontSizeBase
-      value: 60
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 4399615575667023815, guid: a0b65f105dfa26e4dbed2884b9814c55,
         type: 3}
