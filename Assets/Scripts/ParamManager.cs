@@ -79,7 +79,7 @@ public class ParamManager : MonoBehaviour
     [SerializeField] private string highlightEnableBool = "isHighlight";
     public string HighlightEnableBool { get { return highlightEnableBool; } }
     [Header("Mixer Parameters")]
-    [SerializeField] private string gameVolumeName = "GameVolume";
+    [SerializeField] private string gameVolumeName = "MusicVolume";
     public string GameVolumeName { get { return gameVolumeName; } }
     [SerializeField] private string scarySoundName = "ScarySoundVolume";
     public string ScarySoundName { get { return scarySoundName; } }

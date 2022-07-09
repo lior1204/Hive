@@ -180,7 +180,7 @@ public class MenuManager : MonoBehaviour
     {
         if (optionslMenu)
         {
-            AudioManager.Instance.OnPressButton();
+            //AudioManager.Instance.OnPressButton();
             HideTitle();
             menusSeries.Peek().gameObject.SetActive(false);
             optionslMenu.gameObject.SetActive(true);
