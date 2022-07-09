@@ -954,7 +954,7 @@ MonoBehaviour:
   gameVolumeName: GameVolume
   scarySoundName: ScarySoundVolume
   sfxSoundName: SFXVolume
-  winText: Assimilation Comlete
+  winText: Assimilation Complete
   looseText: Assimilation Failed
   strengthDisplayPrefab: {fileID: 2453109628788081193, guid: 006626a6175674e4c8c0f6b5f58cda84,
     type: 3}
