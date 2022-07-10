@@ -410,40 +410,44 @@ public class MenuManager : MonoBehaviour
     {
         List<Button> buttons = levelMenu.GetComponentsInChildren<Button>().Where(b => b.CompareTag(ParamManager.Instance.LEVELBUTTONTAG)).OrderByDescending(b => b.transform.position.y).ThenBy(b => b.transform.position.x).ToList();
         int i = 0;
-        if (SceneManager.GetActiveScene().name == ParamManager.Instance.MAINMENUSCENENAME)
+        //if (SceneManager.GetActiveScene().name == ParamManager.Instance.MAINMENUSCENENAME)
+        //{
+        if (page == 0)
         {
-            if (page == 0)
-            {
-                buttons[0].onClick.RemoveAllListeners();
-                buttons[0].onClick.AddListener(() => GoToLevel(ParamManager.Instance.LevelTutorialSceneName+"1"));
-                buttons[0].GetComponentInChildren<TextMeshProUGUI>().text = "Tutorial Level 1";
-                buttons[1].onClick.RemoveAllListeners();
-                buttons[1].onClick.AddListener(() => GoToLevel(ParamManager.Instance.LevelTutorialSceneName + "2"));
-                buttons[1].GetComponentInChildren<TextMeshProUGUI>().text = "Tutorial Level 2";
-                buttons[2].onClick.RemoveAllListeners();
-                buttons[2].onClick.AddListener(() => GoToLevel(ParamManager.Instance.LevelTutorialSceneName + "3"));
-                buttons[2].GetComponentInChildren<TextMeshProUGUI>().text = "Tutorial Level 3";
-                i=3;
-            }
-            for (; i < buttons.Count; i++)
-            {
-                int levelNum = ((page * buttons.Count) + i -2);
-                buttons[i].onClick.RemoveAllListeners();
-                buttons[i].onClick.AddListener(() => GoToLevel(ParamManager.Instance.LEVELSCENENAME + levelNum));
-                buttons[i].GetComponentInChildren<TextMeshProUGUI>().text = ParamManager.Instance.LEVELSCENENAME +" "+ levelNum;
-            }
+            buttons[0].onClick.RemoveAllListeners();
+            buttons[0].onClick.AddListener(() => GoToLevel(ParamManager.Instance.LevelTutorialSceneName + "1"));
+            buttons[0].GetComponentInChildren<TextMeshProUGUI>().text = "Tutorial Level 1";
+            buttons[1].onClick.RemoveAllListeners();
+            buttons[1].onClick.AddListener(() => GoToLevel(ParamManager.Instance.LevelTutorialSceneName + "2"));
+            buttons[1].GetComponentInChildren<TextMeshProUGUI>().text = "Tutorial Level 2";
+            buttons[2].onClick.RemoveAllListeners();
+            buttons[2].onClick.AddListener(() => GoToLevel(ParamManager.Instance.LevelTutorialSceneName + "3"));
+            buttons[2].GetComponentInChildren<TextMeshProUGUI>().text = "Tutorial Level 3";
+            i = 3;
         }
+        for (; i < buttons.Count; i++)
+        {
+            int levelNum = ((page * buttons.Count) + i - 2);
+            buttons[i].onClick.RemoveAllListeners();
+            buttons[i].onClick.AddListener(() => GoToLevel(ParamManager.Instance.LEVELSCENENAME + levelNum));
+            buttons[i].GetComponentInChildren<TextMeshProUGUI>().text = ParamManager.Instance.LEVELSCENENAME + " " + levelNum;
+            if (levelNum > ParamManager.Instance.CompleteLeveles)
+                buttons[i].interactable = false;
+            else
+                buttons[i].interactable = true;
+        }
+        //}
 
-        else
-        {
-            for (; i < buttons.Count; i++)
-            {
-                int levelNum = ((page * buttons.Count) + i + 1);
-                buttons[i].onClick.RemoveAllListeners();
-                buttons[i].onClick.AddListener(() => GoToLevel(ParamManager.Instance.LEVELSCENENAME + levelNum));
-                buttons[i].GetComponentInChildren<TextMeshProUGUI>().text = ParamManager.Instance.LEVELSCENENAME + " " + levelNum;
-            }
-        }
+        //else
+        //{
+        //    for (; i < buttons.Count; i++)
+        //    {
+        //        int levelNum = ((page * buttons.Count) + i + 1);
+        //        buttons[i].onClick.RemoveAllListeners();
+        //        buttons[i].onClick.AddListener(() => GoToLevel(ParamManager.Instance.LEVELSCENENAME + levelNum));
+        //        buttons[i].GetComponentInChildren<TextMeshProUGUI>().text = ParamManager.Instance.LEVELSCENENAME + " " + levelNum;
+        //    }
+        //}
 
     }
     private void HideTitle()

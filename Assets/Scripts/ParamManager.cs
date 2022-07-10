@@ -160,7 +160,9 @@ public class ParamManager : MonoBehaviour
     public float AnimationMaxSpeed { get { return animationMaxSpeed; } }
 
     [SerializeField] public List<RuntimeAnimatorController> planetAnimations;
-    
+
+    [SerializeField] private int completeLeveles = 3;
+    public float CompleteLeveles { get { return completeLeveles; } }
 
 
 
