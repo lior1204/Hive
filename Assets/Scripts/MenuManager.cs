@@ -417,12 +417,15 @@ public class MenuManager : MonoBehaviour
             buttons[0].onClick.RemoveAllListeners();
             buttons[0].onClick.AddListener(() => GoToLevel(ParamManager.Instance.LevelTutorialSceneName + "1"));
             buttons[0].GetComponentInChildren<TextMeshProUGUI>().text = "Tutorial Level 1";
+            buttons[0].interactable = true;
             buttons[1].onClick.RemoveAllListeners();
             buttons[1].onClick.AddListener(() => GoToLevel(ParamManager.Instance.LevelTutorialSceneName + "2"));
             buttons[1].GetComponentInChildren<TextMeshProUGUI>().text = "Tutorial Level 2";
+            buttons[1].interactable = true;
             buttons[2].onClick.RemoveAllListeners();
             buttons[2].onClick.AddListener(() => GoToLevel(ParamManager.Instance.LevelTutorialSceneName + "3"));
             buttons[2].GetComponentInChildren<TextMeshProUGUI>().text = "Tutorial Level 3";
+            buttons[2].interactable = true;
             i = 3;
         }
         for (; i < buttons.Count; i++)
